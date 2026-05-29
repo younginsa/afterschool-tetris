@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --color-toss-blue: #3182f6;
+  --color-toss-blue-hover: #1c6fdf;
+  --color-toss-blue-tint: #ebf2ff;
+  --color-toss-blue-tint-2: #f0f5ff;
+  --color-toss-blue-border: #bfdbfe;
+  --color-toss-bg: #f5f6f8;
+  --color-toss-frame: #d8dce6;
+  --color-toss-text: #191f28;
+  --color-toss-muted: #6b7684;
+  --color-toss-tertiary: #b0b8c1;
+  --color-toss-border: #eaecf0;
+  --color-toss-border-2: #e5e8ef;
+  --color-toss-success: #059669;
+  --color-toss-success-dark: #047857;
+  --color-toss-success-deep: #15803d;
+  --color-toss-success-tint: #e5f9f3;
+  --color-toss-success-tint-2: #f0fff8;
+  --color-toss-success-tint-3: #dcfce7;
+  --color-toss-warn: #d97706;
+  --color-toss-warn-dark: #92400e;
+  --color-toss-warn-mid: #b45309;
+  --color-toss-warn-tint: #fef3c7;
+  --color-toss-warn-tint-2: #fffbeb;
+  --color-toss-warn-tint-3: #fef9c3;
+  --color-toss-en-bg: #dbeafe;
+  --color-toss-en-fg: #1d4ed8;
+  --color-toss-mt-bg: #fef3c7;
+  --color-toss-mt-fg: #b45309;
+  --color-toss-tk-bg: #fce7f3;
+  --color-toss-tk-fg: #be185d;
+  --color-toss-ar-bg: #d1fae5;
+  --color-toss-ar-fg: #065f46;
+  --color-toss-disabled-bg: #f3f4f6;
+  --color-toss-disabled-fg: #9ca3af;
+  --font-toss: -apple-system, "SF Pro Display", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-toss-frame);
+  color: var(--color-toss-text);
+  font-family: var(--font-toss);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-toss-border-2);
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-toss-blue);
+  box-shadow: 0 2px 6px rgba(49, 130, 246, 0.4);
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-toss-blue);
+  box-shadow: 0 2px 6px rgba(49, 130, 246, 0.4);
+  cursor: pointer;
+}
+
+/* Striped pattern for gap warning blocks in schedule timeline */
+.gap-stripe {
+  background: repeating-linear-gradient(
+    45deg,
+    #fef3c7,
+    #fef3c7 4px,
+    #fde68a 4px,
+    #fde68a 8px
+  );
+}
+
+/* Hide scrollbars inside the phone scroll containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}

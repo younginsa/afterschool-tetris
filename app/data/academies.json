@@ -1,0 +1,214 @@
+[
+  {
+    "id": "ybm-gwanggyo",
+    "name": "광교 YBM 어학원",
+    "address": "광교신도시로 17",
+    "distanceKm": 0.4,
+    "subjects": ["english"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 280000,
+    "fitScore": 97,
+    "emoji": "🇺🇸",
+    "mapPos": { "x": 40, "y": 43 },
+    "slots": [
+      { "day": "mon", "startTime": "15:00", "endTime": "16:30", "available": false },
+      { "day": "tue", "startTime": "15:00", "endTime": "16:30", "available": true },
+      { "day": "wed", "startTime": "15:00", "endTime": "16:30", "available": false },
+      { "day": "thu", "startTime": "15:00", "endTime": "16:30", "available": true },
+      { "day": "fri", "startTime": "15:00", "endTime": "16:30", "available": false },
+      { "day": "mon", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "tue", "startTime": "16:00", "endTime": "17:30", "available": false },
+      { "day": "wed", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "thu", "startTime": "16:00", "endTime": "17:30", "available": false },
+      { "day": "fri", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "mon", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "tue", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "wed", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "thu", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "fri", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "mon", "startTime": "18:00", "endTime": "19:30", "available": true },
+      { "day": "tue", "startTime": "18:00", "endTime": "19:30", "available": true },
+      { "day": "wed", "startTime": "18:00", "endTime": "19:30", "available": true },
+      { "day": "thu", "startTime": "18:00", "endTime": "19:30", "available": true },
+      { "day": "fri", "startTime": "18:00", "endTime": "19:30", "available": true }
+    ]
+  },
+  {
+    "id": "param-english",
+    "name": "파란영어교육원",
+    "address": "이의동 118",
+    "distanceKm": 0.9,
+    "subjects": ["english"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 320000,
+    "fitScore": 88,
+    "emoji": "📘",
+    "mapPos": { "x": 60, "y": 170 },
+    "slots": [
+      { "day": "mon", "startTime": "16:30", "endTime": "18:00", "available": false },
+      { "day": "tue", "startTime": "16:30", "endTime": "18:00", "available": true },
+      { "day": "wed", "startTime": "16:30", "endTime": "18:00", "available": false },
+      { "day": "thu", "startTime": "16:30", "endTime": "18:00", "available": true },
+      { "day": "fri", "startTime": "16:30", "endTime": "18:00", "available": false },
+      { "day": "mon", "startTime": "17:30", "endTime": "19:00", "available": true },
+      { "day": "wed", "startTime": "17:30", "endTime": "19:00", "available": true },
+      { "day": "fri", "startTime": "17:30", "endTime": "19:00", "available": true }
+    ]
+  },
+  {
+    "id": "ecc-gwanggyo",
+    "name": "ECC 영어 광교점",
+    "address": "광교마을로 30",
+    "distanceKm": 0.6,
+    "subjects": ["english"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 300000,
+    "fitScore": 81,
+    "emoji": "✏️",
+    "mapPos": { "x": 255, "y": 25 },
+    "slots": [
+      { "day": "mon", "startTime": "15:30", "endTime": "17:00", "available": true },
+      { "day": "wed", "startTime": "15:30", "endTime": "17:00", "available": true },
+      { "day": "fri", "startTime": "15:30", "endTime": "17:00", "available": false },
+      { "day": "tue", "startTime": "16:30", "endTime": "18:00", "available": true },
+      { "day": "thu", "startTime": "16:30", "endTime": "18:00", "available": true }
+    ]
+  },
+  {
+    "id": "sejung-math",
+    "name": "세정수학 광교점",
+    "address": "이의동 211",
+    "distanceKm": 0.7,
+    "subjects": ["math"],
+    "shuttleAvailable": false,
+    "monthlyCostKRW": 240000,
+    "fitScore": 71,
+    "emoji": "📐",
+    "mapPos": { "x": 200, "y": 130 },
+    "slots": [
+      { "day": "tue", "startTime": "16:00", "endTime": "17:30", "available": false },
+      { "day": "thu", "startTime": "16:00", "endTime": "17:30", "available": false },
+      { "day": "mon", "startTime": "17:30", "endTime": "19:00", "available": true },
+      { "day": "wed", "startTime": "17:30", "endTime": "19:00", "available": true },
+      { "day": "fri", "startTime": "17:30", "endTime": "19:00", "available": true },
+      { "day": "tue", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "thu", "startTime": "17:00", "endTime": "18:30", "available": true }
+    ]
+  },
+  {
+    "id": "cms-math",
+    "name": "CMS 수학영재 광교센터",
+    "address": "광교호수공원로 88",
+    "distanceKm": 1.2,
+    "subjects": ["math"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 380000,
+    "fitScore": 84,
+    "emoji": "🧮",
+    "mapPos": { "x": 310, "y": 95 },
+    "slots": [
+      { "day": "mon", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "wed", "startTime": "16:00", "endTime": "17:30", "available": false },
+      { "day": "fri", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "tue", "startTime": "17:00", "endTime": "18:30", "available": true },
+      { "day": "thu", "startTime": "17:00", "endTime": "18:30", "available": true }
+    ]
+  },
+  {
+    "id": "simaes-math",
+    "name": "시매쓰 영재교육원",
+    "address": "광교신도시로 88",
+    "distanceKm": 0.5,
+    "subjects": ["math"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 350000,
+    "fitScore": 78,
+    "emoji": "🔢",
+    "mapPos": { "x": 145, "y": 50 },
+    "slots": [
+      { "day": "tue", "startTime": "15:30", "endTime": "17:00", "available": true },
+      { "day": "thu", "startTime": "15:30", "endTime": "17:00", "available": true },
+      { "day": "mon", "startTime": "16:30", "endTime": "18:00", "available": false },
+      { "day": "wed", "startTime": "16:30", "endTime": "18:00", "available": true },
+      { "day": "fri", "startTime": "16:30", "endTime": "18:00", "available": true }
+    ]
+  },
+  {
+    "id": "jeonggwanjang-tkd",
+    "name": "정관장 키즈 태권도 광교점",
+    "address": "매봉로 22",
+    "distanceKm": 0.5,
+    "subjects": ["taekwondo"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 180000,
+    "fitScore": 92,
+    "emoji": "🥋",
+    "mapPos": { "x": 90, "y": 105 },
+    "slots": [
+      { "day": "mon", "startTime": "15:00", "endTime": "16:00", "available": true },
+      { "day": "tue", "startTime": "15:00", "endTime": "16:00", "available": true },
+      { "day": "wed", "startTime": "15:00", "endTime": "16:00", "available": true },
+      { "day": "thu", "startTime": "15:00", "endTime": "16:00", "available": true },
+      { "day": "fri", "startTime": "15:00", "endTime": "16:00", "available": true },
+      { "day": "mon", "startTime": "16:00", "endTime": "17:00", "available": true },
+      { "day": "wed", "startTime": "16:00", "endTime": "17:00", "available": false },
+      { "day": "fri", "startTime": "16:00", "endTime": "17:00", "available": true }
+    ]
+  },
+  {
+    "id": "muhan-tkd",
+    "name": "무한태권도장",
+    "address": "광교산로 145",
+    "distanceKm": 1.5,
+    "subjects": ["taekwondo"],
+    "shuttleAvailable": false,
+    "monthlyCostKRW": 160000,
+    "fitScore": 68,
+    "emoji": "🥋",
+    "mapPos": { "x": 345, "y": 160 },
+    "slots": [
+      { "day": "mon", "startTime": "17:00", "endTime": "18:00", "available": true },
+      { "day": "tue", "startTime": "17:00", "endTime": "18:00", "available": true },
+      { "day": "wed", "startTime": "17:00", "endTime": "18:00", "available": false },
+      { "day": "thu", "startTime": "17:00", "endTime": "18:00", "available": true },
+      { "day": "fri", "startTime": "17:00", "endTime": "18:00", "available": true }
+    ]
+  },
+  {
+    "id": "geurim-art",
+    "name": "광교 그림나무 미술학원",
+    "address": "이의동 305",
+    "distanceKm": 0.8,
+    "subjects": ["art"],
+    "shuttleAvailable": true,
+    "monthlyCostKRW": 220000,
+    "fitScore": 86,
+    "emoji": "🎨",
+    "mapPos": { "x": 230, "y": 175 },
+    "slots": [
+      { "day": "tue", "startTime": "15:00", "endTime": "16:30", "available": true },
+      { "day": "thu", "startTime": "15:00", "endTime": "16:30", "available": false },
+      { "day": "mon", "startTime": "16:30", "endTime": "18:00", "available": true },
+      { "day": "wed", "startTime": "16:30", "endTime": "18:00", "available": true },
+      { "day": "fri", "startTime": "16:30", "endTime": "18:00", "available": true }
+    ]
+  },
+  {
+    "id": "kium-art",
+    "name": "키움 창의미술",
+    "address": "광교중앙로 56",
+    "distanceKm": 1.1,
+    "subjects": ["art"],
+    "shuttleAvailable": false,
+    "monthlyCostKRW": 200000,
+    "fitScore": 75,
+    "emoji": "🖌️",
+    "mapPos": { "x": 290, "y": 60 },
+    "slots": [
+      { "day": "mon", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "wed", "startTime": "16:00", "endTime": "17:30", "available": true },
+      { "day": "tue", "startTime": "17:00", "endTime": "18:30", "available": false },
+      { "day": "thu", "startTime": "17:00", "endTime": "18:30", "available": true }
+    ]
+  }
+]
