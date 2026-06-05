@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="방과후 테트리스">
+<meta name="theme-color" content="#3182F6">
+<title>방과후 테트리스</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none;}
+body{
+  font-family:-apple-system,'SF Pro Display','Noto Sans KR',sans-serif;
+  background:#F5F6F8;
+  color:#191F28;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* SCREENS — fill the entire viewport, only the .on one is visible */
+.screen{
+  position:fixed;
+  inset:0;
+  height:100vh;
+  height:100dvh;
+  width:100vw;
+  display:none;
+  flex-direction:column;
+  background:#F5F6F8;
+  overflow:hidden;
+}
+.screen.on{display:flex;}
+
+/* NAV HEADER */
+.nhdr{
+  background:#fff;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 18px 14px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:.5px solid #EAECF0;
+  flex-shrink:0;
+}
+.nback{
+  width:36px;height:36px;border-radius:50%;
+  border:none;background:#F5F6F8;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:18px;color:#191F28;flex-shrink:0;
+}
+.ntitle{font-size:17px;font-weight:800;color:#191F28;}
+.nsub{font-size:11px;color:#6B7684;margin-top:1px;}
+
+/* SCROLL */
+.scrl{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));
+}
+
+/* BOTTOM NAV */
+.bnav{
+  position:absolute;bottom:0;left:0;right:0;
+  height:calc(72px + env(safe-area-inset-bottom,0px));
+  background:#fff;
+  border-top:.5px solid #EAECF0;
+  display:flex;align-items:flex-start;
+  padding:8px 4px calc(6px + env(safe-area-inset-bottom,0px));
+  z-index:50;
+}
+.btab{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;gap:3px;cursor:pointer;padding:6px 0;
+}
+.btab-ico{font-size:20px;color:#B0B8C1;transition:color .15s;}
+.btab-lbl{font-size:10px;color:#B0B8C1;font-weight:500;transition:color .15s;}
+.btab.on .btab-ico,.btab.on .btab-lbl{color:#3182F6;}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:7px;}
+.chip{
+  padding:8px 16px;border-radius:100px;
+  border:1.5px solid #E5E8EF;background:#fff;
+  font-size:13px;font-weight:600;color:#6B7684;
+  cursor:pointer;transition:all .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.chip.on{border-color:#3182F6;background:#EBF2FF;color:#3182F6;}
+.chip.on.subj{border-color:#059669;background:#E5F9F3;color:#047857;}
+
+/* TOGGLE */
+.trow{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fff;border-radius:14px;padding:14px 18px;
+  margin:0 16px;border:.5px solid #EAECF0;
+}
+.tgl{
+  width:48px;height:28px;border-radius:100px;
+  background:#3182F6;position:relative;cursor:pointer;transition:background .2s;
+}
+.tgl.off{background:#D1D5DB;}
+.tgl::after{
+  content:'';position:absolute;
+  width:22px;height:22px;border-radius:50%;background:#fff;
+  top:3px;left:23px;transition:left .2s;
+  box-shadow:0 1px 4px rgba(0,0,0,.2);
+}
+.tgl.off::after{left:3px;}
+
+/* CTA */
+.cta-wrap{
+  padding:14px 18px calc(14px + env(safe-area-inset-bottom,0px));
+  background:#fff;border-top:.5px solid #EAECF0;flex-shrink:0;
+}
+.cta{
+  width:100%;height:54px;border-radius:14px;
+  background:#3182F6;border:none;
+  color:#fff;font-size:16px;font-weight:800;
+  cursor:pointer;transition:transform .1s,background .15s;
+  font-family:inherit;
+}
+.cta:active{transform:scale(.98);background:#1C6FDF;}
+.cta.sec{background:#EBF2FF;color:#3182F6;}
+
+/* CARD */
+.card{
+  background:#fff;border-radius:16px;
+  padding:16px;margin:0 14px 10px;
+  border:.5px solid #EAECF0;
+  cursor:pointer;transition:transform .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.card:active{transform:scale(.98);}
+
+/* TAGS */
+.tag{
+  display:inline-block;padding:3px 10px;
+  border-radius:6px;font-size:10px;font-weight:800;
+  margin-right:4px;margin-bottom:8px;
+}
+.tag.en{background:#DBEAFE;color:#1D4ED8;}
+.tag.mt{background:#FEF3C7;color:#B45309;}
+.tag.tk{background:#FCE7F3;color:#BE185D;}
+.tag.ar{background:#D1FAE5;color:#065F46;}
+.tag.sh{background:#E5F9F3;color:#059669;}
+.tag.ok{background:#DCFCE7;color:#15803D;}
+.tag.warn{background:#FEF9C3;color:#A16207;}
+
+/* FIT SCORE */
+.fit-badge{text-align:right;}
+.fit-num{font-size:20px;font-weight:900;color:#059669;line-height:1;}
+.fit-num.mid{color:#D97706;}
+.fit-lbl{font-size:10px;font-weight:700;color:#059669;margin-top:1px;}
+.fit-lbl.mid{color:#D97706;}
+
+/* SLOT PILLS */
+.pills{display:flex;gap:5px;flex-wrap:wrap;}
+.pill{padding:4px 10px;border-radius:7px;font-size:11px;font-weight:700;}
+.pill.avail{background:#DBEAFE;color:#1D4ED8;}
+.pill.open{background:#D1FAE5;color:#065F46;}
+.pill.full{background:#F3F4F6;color:#9CA3AF;text-decoration:line-through;}
+
+/* MAP */
+.map-area{height:220px;background:#E0E5EC;position:relative;flex-shrink:0;overflow:hidden;}
+.map-area svg{width:100%;height:100%;display:block;}
+.map-chips{
+  position:absolute;top:12px;left:10px;right:10px;
+  display:flex;gap:6px;z-index:10;
+}
+.mchip{
+  padding:6px 12px;border-radius:100px;background:#fff;
+  font-size:11px;font-weight:700;color:#191F28;
+  box-shadow:0 1px 6px rgba(0,0,0,.15);cursor:pointer;
+  white-space:nowrap;transition:all .15s;
+}
+.mchip.on{background:#3182F6;color:#fff;}
+.map-float{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  background:#191F28;color:#fff;border-radius:100px;
+  padding:8px 18px;font-size:12px;font-weight:700;
+  white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:10;
+}
+
+/* GRID STEPS */
+.step-bar{
+  display:flex;gap:4px;
+  padding:12px 18px;background:#fff;
+  border-bottom:.5px solid #EAECF0;flex-shrink:0;
+}
+.sdot{flex:1;height:3px;border-radius:2px;background:#E5E8EF;transition:background .3s;}
+.sdot.on{background:#3182F6;}
+
+/* TETRIS GRID */
+.tgrid{
+  display:grid;
+  grid-template-columns:46px repeat(5,1fr);
+  gap:3px;
+}
+.thead{font-size:11px;font-weight:800;color:#6B7684;text-align:center;padding:6px 0;}
+.ttime{font-size:10px;font-weight:600;color:#B0B8C1;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;}
+.ttime.hi{color:#3182F6;font-weight:800;}
+.tcell{
+  height:38px;border-radius:8px;border:1.5px solid transparent;
+  cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:8px;font-weight:800;
+}
+.tcell.empty{background:#F5F6F8;border-color:#E5E8EF;}
+.tcell.taken{background:#F0F1F3;border-color:#E0E2E6;cursor:not-allowed;color:#B0B8C1;}
+.tcell.taken::after{content:'만석';}
+.tcell.sel{background:#3182F6;border-color:#3182F6;color:#fff;}
+.tcell.sel::after{content:'✓';font-size:13px;}
+.tcell.empty:active{background:#EBF2FF;border-color:#3182F6;}
+.legend{display:flex;gap:12px;flex-wrap:wrap;}
+.legitem{display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;}
+.legdot{width:12px;height:12px;border-radius:3px;}
+
+/* TIMELINE SCHEDULE */
+.day-row{
+  display:flex;align-items:center;
+  padding:6px 14px;gap:10px;
+}
+.day-lbl{
+  font-size:12px;font-weight:800;color:#6B7684;
+  width:20px;flex-shrink:0;text-align:center;
+}
+.timeline{
+  flex:1;height:40px;background:#F5F6F8;border-radius:8px;
+  position:relative;overflow:hidden;
+}
+.tblock{
+  position:absolute;top:4px;bottom:4px;
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:#fff;
+  overflow:hidden;white-space:nowrap;padding:0 4px;
+}
+.tblock.en{background:#3182F6;}
+.tblock.mt{background:#F59E0B;}
+.tblock.gap-warn{
+  background:repeating-linear-gradient(45deg,#FEF3C7,#FEF3C7 4px,#FDE68A 4px,#FDE68A 8px);
+  color:#92400E;font-size:8px;
+}
+.timeline-axis{
+  display:flex;padding:0 14px 4px 44px;
+}
+.taxis-item{flex:1;font-size:9px;color:#B0B8C1;font-weight:600;}
+
+/* SUMMARY CARD */
+.sumcard{
+  background:#fff;border-radius:16px;
+  padding:16px;margin:0 14px;border:.5px solid #EAECF0;
+}
+.sumrow{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:.5px solid #F3F4F6;
+  font-size:13px;
+}
+.sumrow:last-child{border-bottom:none;padding-bottom:0;}
+.sumkey{color:#6B7684;}
+.sumval{font-weight:800;color:#191F28;}
+.warn-banner{
+  margin:0 14px 12px;background:#FFFBEB;
+  border-radius:12px;padding:12px 14px;
+  display:flex;align-items:flex-start;gap:10px;
+  border:1px solid #FDE68A;
+}
+.warn-txt{font-size:11px;color:#92400E;line-height:1.55;}
+.warn-ttl{font-weight:800;font-size:12px;margin-bottom:3px;}
+
+/* HOME HERO */
+.hero{
+  background:#3182F6;
+  padding:calc(28px + env(safe-area-inset-top,0px)) 20px 22px;
+  color:#fff;flex-shrink:0;
+}
+.hero-greet{font-size:13px;opacity:.8;margin-bottom:4px;}
+.hero-ttl{font-size:22px;font-weight:900;line-height:1.3;margin-bottom:16px;}
+.hero-pills{display:flex;gap:6px;}
+.hero-pill{
+  background:rgba(255,255,255,.2);border-radius:100px;
+  padding:5px 12px;font-size:11px;font-weight:700;
+}
+
+/* QUICK ACTIONS */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;}
+.qa-card{
+  background:#fff;border-radius:16px;padding:16px;
+  border:.5px solid #EAECF0;cursor:pointer;
+  transition:transform .15s;
+}
+.qa-card:active{transform:scale(.97);}
+.qa-ico{font-size:26px;margin-bottom:8px;}
+.qa-lbl{font-size:13px;font-weight:800;color:#191F28;line-height:1.3;}
+.qa-sub{font-size:11px;color:#6B7684;margin-top:3px;}
+
+/* DIVIDER */
+.divlbl{padding:12px 16px 4px;font-size:11px;font-weight:700;color:#B0B8C1;text-transform:uppercase;letter-spacing:.05em;}
+.gap{height:14px;}
+
+/* DETAIL COMPAT */
+.compat-card{
+  background:#fff;border-radius:14px;border:.5px solid #EAECF0;
+  padding:14px;display:flex;gap:12px;align-items:center;
+  margin:0 14px;
+}
+.green-info{
+  background:#F0FFF8;border-radius:8px;
+  padding:7px 10px;margin-bottom:9px;
+  font-size:11px;color:#047857;font-weight:700;
+}
+.amber-info{
+  background:#FFFBEB;border-radius:8px;
+  padding:7px 10px;margin-bottom:9px;
+  font-size:11px;color:#92400E;font-weight:700;
+}
+.sel-summary{
+  background:#EBF2FF;border-radius:14px;
+  padding:14px 16px;border:1px solid #BFDBFE;
+  margin:0 14px;
+}
+.sel-sum-ttl{font-size:13px;font-weight:800;color:#1C6FDF;margin-bottom:5px;}
+.sel-sum-row{font-size:11px;color:#3182F6;line-height:1.8;}
+
+/* RANGE */
+input[type=range]{
+  width:100%;-webkit-appearance:none;
+  height:4px;border-radius:2px;background:#E5E8EF;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:22px;height:22px;
+  border-radius:50%;background:#3182F6;
+  box-shadow:0 2px 6px rgba(49,130,246,.4);cursor:pointer;
+}
+
+/* SECTION TITLE */
+.stitle{font-size:19px;font-weight:900;color:#191F28;padding:18px 18px 3px;}
+.sdesc{font-size:13px;color:#6B7684;padding:0 18px 14px;line-height:1.5;}
+.slabel{font-size:13px;font-weight:800;color:#191F28;padding:0 18px 10px;}
+.slabel2{font-size:11px;font-weight:600;color:#B0B8C1;padding:0 18px 10px;}
+
+.share-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  height:50px;width:calc(100% - 28px);margin:0 14px;
+  background:#EBF2FF;color:#3182F6;font-size:14px;font-weight:800;
+  border:none;border-radius:14px;cursor:pointer;font-family:inherit;
+}
+
+/* Setup-screen header needs safe-area too */
+.scr-setup-top{padding-top:calc(env(safe-area-inset-top,0px));background:#fff;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SCREEN 1: HOME
+══════════════════════════════════════ -->
+<div class="screen on" id="sc-home">
+
+  <div class="hero">
+    <div class="hero-greet">안녕하세요, 김민정 님 👋</div>
+    <div class="hero-ttl">우리 아이 방과후<br>일정 맞춰드릴게요</div>
+    <div class="hero-pills">
+      <div class="hero-pill">광교 43개 학원</div>
+      <div class="hero-pill">🚌 셔틀 18곳</div>
+    </div>
+  </div>
+
+  <div class="scrl">
+    <div class="qa-grid">
+      <div class="qa-card" onclick="go('setup')">
+        <div class="qa-ico">🔍</div>
+        <div class="qa-lbl">조건으로<br>찾기</div>
+        <div class="qa-sub">셔틀 · 시간 · 과목</div>
+      </div>
+      <div class="qa-card" onclick="go('sched')">
+        <div class="qa-ico">📅</div>
+        <div class="qa-lbl">내 주간<br>스케줄</div>
+        <div class="qa-sub">조합 3개 저장됨</div>
+      </div>
+      <div class="qa-card" onclick="go('results')">
+        <div class="qa-ico">🗺️</div>
+        <div class="qa-lbl">지도로<br>탐색</div>
+        <div class="qa-sub">광교 · 영통 · 망포</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-ico">⚡</div>
+        <div class="qa-lbl">빈 슬롯<br>알림</div>
+        <div class="qa-sub">17시 영어 대기 중</div>
+      </div>
+    </div>
+
+    <div class="divlbl">최근에 본 학원</div>
+
+    <div class="card" onclick="go('slot')">
+      <div><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:#191F28;">광교 YBM 어학원</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
+        </div>
+        <div class="fit-badge">
+          <div class="fit-num">97<span style="font-size:11px;">%</span></div>
+          <div class="fit-lbl">적합도</div>
+        </div>
+      </div>
+      <div class="pills">
+        <div class="pill open">월·수·금 16:00 ✓</div>
+        <div class="pill avail">화·목 17:00</div>
+      </div>
+    </div>
+
+    <div class="card" onclick="go('slot')">
+      <div><span class="tag mt">수학</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:#191F28;">세정수학 광교점</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이의동 211 · 0.7km · 셔틀없음</div>
+        </div>
+        <div class="fit-badge">
+          <div class="fit-num mid">71<span style="font-size:11px;">%</span></div>
+          <div class="fit-lbl mid">적합도</div>
+        </div>
+      </div>
+      <div class="pills">
+        <div class="pill full">화·목 16:00 (만석)</div>
+        <div class="pill avail">월·수·금 17:30</div>
+      </div>
+    </div>
+
+    <div class="divlbl">이번 주 추천 조합</div>
+    <div style="margin:0 14px 10px;background:#fff;border-radius:16px;border:.5px solid #EAECF0;padding:16px;">
+      <div style="font-size:12px;font-weight:800;color:#3182F6;margin-bottom:10px;">🧩 조합 추천 — 공백 없음</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <div style="flex:1;background:#EBF2FF;border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-size:10px;color:#1D4ED8;font-weight:700;">YBM 영어</div>
+          <div style="font-size:11px;color:#3182F6;font-weight:800;margin-top:2px;">월·수·금<br>16:00</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:18px;">+</div>
+        <div style="flex:1;background:#FEF3C7;border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-size:10px;color:#B45309;font-weight:700;">세정 수학</div>
+          <div style="font-size:11px;color:#D97706;font-weight:800;margin-top:2px;">화·목<br>17:00</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6B7684;text-align:center;">예상 월 비용 ₩520,000 · 귀가 18:00 이전</div>
+    </div>
+
+    <div class="gap"></div>
+  </div>
+
+  <div class="bnav">
+    <div class="btab on" onclick="go('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab" onclick="go('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="go('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SCREEN 2: SETUP
+══════════════════════════════════════ -->
+<div class="screen" id="sc-setup">
+  <div class="nhdr">
+    <button class="nback" onclick="go('home')">←</button>
+    <div><div class="ntitle">조건 설정</div><div class="nsub">맞는 학원을 찾아드릴게요</div></div>
+  </div>
+  <div class="step-bar">
+    <div class="sdot on"></div><div class="sdot on"></div>
+    <div class="sdot on"></div><div class="sdot"></div>
+  </div>
+
+  <div class="scrl">
+    <div class="stitle">어떤 학교에 다니나요?</div>
+    <div class="sdesc">학교에 따라 하교시간과 셔틀 노선이 달라져요</div>
+    <div style="padding:0 18px;"><div class="chips" id="cg-school">
+      <div class="chip on" onclick="pick(this,'cg-school')">광교초등학교</div>
+      <div class="chip" onclick="pick(this,'cg-school')">신풍초등학교</div>
+      <div class="chip" onclick="pick(this,'cg-school')">영통초등학교</div>
+    </div></div>
+    <div class="gap"></div>
+
+    <div class="slabel">학년</div>
+    <div style="padding:0 18px;"><div class="chips" id="cg-grade">
+      <div class="chip" onclick="pick(this,'cg-grade')">1학년</div>
+      <div class="chip" onclick="pick(this,'cg-grade')">2학년</div>
+      <div class="chip on" onclick="pick(this,'cg-grade')">3학년</div>
+      <div class="chip" onclick="pick(this,'cg-grade')">4학년</div>
+      <div class="chip" onclick="pick(this,'cg-grade')">5학년</div>
+      <div class="chip" onclick="pick(this,'cg-grade')">6학년</div>
+    </div></div>
+    <div class="gap"></div>
+
+    <div class="slabel">원하는 과목 <span style="font-size:11px;font-weight:400;color:#9CA3AF;">(복수선택)</span></div>
+    <div class="slabel2">3개 이하 권장</div>
+    <div style="padding:0 18px;"><div class="chips">
+      <div class="chip on subj" onclick="tgl(this)">🇺🇸 영어</div>
+      <div class="chip on subj" onclick="tgl(this)">📐 수학</div>
+      <div class="chip" onclick="tgl(this)">🥋 태권도</div>
+      <div class="chip" onclick="tgl(this)">🎨 미술</div>
+      <div class="chip" onclick="tgl(this)">🎹 피아노</div>
+      <div class="chip" onclick="tgl(this)">💻 코딩</div>
+    </div></div>
+    <div class="gap"></div>
+
+    <div class="trow">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#191F28;">🚌 셔틀버스 필수</div>
+        <div style="font-size:11px;color:#6B7684;margin-top:2px;">셔틀 없는 학원은 제외됩니다</div>
+      </div>
+      <div class="tgl" id="tgl-shuttle" onclick="this.classList.toggle('off')"></div>
+    </div>
+    <div class="gap"></div>
+
+    <div style="background:#fff;border-radius:14px;padding:16px;margin:0 16px;border:.5px solid #EAECF0;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#191F28;">최대 귀가 시간</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이 시간 이전에 귀가해야 해요</div>
+        </div>
+        <div>
+          <span id="timeval" style="font-size:26px;font-weight:900;color:#3182F6;">18:00</span>
+          <span style="font-size:12px;color:#6B7684;"> 까지</span>
+        </div>
+      </div>
+      <input type="range" min="16" max="21" value="18" step="0.5" oninput="setTime(this.value)">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#B0B8C1;margin-top:6px;">
+        <span>16:00</span><span>18:30</span><span>21:00</span>
+      </div>
+    </div>
+    <div class="gap"></div>
+
+    <div style="background:#F0F5FF;border-radius:14px;padding:14px;margin:0 16px;border:.5px solid #BFDBFE;">
+      <div style="font-size:12px;font-weight:800;color:#1D4ED8;margin-bottom:6px;">🔍 입력된 조건</div>
+      <div style="font-size:11px;color:#3182F6;line-height:1.8;">
+        🏫 광교초등학교 3학년<br>
+        📚 영어 + 수학<br>
+        🚌 셔틀 필수<br>
+        ⏰ 18:00 이전 귀가
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="cta" onclick="go('results')">학원 찾기 — 조건에 맞는 학원 8개 →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SCREEN 3: RESULTS
+══════════════════════════════════════ -->
+<div class="screen" id="sc-results">
+  <div class="nhdr">
+    <button class="nback" onclick="go('setup')">←</button>
+    <div><div class="ntitle">광교 지역 학원</div><div class="nsub">영어·수학 · 셔틀있음 · 18:00 이전</div></div>
+  </div>
+
+  <div class="map-area">
+    <svg viewBox="0 0 390 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <rect width="390" height="220" fill="#DEE5EF"/>
+      <!-- Blocks/buildings -->
+      <rect x="0" y="0" width="82" height="52" fill="#CBD5E1" rx="3"/>
+      <rect x="92" y="0" width="108" height="52" fill="#CBD5E1" rx="3"/>
+      <rect x="210" y="0" width="78" height="52" fill="#CBD5E1" rx="3"/>
+      <rect x="298" y="0" width="92" height="52" fill="#CBD5E1" rx="3"/>
+      <rect x="0" y="62" width="118" height="62" fill="#CBD5E1" rx="3"/>
+      <rect x="128" y="62" width="90" height="62" fill="#CBD5E1" rx="3"/>
+      <rect x="228" y="62" width="72" height="62" fill="#C8DDD0" rx="3"/>
+      <rect x="310" y="62" width="80" height="62" fill="#CBD5E1" rx="3"/>
+      <rect x="0" y="134" width="88" height="86" fill="#CBD5E1" rx="3"/>
+      <rect x="98" y="134" width="118" height="86" fill="#CBD5E1" rx="3"/>
+      <rect x="226" y="134" width="88" height="86" fill="#CBD5E1" rx="3"/>
+      <rect x="324" y="134" width="66" height="86" fill="#CBD5E1" rx="3"/>
+      <text x="264" y="97" text-anchor="middle" font-size="8" fill="#78A88B" font-weight="700" font-family="-apple-system,sans-serif">공원</text>
+      <rect x="83" y="0" width="9" height="220" fill="#E8EDF5"/>
+      <rect x="200" y="0" width="10" height="220" fill="#E8EDF5"/>
+      <rect x="300" y="0" width="10" height="220" fill="#E8EDF5"/>
+      <rect x="0" y="53" width="390" height="9" fill="#E8EDF5"/>
+      <rect x="0" y="125" width="390" height="9" fill="#E8EDF5"/>
+      <circle cx="155" cy="93" r="18" fill="#3182F6" fill-opacity=".12"/>
+      <circle cx="155" cy="93" r="11" fill="#3182F6"/>
+      <text x="155" y="97" text-anchor="middle" font-size="11" fill="white" font-family="sans-serif">🏫</text>
+      <rect x="122" y="108" width="66" height="17" fill="white" rx="4" fill-opacity=".92"/>
+      <text x="155" y="120" text-anchor="middle" font-size="8.5" fill="#3182F6" font-weight="700" font-family="-apple-system,sans-serif">광교초등학교</text>
+      <circle cx="40" cy="43" r="20" fill="#059669" fill-opacity=".15"/>
+      <circle cx="40" cy="43" r="13" fill="#059669"/>
+      <text x="40" y="47" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">97</text>
+      <rect x="10" y="59" width="60" height="15" fill="white" rx="3" fill-opacity=".9"/>
+      <text x="40" y="70" text-anchor="middle" font-size="7.5" fill="#059669" font-weight="700" font-family="-apple-system,sans-serif">YBM 어학원</text>
+      <circle cx="40" cy="43" r="50" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" opacity=".4"/>
+      <circle cx="60" cy="170" r="20" fill="#059669" fill-opacity=".15"/>
+      <circle cx="60" cy="170" r="13" fill="#3182F6"/>
+      <text x="60" y="174" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">88</text>
+      <rect x="26" y="186" width="68" height="15" fill="white" rx="3" fill-opacity=".9"/>
+      <text x="60" y="197" text-anchor="middle" font-size="7.5" fill="#1D4ED8" font-weight="700" font-family="-apple-system,sans-serif">파란영어교육원</text>
+      <circle cx="255" cy="25" r="20" fill="#3182F6" fill-opacity=".15"/>
+      <circle cx="255" cy="25" r="13" fill="#3182F6"/>
+      <text x="255" y="29" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">84</text>
+      <circle cx="345" cy="160" r="20" fill="#D97706" fill-opacity=".15"/>
+      <circle cx="345" cy="160" r="13" fill="#D97706"/>
+      <text x="345" y="164" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">71</text>
+      <circle cx="340" cy="25" r="12" fill="#EC4899"/>
+      <text x="340" y="29" text-anchor="middle" font-size="11" font-family="sans-serif">🏠</text>
+    </svg>
+    <div class="map-chips">
+      <div class="mchip on">전체 (8)</div>
+      <div class="mchip">🚌 셔틀 (5)</div>
+      <div class="mchip">빈 슬롯 (4)</div>
+    </div>
+    <div class="map-float">조건 맞는 학원 8개 ↓</div>
+  </div>
+
+  <div class="scrl">
+    <div class="divlbl">적합도 순</div>
+
+    <div class="card" onclick="go('slot')">
+      <div><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:#191F28;">광교 YBM 어학원</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 도보 5분 · 0.4km</div>
+        </div>
+        <div class="fit-badge"><div class="fit-num">97<span style="font-size:11px;">%</span></div><div class="fit-lbl">적합도</div></div>
+      </div>
+      <div class="green-info">✓ 셔틀 운행 중 · 월/수/금 16:00 슬롯 여유 있음</div>
+      <div class="pills">
+        <div class="pill open">월·수·금 16:00 ✓</div>
+        <div class="pill avail">화·목 17:00</div>
+        <div class="pill full">화·목 16:00 (만석)</div>
+      </div>
+    </div>
+
+    <div class="card" onclick="go('slot')">
+      <div><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:#191F28;">파란영어교육원</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이의동 118 · 도보 12분 · 0.9km</div>
+        </div>
+        <div class="fit-badge"><div class="fit-num">88<span style="font-size:11px;">%</span></div><div class="fit-lbl">적합도</div></div>
+      </div>
+      <div class="pills">
+        <div class="pill open">화·목 16:30 ✓</div>
+        <div class="pill avail">월·수·금 17:30</div>
+      </div>
+    </div>
+
+    <div class="card" onclick="go('slot')">
+      <div><span class="tag mt">수학</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:#191F28;">세정수학 광교점</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이의동 211 · 버스 3분 · 0.7km</div>
+        </div>
+        <div class="fit-badge"><div class="fit-num mid">71<span style="font-size:11px;">%</span></div><div class="fit-lbl mid">적합도</div></div>
+      </div>
+      <div class="amber-info">⚠️ 셔틀 없음 · 보호자 픽업 필요</div>
+      <div class="pills">
+        <div class="pill full">화·목 16:00 (만석)</div>
+        <div class="pill avail">월·수·금 17:30 ✓</div>
+      </div>
+    </div>
+
+    <div class="gap"></div>
+  </div>
+
+  <div class="bnav">
+    <div class="btab" onclick="go('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab on" onclick="go('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="go('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SCREEN 4: SLOT VIEW (TETRIS)
+══════════════════════════════════════ -->
+<div class="screen" id="sc-slot">
+  <div class="nhdr">
+    <button class="nback" onclick="go('results')">←</button>
+    <div class="ntitle">시간표 선택</div>
+  </div>
+
+  <div class="scrl">
+    <div style="background:#fff;padding:16px 18px;border-bottom:.5px solid #EAECF0;">
+      <div style="display:flex;gap:14px;align-items:center;">
+        <div style="width:54px;height:54px;background:#EBF2FF;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🇺🇸</div>
+        <div>
+          <div style="font-size:17px;font-weight:900;color:#191F28;">광교 YBM 어학원</div>
+          <div style="font-size:12px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
+          <div style="margin-top:8px;"><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span><span class="tag ok">97% 적합</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:16px 14px 8px;">
+      <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:3px;">주간 시간표 선택</div>
+      <div style="font-size:11px;color:#6B7684;margin-bottom:12px;">빈 슬롯을 눌러 원하는 수업 시간을 선택하세요</div>
+
+      <div class="tgrid">
+        <div class="thead"></div>
+        <div class="thead">월</div><div class="thead">화</div>
+        <div class="thead">수</div><div class="thead">목</div><div class="thead">금</div>
+
+        <div class="ttime">14:00</div>
+        <div class="tcell taken"></div><div class="tcell taken"></div>
+        <div class="tcell taken"></div><div class="tcell taken"></div><div class="tcell taken"></div>
+
+        <div class="ttime">15:00</div>
+        <div class="tcell taken"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell taken"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell taken"></div>
+
+        <div class="ttime hi">16:00</div>
+        <div class="tcell sel" onclick="tclick(this)"></div>
+        <div class="tcell taken"></div>
+        <div class="tcell sel" onclick="tclick(this)"></div>
+        <div class="tcell taken"></div>
+        <div class="tcell sel" onclick="tclick(this)"></div>
+
+        <div class="ttime">17:00</div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+
+        <div class="ttime">18:00</div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+        <div class="tcell empty" onclick="tclick(this)"></div>
+      </div>
+    </div>
+
+    <div style="padding:0 14px 14px;">
+      <div class="legend">
+        <div class="legitem"><div class="legdot" style="background:#3182F6;"></div>선택됨</div>
+        <div class="legitem"><div class="legdot" style="background:#F5F6F8;border:1.5px solid #E5E8EF;"></div>비어있음</div>
+        <div class="legitem"><div class="legdot" style="background:#F0F1F3;"></div>만석</div>
+      </div>
+    </div>
+
+    <div class="sel-summary">
+      <div class="sel-sum-ttl">선택: 월·수·금 16:00 – 17:30</div>
+      <div class="sel-sum-row">
+        ✓ 하교 후 충분한 여유 있음 (15분)<br>
+        ✓ 셔틀 17:40 귀가 · 18:00 이전 도착<br>
+        ✓ 주 3회 · 월 ₩280,000
+      </div>
+    </div>
+    <div class="gap"></div>
+
+    <div style="padding:0 14px;">
+      <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:10px;">🧩 같이 조합하면 좋은 학원</div>
+      <div class="compat-card">
+        <div style="font-size:28px;">📐</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#191F28;">세정수학 광교점</div>
+          <div style="font-size:11px;color:#6B7684;margin-top:2px;">화·목 17:00 → 겹치는 슬롯 없음</div>
+        </div>
+        <div style="text-align:center;font-size:11px;font-weight:800;color:#059669;">
+          <div style="font-size:18px;">✓</div>호환
+        </div>
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="cta" onclick="go('sched')">내 스케줄에 추가하기 →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SCREEN 5: MY SCHEDULE
+══════════════════════════════════════ -->
+<div class="screen" id="sc-sched">
+  <div class="nhdr">
+    <button class="nback" onclick="go('results')">←</button>
+    <div><div class="ntitle">내 주간 스케줄</div><div class="nsub">2024년 9월 · 광교초 3학년</div></div>
+  </div>
+
+  <div class="scrl">
+    <div style="background:#fff;padding:14px 0 6px;border-bottom:.5px solid #EAECF0;margin-bottom:10px;">
+      <div style="padding:0 14px 8px;font-size:11px;font-weight:800;color:#6B7684;display:flex;gap:10px;align-items:center;">
+        <span>시간표</span>
+        <span style="font-weight:400;color:#B0B8C1;">14:00 → 19:00</span>
+      </div>
+      <div class="timeline-axis">
+        <div class="taxis-item">14:00</div>
+        <div class="taxis-item">15:00</div>
+        <div class="taxis-item">16:00</div>
+        <div class="taxis-item">17:00</div>
+        <div class="taxis-item">18:00</div>
+        <div class="taxis-item">19:00</div>
+      </div>
+      <div class="day-row">
+        <div class="day-lbl">월</div>
+        <div class="timeline">
+          <div class="tblock en" style="left:40%;width:30%;">YBM 영어</div>
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-lbl">화</div>
+        <div class="timeline">
+          <div class="tblock gap-warn" style="left:50%;width:10%;" title="30분 공백">공백</div>
+          <div class="tblock mt" style="left:60%;width:30%;">세정 수학</div>
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-lbl">수</div>
+        <div class="timeline">
+          <div class="tblock en" style="left:40%;width:30%;">YBM 영어</div>
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-lbl">목</div>
+        <div class="timeline">
+          <div class="tblock gap-warn" style="left:50%;width:10%;">공백</div>
+          <div class="tblock mt" style="left:60%;width:30%;">세정 수학</div>
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-lbl">금</div>
+        <div class="timeline">
+          <div class="tblock en" style="left:40%;width:30%;">YBM 영어</div>
+        </div>
+      </div>
+
+      <div style="padding:8px 14px 2px;display:flex;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;">
+          <div style="width:12px;height:12px;border-radius:3px;background:#3182F6;"></div>YBM 영어
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;">
+          <div style="width:12px;height:12px;border-radius:3px;background:#F59E0B;"></div>세정 수학
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;">
+          <div style="width:12px;height:12px;border-radius:3px;background:#FEF3C7;border:1px dashed #F59E0B;"></div>공백
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-banner">
+      <div style="font-size:18px;flex-shrink:0;">⚠️</div>
+      <div class="warn-txt">
+        <div class="warn-ttl">화·목요일 30분 공백 발생</div>
+        15:30 하교 후 수학학원 17:00 시작까지 빈 시간이 생겨요. 다른 17:00 슬롯을 선택하거나 셔틀 노선을 확인해보세요.
+      </div>
+    </div>
+
+    <div class="sumcard">
+      <div style="font-size:14px;font-weight:900;color:#191F28;margin-bottom:12px;">스케줄 요약</div>
+      <div class="sumrow"><span class="sumkey">📚 선택 학원</span><span class="sumval">2곳 (영어 + 수학)</span></div>
+      <div class="sumrow"><span class="sumkey">📅 주간 수업</span><span class="sumval">주 5회</span></div>
+      <div class="sumrow"><span class="sumkey">🚌 셔틀 이용</span><span class="sumval">YBM만 가능</span></div>
+      <div class="sumrow">
+        <span class="sumkey">🏠 최대 귀가</span>
+        <span class="sumval" style="color:#059669;">17:45 ✓ 목표 달성</span>
+      </div>
+      <div class="sumrow" style="border-top:1px solid #F3F4F6;margin-top:4px;padding-top:12px;">
+        <span class="sumkey" style="font-weight:800;color:#191F28;">💰 예상 월 비용</span>
+        <span class="sumval" style="font-size:18px;color:#3182F6;">₩ 520,000</span>
+      </div>
+    </div>
+
+    <div class="gap"></div>
+
+    <button class="share-btn">
+      <span>📤</span> 스케줄 이미지로 공유하기
+    </button>
+
+    <div style="padding:10px 14px 0;">
+      <button class="cta sec" onclick="go('setup')">다시 조건 바꾸기</button>
+    </div>
+
+    <div class="gap"></div>
+  </div>
+
+  <div class="bnav">
+    <div class="btab" onclick="go('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab" onclick="go('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab on" onclick="go('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+  </div>
+</div>
+
+<script>
+const MAP={home:'sc-home',setup:'sc-setup',results:'sc-results',slot:'sc-slot',sched:'sc-sched'};
+
+function go(id){
+  Object.values(MAP).forEach(s=>document.getElementById(s).classList.remove('on'));
+  const el=document.getElementById(MAP[id]);
+  if(el){el.classList.add('on');window.scrollTo(0,0);}
+}
+
+function pick(el,gid){
+  document.querySelectorAll('#'+gid+' .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function tgl(el){
+  el.classList.toggle('on');
+  el.classList.toggle('subj');
+}
+
+function setTime(v){
+  const h=Math.floor(v);
+  const m=(v%1)===0.5?'30':'00';
+  document.getElementById('timeval').textContent=h+':'+m;
+}
+
+function tclick(el){
+  if(el.classList.contains('taken'))return;
+  if(el.classList.contains('sel')){
+    el.classList.remove('sel');
+    el.classList.add('empty');
+  }else{
+    el.classList.remove('empty');
+    el.classList.add('sel');
+  }
+}
+
+/* Suppress double-tap zoom on iOS */
+document.addEventListener('touchstart',function(){},{passive:true});
+</script>
+</body>
+</html>
