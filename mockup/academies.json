@@ -1,0 +1,2661 @@
+{
+  "center": {
+    "name": "광교초등학교",
+    "lng": 127.0457384937563,
+    "lat": 37.30389632012045
+  },
+  "academies": [
+    {
+      "id": "kakao-1888630469",
+      "name": "애니클라비에 음악교습소",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 14",
+      "phone": "",
+      "distanceKm": 0.08,
+      "subjects": [
+        "piano"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 190000,
+      "fitScore": 96,
+      "emoji": "🎹",
+      "lng": 127.046007376287,
+      "lat": 37.3046017270611,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1888630469"
+    },
+    {
+      "id": "kakao-1570294418",
+      "name": "책먹는사차원화가미술학원",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "031-216-2322",
+      "distanceKm": 0.14,
+      "subjects": [
+        "art"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 250000,
+      "fitScore": 96,
+      "emoji": "🎨",
+      "lng": 127.0471543972576,
+      "lat": 37.30441295909198,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1570294418"
+    },
+    {
+      "id": "kakao-391725321",
+      "name": "링키영어 광교웰빙타운영어교습소",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "010-9967-9505",
+      "distanceKm": 0.14,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 250000,
+      "fitScore": 96,
+      "emoji": "🇺🇸",
+      "lng": 127.04717468365897,
+      "lat": 37.30438591993964,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/391725321"
+    },
+    {
+      "id": "kakao-2064938881",
+      "name": "그로윈업잉글리시 광교점",
+      "address": "경기 수원시 영통구 웰빙타운로 41",
+      "phone": "031-8019-9199",
+      "distanceKm": 0.15,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 350000,
+      "fitScore": 96,
+      "emoji": "🇺🇸",
+      "lng": 127.046738559083,
+      "lat": 37.3050258284424,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/2064938881"
+    },
+    {
+      "id": "kakao-178491231",
+      "name": "경희대박사MBA태권도",
+      "address": "경기 수원시 영통구 대학로 103",
+      "phone": "031-213-5030",
+      "distanceKm": 0.16,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 150000,
+      "fitScore": 96,
+      "emoji": "🥋",
+      "lng": 127.04727069279262,
+      "lat": 37.30459762507006,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/178491231"
+    },
+    {
+      "id": "kakao-2083401399",
+      "name": "광교지티스어학원",
+      "address": "경기 수원시 영통구 대학로 109",
+      "phone": "031-211-3275",
+      "distanceKm": 0.18,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 310000,
+      "fitScore": 95,
+      "emoji": "🇺🇸",
+      "lng": 127.047149167551,
+      "lat": 37.3050698163371,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/2083401399"
+    },
+    {
+      "id": "kakao-26435581",
+      "name": "메디슨잉글리시프렙",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 28",
+      "phone": "031-211-1837",
+      "distanceKm": 0.09,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 260000,
+      "fitScore": 94,
+      "emoji": "🇺🇸",
+      "lng": 127.04662977830128,
+      "lat": 37.3042230483718,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/26435581"
+    },
+    {
+      "id": "kakao-1385603885",
+      "name": "리틀아띠미술교습소",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 32",
+      "phone": "031-214-2192",
+      "distanceKm": 0.11,
+      "subjects": [
+        "art"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 220000,
+      "fitScore": 94,
+      "emoji": "🎨",
+      "lng": 127.04693992461782,
+      "lat": 37.3041553480808,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1385603885"
+    },
+    {
+      "id": "kakao-1369750745",
+      "name": "광교비엔나음악학원",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "010-5785-0023",
+      "distanceKm": 0.14,
+      "subjects": [
+        "piano"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 210000,
+      "fitScore": 94,
+      "emoji": "🎹",
+      "lng": 127.047166789628,
+      "lat": 37.3043886261938,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1369750745"
+    },
+    {
+      "id": "kakao-23376283",
+      "name": "경희대광교태권도장",
+      "address": "경기 수원시 영통구 대학로 103",
+      "phone": "",
+      "distanceKm": 0.15,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 170000,
+      "fitScore": 94,
+      "emoji": "🥋",
+      "lng": 127.047157905484,
+      "lat": 37.3046120866398,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/23376283"
+    },
+    {
+      "id": "kakao-954523794",
+      "name": "아이나피아노바이올린학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 28",
+      "phone": "031-212-0230",
+      "distanceKm": 0.09,
+      "subjects": [
+        "piano"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 210000,
+      "fitScore": 93,
+      "emoji": "🎹",
+      "lng": 127.046629778302,
+      "lat": 37.3042230483818,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/954523794"
+    },
+    {
+      "id": "kakao-291023754",
+      "name": "비욘드잉글리쉬 광교캠퍼스",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "010-339-3712",
+      "distanceKm": 0.12,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 350000,
+      "fitScore": 93,
+      "emoji": "🇺🇸",
+      "lng": 127.047113505132,
+      "lat": 37.3039552491208,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/291023754"
+    },
+    {
+      "id": "kakao-940813021",
+      "name": "강의하는아이들 광교캠퍼스",
+      "address": "경기 수원시 영통구 웰빙타운로 41",
+      "phone": "031-895-5525",
+      "distanceKm": 0.16,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 330000,
+      "fitScore": 93,
+      "emoji": "🇺🇸",
+      "lng": 127.046779215102,
+      "lat": 37.305105103542,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/940813021"
+    },
+    {
+      "id": "kakao-672715742",
+      "name": "유니팝미술 광교웰빙학원",
+      "address": "경기 수원시 영통구 웰빙타운로 41",
+      "phone": "",
+      "distanceKm": 0.16,
+      "subjects": [
+        "art"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 220000,
+      "fitScore": 93,
+      "emoji": "🎨",
+      "lng": 127.04677921510239,
+      "lat": 37.30510510354202,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/672715742"
+    },
+    {
+      "id": "kakao-784093628",
+      "name": "씨비아이에스케이",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 10",
+      "phone": "031-214-2500",
+      "distanceKm": 0.1,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 340000,
+      "fitScore": 92,
+      "emoji": "🇺🇸",
+      "lng": 127.0458585814433,
+      "lat": 37.30476036712658,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/784093628"
+    },
+    {
+      "id": "kakao-22845484",
+      "name": "인아트미술학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "",
+      "distanceKm": 0.12,
+      "subjects": [
+        "art"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 240000,
+      "fitScore": 92,
+      "emoji": "🎨",
+      "lng": 127.047125922179,
+      "lat": 37.3039705617889,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/22845484"
+    },
+    {
+      "id": "kakao-200000861",
+      "name": "영어의자유광교센터학원",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "",
+      "distanceKm": 0.14,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 240000,
+      "fitScore": 92,
+      "emoji": "🇺🇸",
+      "lng": 127.047174683659,
+      "lat": 37.3043859199396,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/200000861"
+    },
+    {
+      "id": "kakao-358067054",
+      "name": "이마고발레교습소",
+      "address": "경기 수원시 영통구 웰빙타운로 47",
+      "phone": "031-211-1128",
+      "distanceKm": 0.14,
+      "subjects": [
+        "piano"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 260000,
+      "fitScore": 92,
+      "emoji": "🎹",
+      "lng": 127.046233280039,
+      "lat": 37.3051098232516,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/358067054"
+    },
+    {
+      "id": "kakao-1356408273",
+      "name": "가우스수학과학학원",
+      "address": "경기 수원시 영통구 웰빙타운로 41",
+      "phone": "031-211-7489",
+      "distanceKm": 0.16,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 310000,
+      "fitScore": 91,
+      "emoji": "📐",
+      "lng": 127.046807400408,
+      "lat": 37.3050825664925,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1356408273"
+    },
+    {
+      "id": "kakao-1462246823",
+      "name": "YSL영어",
+      "address": "경기 수원시 영통구 웰빙타운로 41",
+      "phone": "031-212-0582",
+      "distanceKm": 0.16,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 330000,
+      "fitScore": 91,
+      "emoji": "🇺🇸",
+      "lng": 127.04677921510239,
+      "lat": 37.30510510354202,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1462246823"
+    },
+    {
+      "id": "kakao-762084792",
+      "name": "맘수학",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "",
+      "distanceKm": 0.13,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 230000,
+      "fitScore": 90,
+      "emoji": "📐",
+      "lng": 127.047082179146,
+      "lat": 37.3043670350217,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/762084792"
+    },
+    {
+      "id": "kakao-1238768410",
+      "name": "청수진수학교습소",
+      "address": "경기 수원시 영통구 웰빙타운로 51",
+      "phone": "031-895-4255",
+      "distanceKm": 0.14,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 220000,
+      "fitScore": 89,
+      "emoji": "📐",
+      "lng": 127.045840748394,
+      "lat": 37.3051135800877,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1238768410"
+    },
+    {
+      "id": "kakao-2101093009",
+      "name": "수학친구들학원",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "",
+      "distanceKm": 0.14,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 280000,
+      "fitScore": 89,
+      "emoji": "📐",
+      "lng": 127.04717130203,
+      "lat": 37.3043895254213,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/2101093009"
+    },
+    {
+      "id": "kakao-1530409083",
+      "name": "안녕음악학원",
+      "address": "경기 수원시 영통구 대학로 103",
+      "phone": "031-212-2088",
+      "distanceKm": 0.15,
+      "subjects": [
+        "piano"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 250000,
+      "fitScore": 89,
+      "emoji": "🎹",
+      "lng": 127.047160172664,
+      "lat": 37.3046301064542,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1530409083"
+    },
+    {
+      "id": "kakao-791236012",
+      "name": "반듯한영어학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 14",
+      "phone": "010-9931-3024",
+      "distanceKm": 0.08,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 290000,
+      "fitScore": 88,
+      "emoji": "🇺🇸",
+      "lng": 127.046007382874,
+      "lat": 37.3046125394893,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/791236012"
+    },
+    {
+      "id": "kakao-1474884546",
+      "name": "링스광교어학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 32",
+      "phone": "031-212-1204",
+      "distanceKm": 0.1,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 260000,
+      "fitScore": 88,
+      "emoji": "🇺🇸",
+      "lng": 127.04685641670268,
+      "lat": 37.304092308644535,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1474884546"
+    },
+    {
+      "id": "kakao-1687336209",
+      "name": "엘영어수학학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 32",
+      "phone": "",
+      "distanceKm": 0.1,
+      "subjects": [
+        "english",
+        "math"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 290000,
+      "fitScore": 88,
+      "emoji": "🇺🇸",
+      "lng": 127.04687786575604,
+      "lat": 37.304121133301685,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1687336209"
+    },
+    {
+      "id": "kakao-1089152348",
+      "name": "토론하는아이들학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "",
+      "distanceKm": 0.12,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 240000,
+      "fitScore": 88,
+      "emoji": "🇺🇸",
+      "lng": 127.047113505132,
+      "lat": 37.3039552491208,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1089152348"
+    },
+    {
+      "id": "kakao-1573003385",
+      "name": "생각하는수학",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "010-3393-7120",
+      "distanceKm": 0.12,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 220000,
+      "fitScore": 88,
+      "emoji": "📐",
+      "lng": 127.047113505132,
+      "lat": 37.3039552491208,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1573003385"
+    },
+    {
+      "id": "kakao-1874488616",
+      "name": "창용태권도",
+      "address": "경기 수원시 장안구 광교산로138번길 1",
+      "phone": "031-255-9364",
+      "distanceKm": 1.44,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 170000,
+      "fitScore": 88,
+      "emoji": "🥋",
+      "lng": 127.030357203173,
+      "lat": 37.2997862319253,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1874488616"
+    },
+    {
+      "id": "kakao-1543980143",
+      "name": "광교숲음악학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 32",
+      "phone": "031-214-1160",
+      "distanceKm": 0.1,
+      "subjects": [
+        "piano"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 210000,
+      "fitScore": 87,
+      "emoji": "🎹",
+      "lng": 127.046856416703,
+      "lat": 37.3040923086545,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1543980143"
+    },
+    {
+      "id": "kakao-1869591115",
+      "name": "파머스영어 수원광교캠퍼스",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "031-217-0977",
+      "distanceKm": 0.12,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 340000,
+      "fitScore": 87,
+      "emoji": "🇺🇸",
+      "lng": 127.047103352989,
+      "lat": 37.3039543521258,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1869591115"
+    },
+    {
+      "id": "kakao-930577945",
+      "name": "공터영어 광교웰빙센터",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "",
+      "distanceKm": 0.13,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 350000,
+      "fitScore": 87,
+      "emoji": "🇺🇸",
+      "lng": 127.047082179146,
+      "lat": 37.3043670350217,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/930577945"
+    },
+    {
+      "id": "kakao-1464019989",
+      "name": "플레이팩토 인사이트학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 18",
+      "phone": "010-3389-8274",
+      "distanceKm": 0.08,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 220000,
+      "fitScore": 86,
+      "emoji": "📐",
+      "lng": 127.04622613772,
+      "lat": 37.304498022678,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1464019989"
+    },
+    {
+      "id": "kakao-838357919",
+      "name": "책나무 광교웰빙타운점",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 14",
+      "phone": "010-8323-2356",
+      "distanceKm": 0.08,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 340000,
+      "fitScore": 86,
+      "emoji": "🇺🇸",
+      "lng": 127.04600399075073,
+      "lat": 37.30459902525955,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/838357919"
+    },
+    {
+      "id": "kakao-2127976354",
+      "name": "가우스수학 인재관학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "031-211-5605",
+      "distanceKm": 0.12,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 250000,
+      "fitScore": 86,
+      "emoji": "📐",
+      "lng": 127.047113505132,
+      "lat": 37.3039552491208,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/2127976354"
+    },
+    {
+      "id": "kakao-1021996274",
+      "name": "아발론교육 광교웰빙캠퍼스",
+      "address": "경기 수원시 영통구 대학로 109",
+      "phone": "031-211-7489",
+      "distanceKm": 0.18,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 340000,
+      "fitScore": 86,
+      "emoji": "🇺🇸",
+      "lng": 127.047160459631,
+      "lat": 37.305089634616,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1021996274"
+    },
+    {
+      "id": "kakao-1454873830",
+      "name": "랭콘아발론교육 리틀 녹지원 광교어학원",
+      "address": "경기 수원시 영통구 대학로 109",
+      "phone": "",
+      "distanceKm": 0.18,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 350000,
+      "fitScore": 86,
+      "emoji": "🇺🇸",
+      "lng": 127.047162718386,
+      "lat": 37.305094138895,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1454873830"
+    },
+    {
+      "id": "kakao-2042547870",
+      "name": "브랜미에듀케이션종합학원",
+      "address": "경기 수원시 영통구 대학로 109",
+      "phone": "031-895-5525",
+      "distanceKm": 0.18,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 300000,
+      "fitScore": 86,
+      "emoji": "🇺🇸",
+      "lng": 127.047162718386,
+      "lat": 37.305094138895,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/2042547870"
+    },
+    {
+      "id": "kakao-1796281912",
+      "name": "창작소우주",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "010-2920-8800",
+      "distanceKm": 0.12,
+      "subjects": [
+        "art"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 150000,
+      "fitScore": 85,
+      "emoji": "🎨",
+      "lng": 127.047113505132,
+      "lat": 37.3039552491208,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1796281912"
+    },
+    {
+      "id": "kakao-598555929",
+      "name": "엉클제이영어",
+      "address": "경기 수원시 영통구 대학로 101",
+      "phone": "",
+      "distanceKm": 0.14,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 280000,
+      "fitScore": 85,
+      "emoji": "🇺🇸",
+      "lng": 127.047171300342,
+      "lat": 37.3043868223241,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/598555929"
+    },
+    {
+      "id": "kakao-186921115",
+      "name": "플레이팩토 탑창의스쿨",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 36",
+      "phone": "010-3706-2276",
+      "distanceKm": 0.12,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 260000,
+      "fitScore": 84,
+      "emoji": "📐",
+      "lng": 127.047113505132,
+      "lat": 37.3039552491208,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/186921115"
+    },
+    {
+      "id": "kakao-1599839478",
+      "name": "마이리딩클럽영어교습소",
+      "address": "경기 수원시 영통구 웰빙타운로 51",
+      "phone": "",
+      "distanceKm": 0.14,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 240000,
+      "fitScore": 84,
+      "emoji": "🇺🇸",
+      "lng": 127.04576406002727,
+      "lat": 37.30513613565258,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1599839478"
+    },
+    {
+      "id": "kakao-1547959591",
+      "name": "토론하는아이들",
+      "address": "경기 수원시 영통구 웰빙타운로 51",
+      "phone": "031-212-3806",
+      "distanceKm": 0.14,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 280000,
+      "fitScore": 84,
+      "emoji": "🇺🇸",
+      "lng": 127.04588140516,
+      "lat": 37.305195558592,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1547959591"
+    },
+    {
+      "id": "kakao-542348240",
+      "name": "플레이팩토 광교팩토MnS",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 18",
+      "phone": "010-3389-8274",
+      "distanceKm": 0.08,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 240000,
+      "fitScore": 83,
+      "emoji": "📐",
+      "lng": 127.04622613772,
+      "lat": 37.304498022678,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/542348240"
+    },
+    {
+      "id": "kakao-706775175",
+      "name": "코뮌어학원",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 14",
+      "phone": "",
+      "distanceKm": 0.08,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 240000,
+      "fitScore": 83,
+      "emoji": "🇺🇸",
+      "lng": 127.046009631665,
+      "lat": 37.3046008251485,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "mon",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/706775175"
+    },
+    {
+      "id": "kakao-436624088",
+      "name": "이쌤수학학원",
+      "address": "경기 수원시 영통구 대학로 109",
+      "phone": "",
+      "distanceKm": 0.18,
+      "subjects": [
+        "math"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 270000,
+      "fitScore": 83,
+      "emoji": "📐",
+      "lng": 127.047288984507,
+      "lat": 37.3049877662822,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:00",
+          "endTime": "18:30",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/436624088"
+    },
+    {
+      "id": "kakao-386263341",
+      "name": "류금화입시영어 대치동분점",
+      "address": "경기 수원시 영통구 대학로 109",
+      "phone": "",
+      "distanceKm": 0.18,
+      "subjects": [
+        "english"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 250000,
+      "fitScore": 83,
+      "emoji": "🇺🇸",
+      "lng": 127.047162718386,
+      "lat": 37.305094138905,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/386263341"
+    },
+    {
+      "id": "kakao-1454968820",
+      "name": "MTA태권도",
+      "address": "경기 수원시 영통구 웰빙타운로49번길 32",
+      "phone": "010-8330-3510",
+      "distanceKm": 0.11,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 150000,
+      "fitScore": 83,
+      "emoji": "🥋",
+      "lng": 127.046918482808,
+      "lat": 37.3041382368998,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1454968820"
+    },
+    {
+      "id": "kakao-447527426",
+      "name": "한체대석사다온태권도장",
+      "address": "경기 수원시 영통구 센트럴타운로100번길 8",
+      "phone": "",
+      "distanceKm": 1.36,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 150000,
+      "fitScore": 80,
+      "emoji": "🥋",
+      "lng": 127.050885454474,
+      "lat": 37.2923420253583,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/447527426"
+    },
+    {
+      "id": "kakao-1434019174",
+      "name": "잇다 태권도",
+      "address": "경기 수원시 장안구 연무로 24",
+      "phone": "",
+      "distanceKm": 1.86,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 190000,
+      "fitScore": 80,
+      "emoji": "🥋",
+      "lng": 127.028680150247,
+      "lat": 37.2941659807055,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": false
+        },
+        {
+          "day": "fri",
+          "startTime": "14:00",
+          "endTime": "15:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1434019174"
+    },
+    {
+      "id": "kakao-415314126",
+      "name": "경희대강찬태권도장",
+      "address": "경기 수원시 장안구 창훈로80번길 34-3",
+      "phone": "031-244-7677",
+      "distanceKm": 1.6,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 230000,
+      "fitScore": 79,
+      "emoji": "🥋",
+      "lng": 127.028623408247,
+      "lat": 37.299191078657,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:00",
+          "endTime": "16:30",
+          "available": true
+        },
+        {
+          "day": "tue",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": false
+        },
+        {
+          "day": "thu",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "16:30",
+          "endTime": "18:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/415314126"
+    },
+    {
+      "id": "kakao-1730483880",
+      "name": "광교 석사경희대 한국태권도장",
+      "address": "경기 수원시 영통구 센트럴파크로 100",
+      "phone": "",
+      "distanceKm": 1.84,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": false,
+      "monthlyCostKRW": 150000,
+      "fitScore": 79,
+      "emoji": "🥋",
+      "lng": 127.05939942166,
+      "lat": 37.2913568287417,
+      "slots": [
+        {
+          "day": "tue",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "16:00",
+          "endTime": "17:30",
+          "available": true
+        },
+        {
+          "day": "mon",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": false
+        },
+        {
+          "day": "wed",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "available": true
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1730483880"
+    },
+    {
+      "id": "kakao-1961204078",
+      "name": "우만MBA태권도장",
+      "address": "경기 수원시 팔달구 창룡대로 194",
+      "phone": "",
+      "distanceKm": 1.95,
+      "subjects": [
+        "taekwondo"
+      ],
+      "shuttleAvailable": true,
+      "monthlyCostKRW": 180000,
+      "fitScore": 68,
+      "emoji": "🥋",
+      "lng": 127.030661597413,
+      "lat": 37.2911136690758,
+      "slots": [
+        {
+          "day": "mon",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        },
+        {
+          "day": "tue",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "wed",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "thu",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": true
+        },
+        {
+          "day": "fri",
+          "startTime": "15:30",
+          "endTime": "17:00",
+          "available": false
+        }
+      ],
+      "placeUrl": "http://place.map.kakao.com/1961204078"
+    }
+  ],
+  "meta": {
+    "source": "Kakao Local API",
+    "centerSchool": "광교초등학교",
+    "count": 54
+  }
+}

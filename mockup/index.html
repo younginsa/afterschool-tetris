@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="방과후 테트리스">
 <meta name="theme-color" content="#3182F6">
 <title>방과후 테트리스</title>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5ef5affc2b6e6ecc37445cbf06499dc&autoload=false&libraries=services,clusterer"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none;}
@@ -361,8 +362,8 @@ input[type=range]::-webkit-slider-thumb{
     <div class="hero-greet">안녕하세요, 김민정 님 👋</div>
     <div class="hero-ttl">우리 아이 방과후<br>일정 맞춰드릴게요</div>
     <div class="hero-pills">
-      <div class="hero-pill">광교 43개 학원</div>
-      <div class="hero-pill">🚌 셔틀 18곳</div>
+      <div class="hero-pill" id="hero-count">광교 — 개 학원</div>
+      <div class="hero-pill" id="hero-shuttle">🚌 셔틀 — 곳</div>
     </div>
   </div>
 
@@ -391,42 +392,7 @@ input[type=range]::-webkit-slider-thumb{
     </div>
 
     <div class="divlbl">최근에 본 학원</div>
-
-    <div class="card" onclick="go('slot')">
-      <div><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-        <div>
-          <div style="font-size:15px;font-weight:800;color:#191F28;">광교 YBM 어학원</div>
-          <div style="font-size:11px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
-        </div>
-        <div class="fit-badge">
-          <div class="fit-num">97<span style="font-size:11px;">%</span></div>
-          <div class="fit-lbl">적합도</div>
-        </div>
-      </div>
-      <div class="pills">
-        <div class="pill open">월·수·금 16:00 ✓</div>
-        <div class="pill avail">화·목 17:00</div>
-      </div>
-    </div>
-
-    <div class="card" onclick="go('slot')">
-      <div><span class="tag mt">수학</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-        <div>
-          <div style="font-size:15px;font-weight:800;color:#191F28;">세정수학 광교점</div>
-          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이의동 211 · 0.7km · 셔틀없음</div>
-        </div>
-        <div class="fit-badge">
-          <div class="fit-num mid">71<span style="font-size:11px;">%</span></div>
-          <div class="fit-lbl mid">적합도</div>
-        </div>
-      </div>
-      <div class="pills">
-        <div class="pill full">화·목 16:00 (만석)</div>
-        <div class="pill avail">월·수·금 17:30</div>
-      </div>
-    </div>
+    <div id="recents-list"></div>
 
     <div class="divlbl">이번 주 추천 조합</div>
     <div style="margin:0 14px 10px;background:#fff;border-radius:16px;border:.5px solid #EAECF0;padding:16px;">
@@ -558,111 +524,18 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="map-area">
-    <svg viewBox="0 0 390 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <rect width="390" height="220" fill="#DEE5EF"/>
-      <!-- Blocks/buildings -->
-      <rect x="0" y="0" width="82" height="52" fill="#CBD5E1" rx="3"/>
-      <rect x="92" y="0" width="108" height="52" fill="#CBD5E1" rx="3"/>
-      <rect x="210" y="0" width="78" height="52" fill="#CBD5E1" rx="3"/>
-      <rect x="298" y="0" width="92" height="52" fill="#CBD5E1" rx="3"/>
-      <rect x="0" y="62" width="118" height="62" fill="#CBD5E1" rx="3"/>
-      <rect x="128" y="62" width="90" height="62" fill="#CBD5E1" rx="3"/>
-      <rect x="228" y="62" width="72" height="62" fill="#C8DDD0" rx="3"/>
-      <rect x="310" y="62" width="80" height="62" fill="#CBD5E1" rx="3"/>
-      <rect x="0" y="134" width="88" height="86" fill="#CBD5E1" rx="3"/>
-      <rect x="98" y="134" width="118" height="86" fill="#CBD5E1" rx="3"/>
-      <rect x="226" y="134" width="88" height="86" fill="#CBD5E1" rx="3"/>
-      <rect x="324" y="134" width="66" height="86" fill="#CBD5E1" rx="3"/>
-      <text x="264" y="97" text-anchor="middle" font-size="8" fill="#78A88B" font-weight="700" font-family="-apple-system,sans-serif">공원</text>
-      <rect x="83" y="0" width="9" height="220" fill="#E8EDF5"/>
-      <rect x="200" y="0" width="10" height="220" fill="#E8EDF5"/>
-      <rect x="300" y="0" width="10" height="220" fill="#E8EDF5"/>
-      <rect x="0" y="53" width="390" height="9" fill="#E8EDF5"/>
-      <rect x="0" y="125" width="390" height="9" fill="#E8EDF5"/>
-      <circle cx="155" cy="93" r="18" fill="#3182F6" fill-opacity=".12"/>
-      <circle cx="155" cy="93" r="11" fill="#3182F6"/>
-      <text x="155" y="97" text-anchor="middle" font-size="11" fill="white" font-family="sans-serif">🏫</text>
-      <rect x="122" y="108" width="66" height="17" fill="white" rx="4" fill-opacity=".92"/>
-      <text x="155" y="120" text-anchor="middle" font-size="8.5" fill="#3182F6" font-weight="700" font-family="-apple-system,sans-serif">광교초등학교</text>
-      <circle cx="40" cy="43" r="20" fill="#059669" fill-opacity=".15"/>
-      <circle cx="40" cy="43" r="13" fill="#059669"/>
-      <text x="40" y="47" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">97</text>
-      <rect x="10" y="59" width="60" height="15" fill="white" rx="3" fill-opacity=".9"/>
-      <text x="40" y="70" text-anchor="middle" font-size="7.5" fill="#059669" font-weight="700" font-family="-apple-system,sans-serif">YBM 어학원</text>
-      <circle cx="40" cy="43" r="50" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" opacity=".4"/>
-      <circle cx="60" cy="170" r="20" fill="#059669" fill-opacity=".15"/>
-      <circle cx="60" cy="170" r="13" fill="#3182F6"/>
-      <text x="60" y="174" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">88</text>
-      <rect x="26" y="186" width="68" height="15" fill="white" rx="3" fill-opacity=".9"/>
-      <text x="60" y="197" text-anchor="middle" font-size="7.5" fill="#1D4ED8" font-weight="700" font-family="-apple-system,sans-serif">파란영어교육원</text>
-      <circle cx="255" cy="25" r="20" fill="#3182F6" fill-opacity=".15"/>
-      <circle cx="255" cy="25" r="13" fill="#3182F6"/>
-      <text x="255" y="29" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">84</text>
-      <circle cx="345" cy="160" r="20" fill="#D97706" fill-opacity=".15"/>
-      <circle cx="345" cy="160" r="13" fill="#D97706"/>
-      <text x="345" y="164" text-anchor="middle" font-size="9" fill="white" font-weight="700" font-family="-apple-system,sans-serif">71</text>
-      <circle cx="340" cy="25" r="12" fill="#EC4899"/>
-      <text x="340" y="29" text-anchor="middle" font-size="11" font-family="sans-serif">🏠</text>
-    </svg>
-    <div class="map-chips">
-      <div class="mchip on">전체 (8)</div>
-      <div class="mchip">🚌 셔틀 (5)</div>
-      <div class="mchip">빈 슬롯 (4)</div>
+    <div id="kakao-map" style="width:100%;height:100%;"></div>
+    <div class="map-chips" id="map-chips">
+      <div class="mchip on" data-filter="all">전체 (—)</div>
+      <div class="mchip" data-filter="shuttle">🚌 셔틀 (—)</div>
+      <div class="mchip" data-filter="open">빈 슬롯 (—)</div>
     </div>
-    <div class="map-float">조건 맞는 학원 8개 ↓</div>
+    <div class="map-float" id="map-float">조건 맞는 학원 — 개 ↓</div>
   </div>
 
   <div class="scrl">
     <div class="divlbl">적합도 순</div>
-
-    <div class="card" onclick="go('slot')">
-      <div><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
-        <div>
-          <div style="font-size:15px;font-weight:800;color:#191F28;">광교 YBM 어학원</div>
-          <div style="font-size:11px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 도보 5분 · 0.4km</div>
-        </div>
-        <div class="fit-badge"><div class="fit-num">97<span style="font-size:11px;">%</span></div><div class="fit-lbl">적합도</div></div>
-      </div>
-      <div class="green-info">✓ 셔틀 운행 중 · 월/수/금 16:00 슬롯 여유 있음</div>
-      <div class="pills">
-        <div class="pill open">월·수·금 16:00 ✓</div>
-        <div class="pill avail">화·목 17:00</div>
-        <div class="pill full">화·목 16:00 (만석)</div>
-      </div>
-    </div>
-
-    <div class="card" onclick="go('slot')">
-      <div><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
-        <div>
-          <div style="font-size:15px;font-weight:800;color:#191F28;">파란영어교육원</div>
-          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이의동 118 · 도보 12분 · 0.9km</div>
-        </div>
-        <div class="fit-badge"><div class="fit-num">88<span style="font-size:11px;">%</span></div><div class="fit-lbl">적합도</div></div>
-      </div>
-      <div class="pills">
-        <div class="pill open">화·목 16:30 ✓</div>
-        <div class="pill avail">월·수·금 17:30</div>
-      </div>
-    </div>
-
-    <div class="card" onclick="go('slot')">
-      <div><span class="tag mt">수학</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
-        <div>
-          <div style="font-size:15px;font-weight:800;color:#191F28;">세정수학 광교점</div>
-          <div style="font-size:11px;color:#6B7684;margin-top:2px;">이의동 211 · 버스 3분 · 0.7km</div>
-        </div>
-        <div class="fit-badge"><div class="fit-num mid">71<span style="font-size:11px;">%</span></div><div class="fit-lbl mid">적합도</div></div>
-      </div>
-      <div class="amber-info">⚠️ 셔틀 없음 · 보호자 픽업 필요</div>
-      <div class="pills">
-        <div class="pill full">화·목 16:00 (만석)</div>
-        <div class="pill avail">월·수·금 17:30 ✓</div>
-      </div>
-    </div>
-
+    <div id="results-list"></div>
     <div class="gap"></div>
   </div>
 
@@ -687,11 +560,11 @@ input[type=range]::-webkit-slider-thumb{
   <div class="scrl">
     <div style="background:#fff;padding:16px 18px;border-bottom:.5px solid #EAECF0;">
       <div style="display:flex;gap:14px;align-items:center;">
-        <div style="width:54px;height:54px;background:#EBF2FF;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🇺🇸</div>
+        <div id="slot-emoji" style="width:54px;height:54px;background:#EBF2FF;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🇺🇸</div>
         <div>
-          <div style="font-size:17px;font-weight:900;color:#191F28;">광교 YBM 어학원</div>
-          <div style="font-size:12px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
-          <div style="margin-top:8px;"><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span><span class="tag ok">97% 적합</span></div>
+          <div id="slot-name" style="font-size:17px;font-weight:900;color:#191F28;">광교 YBM 어학원</div>
+          <div id="slot-addr" style="font-size:12px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
+          <div id="slot-tags" style="margin-top:8px;"><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span><span class="tag ok">97% 적합</span></div>
         </div>
       </div>
     </div>
@@ -930,6 +803,199 @@ function tclick(el){
 
 /* Suppress double-tap zoom on iOS */
 document.addEventListener('touchstart',function(){},{passive:true});
+
+/* ════════════════════════════════════════════════
+   REAL DATA HYDRATION (Kakao Local API → JSON → DOM)
+   ════════════════════════════════════════════════ */
+
+let ACADEMIES = [];
+let CENTER = null;
+let kakaoMap = null;
+let mapInitialized = false;
+let resultsFilter = 'all';
+
+const SUBJ_LABEL = {english:'영어', math:'수학', taekwondo:'태권도', art:'미술', piano:'음악', coding:'코딩'};
+const SUBJ_CLASS = {english:'en', math:'mt', taekwondo:'tk', art:'ar', piano:'mt', coding:'mt'};
+const DAY_LABEL = {mon:'월', tue:'화', wed:'수', thu:'목', fri:'금'};
+
+function daysLabel(days){
+  const order = ['mon','tue','wed','thu','fri'];
+  return order.filter(d => days.includes(d)).map(d => DAY_LABEL[d]).join('·');
+}
+
+function groupSlots(a){
+  const m = new Map();
+  for (const s of a.slots){
+    const k = s.startTime + '-' + s.endTime;
+    const ex = m.get(k);
+    if (ex){ ex.days.push(s.day); ex.available = ex.available && s.available; }
+    else m.set(k, {startTime:s.startTime, endTime:s.endTime, days:[s.day], available:s.available});
+  }
+  return [...m.values()].sort((x,y) => x.startTime.localeCompare(y.startTime));
+}
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function cardHtml(a, includeBanner){
+  const subj = a.subjects[0] || 'english';
+  const cls = SUBJ_CLASS[subj] || 'en';
+  const subjLabel = SUBJ_LABEL[subj] || subj;
+  const groups = groupSlots(a).slice(0, 3);
+  const mid = a.fitScore < 80;
+  const pills = groups.map((g, i) => {
+    const lbl = daysLabel(g.days);
+    if (!g.available) return `<div class="pill full">${lbl} ${g.startTime} (만석)</div>`;
+    const v = i === 0 ? 'open' : 'avail';
+    return `<div class="pill ${v}">${lbl} ${g.startTime}${v === 'open' ? ' ✓' : ''}</div>`;
+  }).join('');
+  let banner = '';
+  if (includeBanner){
+    if (!a.shuttleAvailable) banner = `<div class="amber-info">⚠️ 셔틀 없음 · 보호자 픽업 필요</div>`;
+    else if (a.fitScore >= 90) banner = `<div class="green-info">✓ 셔틀 운행 중 · 빈 슬롯 있음</div>`;
+  }
+  return `<div class="card" onclick="openSlot('${esc(a.id)}')">
+    <div><span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable ? '<span class="tag sh">🚌 셔틀</span>' : ''}</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
+      <div>
+        <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(a.name)}</div>
+        <div style="font-size:11px;color:#6B7684;margin-top:2px;">${esc(a.address)} · ${a.distanceKm}km${!a.shuttleAvailable ? ' · 셔틀없음' : ''}</div>
+      </div>
+      <div class="fit-badge"><div class="fit-num${mid ? ' mid' : ''}">${a.fitScore}<span style="font-size:11px;">%</span></div><div class="fit-lbl${mid ? ' mid' : ''}">적합도</div></div>
+    </div>
+    ${banner}
+    <div class="pills">${pills}</div>
+  </div>`;
+}
+
+function hydrateHome(){
+  const shuttleCount = ACADEMIES.filter(a => a.shuttleAvailable).length;
+  document.getElementById('hero-count').textContent = `광교 ${ACADEMIES.length}개 학원`;
+  document.getElementById('hero-shuttle').textContent = `🚌 셔틀 ${shuttleCount}곳`;
+  document.getElementById('recents-list').innerHTML = ACADEMIES.slice(0, 2).map(a => cardHtml(a, false)).join('');
+}
+
+function applyResultsFilter(){
+  let v = ACADEMIES;
+  if (resultsFilter === 'shuttle') v = v.filter(a => a.shuttleAvailable);
+  if (resultsFilter === 'open') v = v.filter(a => a.slots.some(s => s.available));
+  v = v.slice(0, 20);
+  document.getElementById('results-list').innerHTML = v.map((a, i) => cardHtml(a, i < 2)).join('');
+  document.getElementById('map-float').textContent = `조건 맞는 학원 ${v.length}개 ↓`;
+}
+
+function hydrateResults(){
+  const all = ACADEMIES.length;
+  const sh = ACADEMIES.filter(a => a.shuttleAvailable).length;
+  const op = ACADEMIES.filter(a => a.slots.some(s => s.available)).length;
+  const chips = document.querySelectorAll('#map-chips .mchip');
+  chips[0].textContent = `전체 (${all})`;
+  chips[1].textContent = `🚌 셔틀 (${sh})`;
+  chips[2].textContent = `빈 슬롯 (${op})`;
+  chips.forEach(c => {
+    c.addEventListener('click', () => {
+      chips.forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+      resultsFilter = c.dataset.filter;
+      applyResultsFilter();
+    });
+  });
+  applyResultsFilter();
+}
+
+function initKakaoMap(){
+  if (mapInitialized) return;
+  if (typeof kakao === 'undefined' || !kakao.maps || !kakao.maps.Map){
+    console.warn('Kakao SDK not ready');
+    return;
+  }
+  const container = document.getElementById('kakao-map');
+  if (!container || container.offsetWidth === 0) return;
+  const ctr = new kakao.maps.LatLng(CENTER.lat, CENTER.lng);
+  kakaoMap = new kakao.maps.Map(container, {center: ctr, level: 4});
+
+  const schoolEl = document.createElement('div');
+  schoolEl.style.cssText = 'background:#3182F6;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;';
+  schoolEl.textContent = '🏫';
+  new kakao.maps.CustomOverlay({position: ctr, content: schoolEl, yAnchor:0.5, xAnchor:0.5, zIndex:5}).setMap(kakaoMap);
+
+  ACADEMIES.slice(0, 30).forEach(a => {
+    const pos = new kakao.maps.LatLng(a.lat, a.lng);
+    const mid = a.fitScore < 80;
+    const color = mid ? '#D97706' : '#059669';
+    const el = document.createElement('div');
+    el.style.cssText = `background:${color};color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;`;
+    el.textContent = a.fitScore;
+    el.addEventListener('click', () => openSlot(a.id));
+    new kakao.maps.CustomOverlay({position: pos, content: el, yAnchor:0.5, xAnchor:0.5, zIndex:3}).setMap(kakaoMap);
+  });
+
+  mapInitialized = true;
+}
+
+function relayoutMap(){
+  if (!kakaoMap) return;
+  setTimeout(() => {
+    kakaoMap.relayout();
+    kakaoMap.setCenter(new kakao.maps.LatLng(CENTER.lat, CENTER.lng));
+  }, 50);
+}
+
+function openSlot(academyId){
+  const a = ACADEMIES.find(x => x.id === academyId);
+  if (!a) return;
+  const subj = a.subjects[0] || 'english';
+  const cls = SUBJ_CLASS[subj] || 'en';
+  const subjLabel = SUBJ_LABEL[subj] || subj;
+  document.getElementById('slot-emoji').textContent = a.emoji || '📚';
+  document.getElementById('slot-name').textContent = a.name;
+  document.getElementById('slot-addr').textContent = `${a.address} · ${a.distanceKm}km`;
+  document.getElementById('slot-tags').innerHTML =
+    `<span class="tag ${cls}">${subjLabel}</span>` +
+    (a.shuttleAvailable ? `<span class="tag sh">🚌 셔틀</span>` : '') +
+    `<span class="tag ok">${a.fitScore}% 적합</span>`;
+  go('slot');
+}
+
+/* Wrap go() so navigating to results triggers map init/relayout */
+const _origGo = go;
+go = function(id){
+  _origGo(id);
+  if (id === 'results'){
+    setTimeout(() => {
+      if (mapInitialized) { relayoutMap(); return; }
+      if (sdkReady && CENTER) initKakaoMap();
+      else pendingMapInit = true;
+    }, 120);
+  }
+};
+
+let sdkReady = false;
+let pendingMapInit = false;
+
+async function bootstrap(){
+  try {
+    const res = await fetch('./academies.json', {cache:'no-cache'});
+    const data = await res.json();
+    ACADEMIES = data.academies;
+    CENTER = data.center;
+    hydrateHome();
+    hydrateResults();
+    if (pendingMapInit && sdkReady) initKakaoMap();
+  } catch (e){
+    console.error('Failed to load academies.json:', e);
+  }
+}
+
+/* Kick off data fetch immediately (independent of SDK) */
+bootstrap();
+
+/* Preload SDK in parallel; mark ready when done */
+if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load){
+  kakao.maps.load(() => {
+    sdkReady = true;
+    if (pendingMapInit && CENTER) initKakaoMap();
+  });
+}
 </script>
 </body>
 </html>
