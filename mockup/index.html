@@ -88,6 +88,7 @@ body{
 }
 .chip.on{border-color:#3182F6;background:#EBF2FF;color:#3182F6;}
 .chip.on.subj{border-color:#059669;background:#E5F9F3;color:#047857;}
+.chip.add{border-style:dashed;color:#B0B8C1;}
 
 /* TOGGLE */
 .trow{
@@ -161,25 +162,37 @@ body{
 .pill.open{background:#D1FAE5;color:#065F46;}
 .pill.full{background:#F3F4F6;color:#9CA3AF;text-decoration:line-through;}
 
-/* MAP */
-.map-area{height:220px;background:#E0E5EC;position:relative;flex-shrink:0;overflow:hidden;}
-.map-area svg{width:100%;height:100%;display:block;}
-.map-chips{
-  position:absolute;top:12px;left:10px;right:10px;
-  display:flex;gap:6px;z-index:10;
+/* RESULTS: FILTER BAR + LIST/MAP MODES */
+.filter-bar{
+  display:flex;gap:6px;
+  padding:10px 14px;background:#fff;
+  border-bottom:.5px solid #EAECF0;flex-shrink:0;
+  overflow-x:auto;
 }
 .mchip{
-  padding:6px 12px;border-radius:100px;background:#fff;
+  padding:6px 12px;border-radius:100px;background:#F5F6F8;
   font-size:11px;font-weight:700;color:#191F28;
-  box-shadow:0 1px 6px rgba(0,0,0,.15);cursor:pointer;
-  white-space:nowrap;transition:all .15s;
+  cursor:pointer;white-space:nowrap;transition:all .15s;
+  border:1px solid #E5E8EF;
 }
-.mchip.on{background:#3182F6;color:#fff;}
+.mchip.on{background:#3182F6;color:#fff;border-color:#3182F6;}
+.map-area{display:none;background:#E0E5EC;position:relative;overflow:hidden;}
+#sc-results.map-mode .map-area{display:block;flex:1;}
+#sc-results.map-mode .scrl{display:none;}
 .map-float{
   position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
   background:#191F28;color:#fff;border-radius:100px;
   padding:8px 18px;font-size:12px;font-weight:700;
   white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:10;
+}
+.view-toggle{
+  position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(84px + env(safe-area-inset-bottom,0px));
+  background:#191F28;color:#fff;border:none;border-radius:100px;
+  padding:11px 20px;font-size:13px;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;
+  z-index:60;font-family:inherit;white-space:nowrap;
 }
 
 /* GRID STEPS */
@@ -191,7 +204,7 @@ body{
 .sdot{flex:1;height:3px;border-radius:2px;background:#E5E8EF;transition:background .3s;}
 .sdot.on{background:#3182F6;}
 
-/* TETRIS GRID */
+/* TETRIS GRID (slot picker) */
 .tgrid{
   display:grid;
   grid-template-columns:46px repeat(5,1fr);
@@ -216,36 +229,54 @@ body{
 .legitem{display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;}
 .legdot{width:12px;height:12px;border-radius:3px;}
 
-/* TIMELINE SCHEDULE */
-.day-row{
-  display:flex;align-items:center;
-  padding:6px 14px;gap:10px;
+/* CHILD SEGMENTED CONTROL */
+.seg{
+  display:flex;background:#F0F1F3;border-radius:12px;
+  padding:3px;margin:12px 14px 10px;
 }
-.day-lbl{
-  font-size:12px;font-weight:800;color:#6B7684;
-  width:20px;flex-shrink:0;text-align:center;
+.seg-btn{
+  flex:1;border:none;background:transparent;
+  padding:9px 4px;border-radius:10px;
+  font-size:12px;font-weight:700;color:#6B7684;
+  cursor:pointer;font-family:inherit;transition:all .15s;
 }
-.timeline{
-  flex:1;height:40px;background:#F5F6F8;border-radius:8px;
-  position:relative;overflow:hidden;
+.seg-btn.on{background:#fff;color:#191F28;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+
+/* VERTICAL WEEK TIMETABLE (my schedule) */
+.vt-wrap{
+  background:#fff;padding:4px 12px 14px;
+  border-bottom:.5px solid #EAECF0;margin-bottom:10px;
 }
-.tblock{
-  position:absolute;top:4px;bottom:4px;
-  border-radius:6px;
+.vt-head{display:grid;grid-template-columns:38px repeat(5,1fr);gap:3px;margin-bottom:4px;}
+.vt-hd{font-size:11px;font-weight:800;color:#6B7684;text-align:center;padding:5px 0;}
+.vt-body{display:grid;grid-template-columns:38px repeat(5,1fr);gap:3px;}
+.vt-timecol{position:relative;height:310px;}
+.vt-time{
+  position:absolute;right:6px;transform:translateY(-50%);
+  font-size:9px;font-weight:600;color:#B0B8C1;
+}
+.vt-daycol{
+  position:relative;height:310px;
+  background:#F5F6F8;border-radius:8px;overflow:hidden;
+}
+.vt-hourline{position:absolute;left:0;right:0;height:1px;background:#EAECF0;}
+.vt-block{
+  position:absolute;left:3px;right:3px;border-radius:6px;
+  color:#fff;font-size:9px;font-weight:800;
   display:flex;align-items:center;justify-content:center;
-  font-size:9px;font-weight:800;color:#fff;
-  overflow:hidden;white-space:nowrap;padding:0 4px;
+  text-align:center;line-height:1.3;padding:2px;overflow:hidden;
 }
-.tblock.en{background:#3182F6;}
-.tblock.mt{background:#F59E0B;}
-.tblock.gap-warn{
+.vt-block.half-l{right:calc(50% + 1px);}
+.vt-block.half-r{left:calc(50% + 1px);}
+.vt-block.en{background:#3182F6;}
+.vt-block.mt{background:#F59E0B;}
+.vt-block.tk{background:#EC4899;}
+.vt-block.ar{background:#10B981;}
+.vt-block.gapb{
   background:repeating-linear-gradient(45deg,#FEF3C7,#FEF3C7 4px,#FDE68A 4px,#FDE68A 8px);
   color:#92400E;font-size:8px;
 }
-.timeline-axis{
-  display:flex;padding:0 14px 4px 44px;
-}
-.taxis-item{flex:1;font-size:9px;color:#B0B8C1;font-weight:600;}
+.vt-caption{padding:8px 2px 0;font-size:10px;color:#6B7684;text-align:center;}
 
 /* SUMMARY CARD */
 .sumcard{
@@ -268,6 +299,13 @@ body{
 }
 .warn-txt{font-size:11px;color:#92400E;line-height:1.55;}
 .warn-ttl{font-weight:800;font-size:12px;margin-bottom:3px;}
+.good-banner{
+  margin:0 14px 12px;background:#F0FFF8;
+  border-radius:12px;padding:12px 14px;
+  display:flex;align-items:flex-start;gap:10px;
+  border:1px solid #A7F3D0;
+}
+.good-txt{font-size:11px;color:#047857;line-height:1.55;}
 
 /* HOME HERO */
 .hero{
@@ -277,7 +315,7 @@ body{
 }
 .hero-greet{font-size:13px;opacity:.8;margin-bottom:4px;}
 .hero-ttl{font-size:22px;font-weight:900;line-height:1.3;margin-bottom:16px;}
-.hero-pills{display:flex;gap:6px;}
+.hero-pills{display:flex;gap:6px;flex-wrap:wrap;}
 .hero-pill{
   background:rgba(255,255,255,.2);border-radius:100px;
   padding:5px 12px;font-size:11px;font-weight:700;
@@ -360,8 +398,9 @@ input[type=range]::-webkit-slider-thumb{
 
   <div class="hero">
     <div class="hero-greet">안녕하세요, 김민정 님 👋</div>
-    <div class="hero-ttl">우리 아이 방과후<br>일정 맞춰드릴게요</div>
+    <div class="hero-ttl">우리 아이들 방과후<br>일정 맞춰드릴게요</div>
     <div class="hero-pills">
+      <div class="hero-pill">👦 지호 3학년 · 👧 지안 1학년</div>
       <div class="hero-pill" id="hero-count">광교 — 개 학원</div>
       <div class="hero-pill" id="hero-shuttle">🚌 셔틀 — 곳</div>
     </div>
@@ -369,17 +408,17 @@ input[type=range]::-webkit-slider-thumb{
 
   <div class="scrl">
     <div class="qa-grid">
-      <div class="qa-card" onclick="go('setup')">
+      <div class="qa-card" onclick="goTab('setup')">
         <div class="qa-ico">🔍</div>
         <div class="qa-lbl">조건으로<br>찾기</div>
         <div class="qa-sub">셔틀 · 시간 · 과목</div>
       </div>
-      <div class="qa-card" onclick="go('sched')">
+      <div class="qa-card" onclick="goTab('sched')">
         <div class="qa-ico">📅</div>
         <div class="qa-lbl">내 주간<br>스케줄</div>
-        <div class="qa-sub">조합 3개 저장됨</div>
+        <div class="qa-sub">지호 · 지안 저장됨</div>
       </div>
-      <div class="qa-card" onclick="go('results')">
+      <div class="qa-card" onclick="goResultsMap()">
         <div class="qa-ico">🗺️</div>
         <div class="qa-lbl">지도로<br>탐색</div>
         <div class="qa-sub">광교 · 영통 · 망포</div>
@@ -415,9 +454,9 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab on" onclick="go('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="go('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="go('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab on" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab" onclick="goTab('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
@@ -428,7 +467,7 @@ input[type=range]::-webkit-slider-thumb{
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-setup">
   <div class="nhdr">
-    <button class="nback" onclick="go('home')">←</button>
+    <button class="nback" onclick="goBack()">←</button>
     <div><div class="ntitle">조건 설정</div><div class="nsub">맞는 학원을 찾아드릴게요</div></div>
   </div>
   <div class="step-bar">
@@ -437,8 +476,17 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="scrl">
-    <div class="stitle">어떤 학교에 다니나요?</div>
-    <div class="sdesc">학교에 따라 하교시간과 셔틀 노선이 달라져요</div>
+    <div class="stitle">누구의 스케줄인가요?</div>
+    <div class="sdesc">아이별로 조건과 시간표를 따로 저장해드려요</div>
+    <div style="padding:0 18px;"><div class="chips" id="cg-child">
+      <div class="chip on" onclick="pickChild(this,'c1')">👦 지호 · 3학년</div>
+      <div class="chip" onclick="pickChild(this,'c2')">👧 지안 · 1학년</div>
+      <div class="chip add">＋ 아이 추가</div>
+    </div></div>
+    <div class="gap"></div>
+
+    <div class="slabel">어떤 학교에 다니나요?</div>
+    <div class="slabel2">학교에 따라 하교시간과 셔틀 노선이 달라져요</div>
     <div style="padding:0 18px;"><div class="chips" id="cg-school">
       <div class="chip on" onclick="pick(this,'cg-school')">광교초등학교</div>
       <div class="chip" onclick="pick(this,'cg-school')">신풍초등학교</div>
@@ -460,12 +508,12 @@ input[type=range]::-webkit-slider-thumb{
     <div class="slabel">원하는 과목 <span style="font-size:11px;font-weight:400;color:#9CA3AF;">(복수선택)</span></div>
     <div class="slabel2">3개 이하 권장</div>
     <div style="padding:0 18px;"><div class="chips">
-      <div class="chip on subj" onclick="tgl(this)">🇺🇸 영어</div>
-      <div class="chip on subj" onclick="tgl(this)">📐 수학</div>
-      <div class="chip" onclick="tgl(this)">🥋 태권도</div>
-      <div class="chip" onclick="tgl(this)">🎨 미술</div>
-      <div class="chip" onclick="tgl(this)">🎹 피아노</div>
-      <div class="chip" onclick="tgl(this)">💻 코딩</div>
+      <div class="chip on subj" onclick="tglChip(this)">🇺🇸 영어</div>
+      <div class="chip on subj" onclick="tglChip(this)">📐 수학</div>
+      <div class="chip" onclick="tglChip(this)">🥋 태권도</div>
+      <div class="chip" onclick="tglChip(this)">🎨 미술</div>
+      <div class="chip" onclick="tglChip(this)">🎹 피아노</div>
+      <div class="chip" onclick="tglChip(this)">💻 코딩</div>
     </div></div>
     <div class="gap"></div>
 
@@ -499,7 +547,7 @@ input[type=range]::-webkit-slider-thumb{
     <div style="background:#F0F5FF;border-radius:14px;padding:14px;margin:0 16px;border:.5px solid #BFDBFE;">
       <div style="font-size:12px;font-weight:800;color:#1D4ED8;margin-bottom:6px;">🔍 입력된 조건</div>
       <div style="font-size:11px;color:#3182F6;line-height:1.8;">
-        🏫 광교초등학교 3학년<br>
+        <span id="cond-child">👦 지호 — 광교초등학교 3학년</span><br>
         📚 영어 + 수학<br>
         🚌 셔틀 필수<br>
         ⏰ 18:00 이전 귀가
@@ -515,22 +563,23 @@ input[type=range]::-webkit-slider-thumb{
 
 
 <!-- ══════════════════════════════════════
-     SCREEN 3: RESULTS
+     SCREEN 3: RESULTS (list ↔ map)
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-results">
   <div class="nhdr">
-    <button class="nback" onclick="go('setup')">←</button>
+    <button class="nback" onclick="goBack()">←</button>
     <div><div class="ntitle">광교 지역 학원</div><div class="nsub">영어·수학 · 셔틀있음 · 18:00 이전</div></div>
+  </div>
+
+  <div class="filter-bar" id="map-chips">
+    <div class="mchip on" data-filter="all">전체 (—)</div>
+    <div class="mchip" data-filter="shuttle">🚌 셔틀 (—)</div>
+    <div class="mchip" data-filter="open">빈 슬롯 (—)</div>
   </div>
 
   <div class="map-area">
     <div id="kakao-map" style="width:100%;height:100%;"></div>
-    <div class="map-chips" id="map-chips">
-      <div class="mchip on" data-filter="all">전체 (—)</div>
-      <div class="mchip" data-filter="shuttle">🚌 셔틀 (—)</div>
-      <div class="mchip" data-filter="open">빈 슬롯 (—)</div>
-    </div>
-    <div class="map-float" id="map-float">조건 맞는 학원 — 개 ↓</div>
+    <div class="map-float" id="map-float">조건 맞는 학원 — 개</div>
   </div>
 
   <div class="scrl">
@@ -539,10 +588,12 @@ input[type=range]::-webkit-slider-thumb{
     <div class="gap"></div>
   </div>
 
+  <button class="view-toggle" id="view-toggle" onclick="toggleResultsView()">🗺️ 지도로 보기</button>
+
   <div class="bnav">
-    <div class="btab" onclick="go('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab on" onclick="go('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="go('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab on" onclick="goTab('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
@@ -553,7 +604,7 @@ input[type=range]::-webkit-slider-thumb{
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-slot">
   <div class="nhdr">
-    <button class="nback" onclick="go('results')">←</button>
+    <button class="nback" onclick="goBack()">←</button>
     <div class="ntitle">시간표 선택</div>
   </div>
 
@@ -653,95 +704,37 @@ input[type=range]::-webkit-slider-thumb{
 
 
 <!-- ══════════════════════════════════════
-     SCREEN 5: MY SCHEDULE
+     SCREEN 5: MY SCHEDULE (vertical week grid)
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-sched">
   <div class="nhdr">
-    <button class="nback" onclick="go('results')">←</button>
-    <div><div class="ntitle">내 주간 스케줄</div><div class="nsub">2024년 9월 · 광교초 3학년</div></div>
+    <button class="nback" onclick="goBack()">←</button>
+    <div><div class="ntitle">내 주간 스케줄</div><div class="nsub" id="sched-sub">2026년 2학기 · 광교초</div></div>
   </div>
 
   <div class="scrl">
-    <div style="background:#fff;padding:14px 0 6px;border-bottom:.5px solid #EAECF0;margin-bottom:10px;">
-      <div style="padding:0 14px 8px;font-size:11px;font-weight:800;color:#6B7684;display:flex;gap:10px;align-items:center;">
-        <span>시간표</span>
-        <span style="font-weight:400;color:#B0B8C1;">14:00 → 19:00</span>
-      </div>
-      <div class="timeline-axis">
-        <div class="taxis-item">14:00</div>
-        <div class="taxis-item">15:00</div>
-        <div class="taxis-item">16:00</div>
-        <div class="taxis-item">17:00</div>
-        <div class="taxis-item">18:00</div>
-        <div class="taxis-item">19:00</div>
-      </div>
-      <div class="day-row">
-        <div class="day-lbl">월</div>
-        <div class="timeline">
-          <div class="tblock en" style="left:40%;width:30%;">YBM 영어</div>
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-lbl">화</div>
-        <div class="timeline">
-          <div class="tblock gap-warn" style="left:50%;width:10%;" title="30분 공백">공백</div>
-          <div class="tblock mt" style="left:60%;width:30%;">세정 수학</div>
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-lbl">수</div>
-        <div class="timeline">
-          <div class="tblock en" style="left:40%;width:30%;">YBM 영어</div>
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-lbl">목</div>
-        <div class="timeline">
-          <div class="tblock gap-warn" style="left:50%;width:10%;">공백</div>
-          <div class="tblock mt" style="left:60%;width:30%;">세정 수학</div>
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-lbl">금</div>
-        <div class="timeline">
-          <div class="tblock en" style="left:40%;width:30%;">YBM 영어</div>
-        </div>
-      </div>
-
-      <div style="padding:8px 14px 2px;display:flex;gap:12px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;">
-          <div style="width:12px;height:12px;border-radius:3px;background:#3182F6;"></div>YBM 영어
-        </div>
-        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;">
-          <div style="width:12px;height:12px;border-radius:3px;background:#F59E0B;"></div>세정 수학
-        </div>
-        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;">
-          <div style="width:12px;height:12px;border-radius:3px;background:#FEF3C7;border:1px dashed #F59E0B;"></div>공백
-        </div>
-      </div>
+    <div class="seg" id="sched-seg">
+      <button class="seg-btn on" data-view="c1" onclick="setSchedView('c1')">👦 지호</button>
+      <button class="seg-btn" data-view="c2" onclick="setSchedView('c2')">👧 지안</button>
+      <button class="seg-btn" data-view="both" onclick="setSchedView('both')">👨‍👩‍👧‍👦 같이 보기</button>
     </div>
 
-    <div class="warn-banner">
-      <div style="font-size:18px;flex-shrink:0;">⚠️</div>
-      <div class="warn-txt">
-        <div class="warn-ttl">화·목요일 30분 공백 발생</div>
-        15:30 하교 후 수학학원 17:00 시작까지 빈 시간이 생겨요. 다른 17:00 슬롯을 선택하거나 셔틀 노선을 확인해보세요.
+    <div class="vt-wrap">
+      <div class="vt-head">
+        <div class="vt-hd"></div>
+        <div class="vt-hd">월</div><div class="vt-hd">화</div>
+        <div class="vt-hd">수</div><div class="vt-hd">목</div><div class="vt-hd">금</div>
       </div>
+      <div class="vt-body" id="vt-body"></div>
+      <div class="vt-caption" id="vt-caption"></div>
+      <div style="padding:8px 2px 0;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;" id="sched-legend"></div>
     </div>
+
+    <div id="sched-banners"></div>
 
     <div class="sumcard">
       <div style="font-size:14px;font-weight:900;color:#191F28;margin-bottom:12px;">스케줄 요약</div>
-      <div class="sumrow"><span class="sumkey">📚 선택 학원</span><span class="sumval">2곳 (영어 + 수학)</span></div>
-      <div class="sumrow"><span class="sumkey">📅 주간 수업</span><span class="sumval">주 5회</span></div>
-      <div class="sumrow"><span class="sumkey">🚌 셔틀 이용</span><span class="sumval">YBM만 가능</span></div>
-      <div class="sumrow">
-        <span class="sumkey">🏠 최대 귀가</span>
-        <span class="sumval" style="color:#059669;">17:45 ✓ 목표 달성</span>
-      </div>
-      <div class="sumrow" style="border-top:1px solid #F3F4F6;margin-top:4px;padding-top:12px;">
-        <span class="sumkey" style="font-weight:800;color:#191F28;">💰 예상 월 비용</span>
-        <span class="sumval" style="font-size:18px;color:#3182F6;">₩ 520,000</span>
-      </div>
+      <div id="sched-summary"></div>
     </div>
 
     <div class="gap"></div>
@@ -758,28 +751,221 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab" onclick="go('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="go('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab on" onclick="go('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab" onclick="goTab('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab on" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
 
 <script>
-const MAP={home:'sc-home',setup:'sc-setup',results:'sc-results',slot:'sc-slot',sched:'sc-sched'};
+/* ════════════════════════════════════════════════
+   NAVIGATION — real history stack
+   · back button = exactly one step back
+   · tab-bar tap = context switch, stack resets (back → home)
+   · synced with browser history so OS back-gesture works
+   ════════════════════════════════════════════════ */
+const SCREEN_IDS={home:'sc-home',setup:'sc-setup',results:'sc-results',slot:'sc-slot',sched:'sc-sched'};
+let NAV_STACK=['home'];
 
-function go(id){
-  Object.values(MAP).forEach(s=>document.getElementById(s).classList.remove('on'));
-  const el=document.getElementById(MAP[id]);
+function showScreen(id){
+  Object.values(SCREEN_IDS).forEach(s=>document.getElementById(s).classList.remove('on'));
+  const el=document.getElementById(SCREEN_IDS[id]);
   if(el){el.classList.add('on');window.scrollTo(0,0);}
+  if(id==='sched')renderSched();
+  if(id==='results'&&mapMode)ensureMap();
 }
 
+function pushHistory(){
+  try{history.pushState({stack:[...NAV_STACK]},'');}catch(e){}
+}
+
+function go(id){
+  if(NAV_STACK[NAV_STACK.length-1]!==id)NAV_STACK.push(id);
+  pushHistory();
+  showScreen(id);
+}
+
+function goTab(id){
+  NAV_STACK=(id==='home')?['home']:['home',id];
+  pushHistory();
+  showScreen(id);
+}
+
+function goBack(){
+  if(NAV_STACK.length>1){
+    NAV_STACK.pop();
+    pushHistory();
+  }else{
+    NAV_STACK=['home'];
+  }
+  showScreen(NAV_STACK[NAV_STACK.length-1]);
+}
+
+window.addEventListener('popstate',e=>{
+  NAV_STACK=(e.state&&e.state.stack&&e.state.stack.length)?e.state.stack:['home'];
+  showScreen(NAV_STACK[NAV_STACK.length-1]);
+});
+try{history.replaceState({stack:['home']},'');}catch(e){}
+
+/* ════════════════════════════════════════════════
+   CHILDREN (multi-child)
+   ════════════════════════════════════════════════ */
+const CHILDREN={
+  c1:{name:'지호',emoji:'👦',grade:'3학년',gradeIdx:2,school:'광교초등학교'},
+  c2:{name:'지안',emoji:'👧',grade:'1학년',gradeIdx:0,school:'광교초등학교'}
+};
+let CURRENT_CHILD='c1';
+
+/* Hardcoded weekly schedules per child (mock, like the rest of the demo) */
+const SCHEDULES={
+  c1:{
+    items:[
+      {name:'YBM 영어',short:'영어',subj:'en',days:['mon','wed','fri'],start:16,end:17.5},
+      {name:'세정 수학',short:'수학',subj:'mt',days:['tue','thu'],start:17,end:18.5}
+    ],
+    gaps:[{days:['tue','thu'],start:16.5,end:17,label:'공백'}],
+    warn:{ttl:'화·목요일 30분 공백 발생',txt:'돌봄교실 16:30 종료 후 세정 수학 17:00 시작까지 지호 혼자 이동·대기해야 해요. 16:30 시작 슬롯이나 셔틀 노선을 확인해보세요.'},
+    good:null,
+    sum:[
+      ['📚 선택 학원','2곳 (영어 + 수학)'],
+      ['📅 주간 수업','주 5회'],
+      ['🚌 셔틀 이용','YBM만 가능'],
+      ['🏠 최대 귀가','<span style="color:#059669;">17:45 ✓ 목표 달성</span>'],
+      ['💰 예상 월 비용','<span style="font-size:18px;color:#3182F6;">₩ 520,000</span>']
+    ]
+  },
+  c2:{
+    items:[
+      {name:'광교 태권도',short:'태권도',subj:'tk',days:['mon','wed','fri'],start:14.5,end:15.5},
+      {name:'아뜰리에 미술',short:'미술',subj:'ar',days:['tue','thu'],start:15,end:16.5}
+    ],
+    gaps:[],
+    warn:null,
+    good:null,
+    sum:[
+      ['📚 선택 학원','2곳 (태권도 + 미술)'],
+      ['📅 주간 수업','주 5회'],
+      ['🚌 셔틀 이용','태권도만 가능'],
+      ['🏠 최대 귀가','<span style="color:#059669;">16:40 ✓ 목표 달성</span>'],
+      ['💰 예상 월 비용','<span style="font-size:18px;color:#3182F6;">₩ 340,000</span>']
+    ]
+  }
+};
+const BOTH_VIEW={
+  warn:{ttl:'지호 — 화·목요일 30분 공백',txt:'돌봄교실 16:30 종료 후 세정 수학 17:00 시작까지 공백이 생겨요. 지안 하원 픽업과 겹치지 않는지 확인하세요.'},
+  good:'✓ 월·수·금 — 지안 태권도 하원(15:30)과 지호 영어 등원(16:00) 셔틀 동선이 겹치지 않아요.',
+  sum:[
+    ['📚 선택 학원','4곳 (지호 2 + 지안 2)'],
+    ['📅 주간 수업','주 10회'],
+    ['🚌 셔틀 이용','YBM · 태권도'],
+    ['🏠 최대 귀가','<span style="color:#059669;">17:45 ✓ 목표 달성</span>'],
+    ['💰 예상 월 비용','<span style="font-size:18px;color:#3182F6;">₩ 860,000</span>']
+  ]
+};
+
+/* ════════════════════════════════════════════════
+   MY SCHEDULE — vertical week grid (time flows ↓)
+   ════════════════════════════════════════════════ */
+const VT_START=14,VT_END=19;
+const VT_DAYS=['mon','tue','wed','thu','fri'];
+const SUBJ_SOLID={en:'#3182F6',mt:'#F59E0B',tk:'#EC4899',ar:'#10B981'};
+let SCHED_VIEW='c1';
+
+function vtPct(t){return ((t-VT_START)/(VT_END-VT_START))*100;}
+
+function vtBlock(it,half){
+  const cls=half?` half-${half}`:'';
+  const label=half?it.short:it.name;
+  return `<div class="vt-block ${it.subj}${cls}" style="top:${vtPct(it.start)}%;height:${vtPct(it.end)-vtPct(it.start)}%;">${label}</div>`;
+}
+function vtGap(g,half){
+  const cls=half?` half-${half}`:'';
+  return `<div class="vt-block gapb${cls}" style="top:${vtPct(g.start)}%;height:${vtPct(g.end)-vtPct(g.start)}%;">${g.label}</div>`;
+}
+
+function legendItem(color,label,striped){
+  const style=striped
+    ?'background:repeating-linear-gradient(45deg,#FEF3C7,#FEF3C7 4px,#FDE68A 4px,#FDE68A 8px);border:1px dashed #F59E0B;'
+    :`background:${color};`;
+  return `<div class="legitem"><div class="legdot" style="${style}"></div>${label}</div>`;
+}
+
+function renderSched(){
+  const view=SCHED_VIEW;
+  document.querySelectorAll('#sched-seg .seg-btn').forEach(b=>b.classList.toggle('on',b.dataset.view===view));
+
+  /* header subtitle */
+  const sub=document.getElementById('sched-sub');
+  if(view==='both')sub.textContent='2026년 2학기 · 지호 + 지안';
+  else{const c=CHILDREN[view];sub.textContent=`2026년 2학기 · 광교초 ${c.grade} ${c.name}`;}
+
+  /* time labels column */
+  let timeCol='';
+  for(let h=VT_START;h<=VT_END;h++)timeCol+=`<div class="vt-time" style="top:${vtPct(h)}%;">${h}:00</div>`;
+
+  /* day columns */
+  const cols=VT_DAYS.map(d=>{
+    let inner='';
+    for(let h=VT_START+1;h<VT_END;h++)inner+=`<div class="vt-hourline" style="top:${vtPct(h)}%;"></div>`;
+    const put=(cid,half)=>{
+      SCHEDULES[cid].items.forEach(it=>{if(it.days.includes(d))inner+=vtBlock(it,half);});
+      SCHEDULES[cid].gaps.forEach(g=>{if(g.days.includes(d))inner+=vtGap(g,half);});
+    };
+    if(view==='both'){put('c1','l');put('c2','r');}
+    else put(view,null);
+    return `<div class="vt-daycol">${inner}</div>`;
+  }).join('');
+  document.getElementById('vt-body').innerHTML=`<div class="vt-timecol">${timeCol}</div>${cols}`;
+  document.getElementById('vt-caption').textContent=view==='both'?'각 요일 왼쪽: 지호 · 오른쪽: 지안':'';
+
+  /* legend */
+  let leg='';
+  const addItems=cid=>SCHEDULES[cid].items.forEach(it=>{leg+=legendItem(SUBJ_SOLID[it.subj],it.name);});
+  if(view==='both'){addItems('c1');addItems('c2');leg+=legendItem(null,'공백',true);}
+  else{
+    addItems(view);
+    if(SCHEDULES[view].gaps.length)leg+=legendItem(null,'공백',true);
+  }
+  document.getElementById('sched-legend').innerHTML=leg;
+
+  /* banners */
+  const src=view==='both'?BOTH_VIEW:SCHEDULES[view];
+  let banners='';
+  if(src.warn)banners+=`<div class="warn-banner"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="warn-txt"><div class="warn-ttl">${src.warn.ttl}</div>${src.warn.txt}</div></div>`;
+  if(src.good)banners+=`<div class="good-banner"><div style="font-size:18px;flex-shrink:0;">🚌</div><div class="good-txt">${src.good}</div></div>`;
+  document.getElementById('sched-banners').innerHTML=banners;
+
+  /* summary */
+  document.getElementById('sched-summary').innerHTML=src.sum.map(([k,v],i)=>{
+    const last=i===src.sum.length-1;
+    const style=last?' style="border-top:1px solid #F3F4F6;margin-top:4px;padding-top:12px;"':'';
+    const key=last?`<span class="sumkey" style="font-weight:800;color:#191F28;">${k}</span>`:`<span class="sumkey">${k}</span>`;
+    return `<div class="sumrow"${style}>${key}<span class="sumval">${v}</span></div>`;
+  }).join('');
+}
+
+function setSchedView(v){SCHED_VIEW=v;renderSched();}
+
+/* ════════════════════════════════════════════════
+   SETUP interactions
+   ════════════════════════════════════════════════ */
 function pick(el,gid){
   document.querySelectorAll('#'+gid+' .chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
 }
 
-function tgl(el){
+function pickChild(el,cid){
+  pick(el,'cg-child');
+  CURRENT_CHILD=cid;
+  const c=CHILDREN[cid];
+  /* keep grade chips + condition summary in sync with the selected child */
+  document.querySelectorAll('#cg-grade .chip').forEach((g,i)=>g.classList.toggle('on',i===c.gradeIdx));
+  document.getElementById('cond-child').textContent=`${c.emoji} ${c.name} — ${c.school} ${c.grade}`;
+  SCHED_VIEW=cid;
+}
+
+function tglChip(el){
   el.classList.toggle('on');
   el.classList.toggle('subj');
 }
@@ -813,6 +999,8 @@ let CENTER = null;
 let kakaoMap = null;
 let mapInitialized = false;
 let resultsFilter = 'all';
+let mapMode = false;
+let mapPins = [];
 
 const SUBJ_LABEL = {english:'영어', math:'수학', taekwondo:'태권도', art:'미술', piano:'음악', coding:'코딩'};
 const SUBJ_CLASS = {english:'en', math:'mt', taekwondo:'tk', art:'ar', piano:'mt', coding:'mt'};
@@ -874,13 +1062,22 @@ function hydrateHome(){
   document.getElementById('recents-list').innerHTML = ACADEMIES.slice(0, 2).map(a => cardHtml(a, false)).join('');
 }
 
-function applyResultsFilter(){
+function filteredAcademies(){
   let v = ACADEMIES;
   if (resultsFilter === 'shuttle') v = v.filter(a => a.shuttleAvailable);
   if (resultsFilter === 'open') v = v.filter(a => a.slots.some(s => s.available));
-  v = v.slice(0, 20);
+  return v.slice(0, 20);
+}
+
+function applyResultsFilter(){
+  const v = filteredAcademies();
   document.getElementById('results-list').innerHTML = v.map((a, i) => cardHtml(a, i < 2)).join('');
-  document.getElementById('map-float').textContent = `조건 맞는 학원 ${v.length}개 ↓`;
+  document.getElementById('map-float').textContent = `조건 맞는 학원 ${v.length}개`;
+  /* map pins follow the active filter */
+  if (kakaoMap && mapPins.length){
+    const ids = new Set(v.map(a => a.id));
+    mapPins.forEach(p => p.overlay.setMap(ids.has(p.id) ? kakaoMap : null));
+  }
 }
 
 function hydrateResults(){
@@ -900,6 +1097,20 @@ function hydrateResults(){
     });
   });
   applyResultsFilter();
+}
+
+/* LIST ↔ MAP view toggle */
+function setResultsView(map){
+  mapMode = map;
+  document.getElementById('sc-results').classList.toggle('map-mode', mapMode);
+  document.getElementById('view-toggle').textContent = mapMode ? '☰ 목록으로 보기' : '🗺️ 지도로 보기';
+  if (mapMode) ensureMap();
+}
+function toggleResultsView(){ setResultsView(!mapMode); }
+
+function goResultsMap(){
+  go('results');
+  setResultsView(true);
 }
 
 function initKakaoMap(){
@@ -926,10 +1137,13 @@ function initKakaoMap(){
     el.style.cssText = `background:${color};color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;`;
     el.textContent = a.fitScore;
     el.addEventListener('click', () => openSlot(a.id));
-    new kakao.maps.CustomOverlay({position: pos, content: el, yAnchor:0.5, xAnchor:0.5, zIndex:3}).setMap(kakaoMap);
+    const overlay = new kakao.maps.CustomOverlay({position: pos, content: el, yAnchor:0.5, xAnchor:0.5, zIndex:3});
+    overlay.setMap(kakaoMap);
+    mapPins.push({id: a.id, overlay});
   });
 
   mapInitialized = true;
+  applyResultsFilter();
 }
 
 function relayoutMap(){
@@ -938,6 +1152,12 @@ function relayoutMap(){
     kakaoMap.relayout();
     kakaoMap.setCenter(new kakao.maps.LatLng(CENTER.lat, CENTER.lng));
   }, 50);
+}
+
+function ensureMap(){
+  if (mapInitialized){ relayoutMap(); return; }
+  if (sdkReady && CENTER) setTimeout(initKakaoMap, 120);
+  else pendingMapInit = true;
 }
 
 function openSlot(academyId){
@@ -955,19 +1175,6 @@ function openSlot(academyId){
     `<span class="tag ok">${a.fitScore}% 적합</span>`;
   go('slot');
 }
-
-/* Wrap go() so navigating to results triggers map init/relayout */
-const _origGo = go;
-go = function(id){
-  _origGo(id);
-  if (id === 'results'){
-    setTimeout(() => {
-      if (mapInitialized) { relayoutMap(); return; }
-      if (sdkReady && CENTER) initKakaoMap();
-      else pendingMapInit = true;
-    }, 120);
-  }
-};
 
 let sdkReady = false;
 let pendingMapInit = false;
@@ -996,6 +1203,9 @@ if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load){
     if (pendingMapInit && CENTER) initKakaoMap();
   });
 }
+
+/* Initial render of the schedule screen data */
+renderSched();
 </script>
 </body>
 </html>

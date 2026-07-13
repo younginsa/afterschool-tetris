@@ -33,7 +33,10 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 ├── afterschool-tetris-brief.md    # original strategic brief
 ├── afterschool-tetris-mockup.html # 5-screen vanilla HTML mockup (visual spec)
 ├── CLAUDE.md                      # this file
-└── app/                           # Next.js 15 project
+├── mockup/                        # ★ DEPLOYED build (Vercel root dir) — vanilla HTML+JS, source of truth for the live app
+│   ├── index.html                 # nav history stack, list↔map toggle, multi-child, vertical week timetable
+│   └── academies.json             # real Gwanggyo academy data (Kakao Local API sourced)
+└── app/                           # Next.js 15 project (NOT deployed; feature-behind mockup/, needs port of July 2026 UX changes)
     ├── data/academies.json        # hardcoded mock data — load-bearing
     ├── src/app/                   # App router routes
     │   ├── page.tsx               # Screen 1: 홈 (Home)
@@ -68,7 +71,10 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 | **Gap warnings surface automatically** | Parents don't notice dangerous pickup gaps without prompting |
 | **Shuttle is a top-level toggle, not a filter** | It's a hard constraint, not a preference |
 | **Combo suggestion lives inside slot view** | Cross-sell at the moment of commitment, not before |
-| **Timeline view over table grid in schedule** | More intuitive at a glance for non-technical users |
+| **Vertical week-grid timetable in schedule** | Days as columns, time flows top→bottom (calendar-style). Replaced the horizontal timeline per user decision, July 2026 |
+| **Multi-child is first-class** | Child selector in setup; 지호/지안/같이 보기 tabs in schedule. 같이 보기 splits each day column (left=child 1, right=child 2). This is the differentiating wedge — no competitor does multi-child feasibility |
+| **Back = exactly one step; tabs reset the stack** | Navigation uses a real history stack synced to browser history (OS back-gesture works). Tab-bar taps are context switches: stack resets so back goes straight home |
+| **Results list↔map full-screen toggle** | List is default; floating pill button switches to full-screen map. Filter chips visible in both modes; map pins follow the active filter |
 | **Monthly cost estimate per slot** | Anchors decision-making to budget reality |
 | **44px minimum tap targets** | Toss WebKit / mobile-first ergonomics |
 
@@ -119,7 +125,15 @@ type Academy = {
   fitScore: number;      // 60-99
 };
 
+type Child = {
+  id: string;            // demo children: c1 지호(3학년) / c2 지안(1학년)
+  name: string;
+  grade: 1 | 2 | 3 | 4 | 5 | 6;
+  school: '광교초' | '신풍초' | '영통초';
+};
+
 type Constraints = {
+  childId: string;       // constraints & schedules are saved per child
   school: '광교초' | '신풍초' | '영통초';
   grade: 1 | 2 | 3 | 4 | 5 | 6;
   subjects: Subject[];
@@ -141,7 +155,7 @@ type Selection = {
 
 - User auth or accounts
 - Any real-time data
-- Sibling coordination
+- ~~Sibling coordination~~ → **promoted to core scope July 2026** (multi-child selector + 같이 보기 combined view; competitive wedge)
 - AI recommendations
 - Shuttle booking / payment
 - In-app academy messaging
