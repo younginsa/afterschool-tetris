@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>방과후 테트리스 — 데이터 업데이트 도구</title>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5ef5affc2b6e6ecc37445cbf06499dc&autoload=false&libraries=services"></script>
+<style>
+body{font-family:-apple-system,'Noto Sans KR',sans-serif;max-width:720px;margin:24px auto;padding:0 16px;color:#191F28;background:#F5F6F8;}
+h1{font-size:20px;}
+p{font-size:13px;color:#6B7684;line-height:1.6;}
+button{background:#3182F6;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-right:8px;}
+button:disabled{background:#B0B8C1;cursor:not-allowed;}
+button.sec{background:#EBF2FF;color:#3182F6;}
+#log{background:#191F28;color:#A7F3D0;font-family:monospace;font-size:12px;padding:12px;border-radius:10px;height:220px;overflow-y:auto;white-space:pre-wrap;margin:14px 0;}
+textarea{width:100%;height:200px;font-family:monospace;font-size:11px;border-radius:10px;border:1px solid #E5E8EF;padding:10px;}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.stat{background:#fff;border:1px solid #EAECF0;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:700;}
+</style>
+</head>
+<body>
+<h1>🧩 광교 학원 데이터 업데이트</h1>
+<p>
+카카오 로컬 검색(JS SDK)으로 광교초 주변 학원을 카테고리별로 수집해서
+<code>academies.json</code> 형식으로 만들어줍니다.<br>
+<b>사용법:</b> ① 생성 시작 → ② 완료되면 다운로드 → ③ 받은 파일로
+<code>mockup/academies.json</code>을 교체 → 커밋/배포.<br>
+슬롯·셔틀·비용·적합도는 place id 기반 시드로 생성되는 목데이터라서,
+같은 학원은 재생성해도 항상 같은 값이 나옵니다.
+</p>
+
+<button id="run" onclick="generate()">① 데이터 생성 시작</button>
+<button id="dl" class="sec" onclick="download()" disabled>② academies.json 다운로드</button>
+<button id="cp" class="sec" onclick="copyJson()" disabled>클립보드 복사</button>
+
+<div class="stats" id="stats"></div>
+<div id="log">대기 중…</div>
+<textarea id="out" placeholder="생성된 JSON이 여기 표시됩니다"></textarea>
+
+<script>
+/* ── config ─────────────────────────────────────── */
+const CENTER={name:'광교초등학교',lng:127.0457384937563,lat:37.30389632012045};
+const RADIUS=2500;         /* meters around 광교초 */
+const MAX_PAGES=3;         /* 15 results per page → up to 45 per keyword */
+
+/* subject → search keywords (add a line here to add a category) */
+const KEYWORDS={
+  english:['영어학원'],
+  math:['수학학원'],
+  taekwondo:['태권도'],
+  art:['미술학원'],
+  piano:['피아노학원'],
+  coding:['코딩학원'],
+  boxing:['복싱','킥복싱'],
+  ballet:['발레학원'],
+  soccer:['축구교실'],
+  jumprope:['줄넘기']
+};
+const EMOJI={english:'🇺🇸',math:'📐',taekwondo:'🥋',art:'🎨',piano:'🎹',coding:'💻',boxing:'🥊',ballet:'🩰',soccer:'⚽',jumprope:'🪢'};
+/* monthly cost range (KRW) per subject */
+const COST={english:[240,340],math:[220,320],taekwondo:[130,180],art:[140,200],piano:[150,220],coding:[180,280],boxing:[120,180],ballet:[150,220],soccer:[100,160],jumprope:[80,140]};
+/* probability the academy runs a shuttle */
+const SHUTTLE_P={english:.55,math:.3,taekwondo:.75,art:.3,piano:.2,coding:.25,boxing:.35,ballet:.3,soccer:.6,jumprope:.3};
+
+/* ── deterministic PRNG seeded by place id ──────── */
+function hashCode(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h+s.charCodeAt(i))|0;}return h>>>0;}
+function mulberry32(seed){
+  return function(){
+    seed|=0;seed=(seed+0x6D2B79F5)|0;
+    let t=Math.imul(seed^(seed>>>15),1|seed);
+    t=(t+Math.imul(t^(t>>>7),61|t))^t;
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+}
+
+/* ── mock enrichment (same shape as the live app expects) ── */
+const DAY_PATTERNS=[['mon','wed','fri'],['tue','thu'],['mon','wed'],['tue','thu','fri']];
+const STARTS=['14:00','15:00','16:00','16:30','17:00','17:30'];
+function addMin(hhmm,min){
+  const [h,m]=hhmm.split(':').map(Number);
+  const t=h*60+m+min;
+  return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');
+}
+function enrich(place,subjects){
+  const rnd=mulberry32(hashCode(place.id));
+  const subj=subjects[0];
+  const [lo,hi]=COST[subj]||[150,250];
+  const slots=[];
+  const usedPatterns=new Set();
+  const groups=2+(rnd()<0.4?1:0);
+  for(let g=0;g<groups;g++){
+    let pi=Math.floor(rnd()*DAY_PATTERNS.length);
+    if(usedPatterns.has(pi))pi=(pi+1)%DAY_PATTERNS.length;
+    usedPatterns.add(pi);
+    const start=STARTS[Math.floor(rnd()*STARTS.length)];
+    const dur=rnd()<0.5?60:90;
+    for(const day of DAY_PATTERNS[pi]){
+      slots.push({day,startTime:start,endTime:addMin(start,dur),available:rnd()<0.75});
+    }
+  }
+  return {
+    id:'kakao-'+place.id,
+    name:place.place_name,
+    address:place.road_address_name||place.address_name,
+    phone:place.phone||'',
+    distanceKm:Math.round((parseInt(place.distance,10)/1000)*100)/100,
+    subjects,
+    shuttleAvailable:rnd()<(SHUTTLE_P[subj]||.3),
+    monthlyCostKRW:(lo+Math.floor(rnd()*((hi-lo)/10+1))*10)*1000,
+    fitScore:62+Math.floor(rnd()*37),
+    emoji:EMOJI[subj]||'📚',
+    lng:parseFloat(place.x),
+    lat:parseFloat(place.y),
+    slots,
+    placeUrl:place.place_url
+  };
+}
+
+/* ── collection ─────────────────────────────────── */
+const logEl=document.getElementById('log');
+function log(s){logEl.textContent+='\n'+s;logEl.scrollTop=logEl.scrollHeight;}
+
+function searchKeyword(ps,keyword){
+  /* one keyword, paginated */
+  return new Promise(resolve=>{
+    const all=[];
+    let page=1;
+    function run(){
+      ps.keywordSearch(keyword,(data,status,pagination)=>{
+        if(status===kakao.maps.services.Status.OK){
+          all.push(...data);
+          if(pagination.hasNextPage&&page<MAX_PAGES){page++;pagination.nextPage();return;}
+        }else if(status!==kakao.maps.services.Status.ZERO_RESULT){
+          log(`  ⚠️ ${keyword}: ${status}`);
+        }
+        resolve(all);
+      },{
+        location:new kakao.maps.LatLng(CENTER.lat,CENTER.lng),
+        radius:RADIUS,
+        sort:kakao.maps.services.SortBy.DISTANCE
+      });
+    }
+    run();
+  });
+}
+
+let RESULT=null;
+
+async function generate(){
+  document.getElementById('run').disabled=true;
+  logEl.textContent='시작…';
+  await new Promise(r=>kakao.maps.load(r));
+  const ps=new kakao.maps.services.Places();
+  const byId=new Map();   /* place id → {place, subjects:Set} */
+
+  for(const [subject,words] of Object.entries(KEYWORDS)){
+    for(const w of words){
+      log(`🔍 ${subject} — "${w}" 검색 중…`);
+      const places=await searchKeyword(ps,w);
+      let added=0;
+      for(const p of places){
+        if(parseInt(p.distance,10)>RADIUS)continue;
+        if(!byId.has(p.id)){byId.set(p.id,{place:p,subjects:new Set()});added++;}
+        byId.get(p.id).subjects.add(subject);
+      }
+      log(`   → ${places.length}건 수신, 신규 ${added}건`);
+      await new Promise(r=>setTimeout(r,350)); /* rate-limit 여유 */
+    }
+  }
+
+  const academies=[...byId.values()]
+    .map(({place,subjects})=>enrich(place,[...subjects]))
+    .sort((a,b)=>a.distanceKm-b.distanceKm);
+
+  RESULT={center:CENTER,generatedAt:new Date().toISOString(),academies};
+
+  /* stats */
+  const counts={};
+  academies.forEach(a=>a.subjects.forEach(s=>counts[s]=(counts[s]||0)+1));
+  document.getElementById('stats').innerHTML=
+    `<div class="stat">총 ${academies.length}곳</div>`+
+    Object.entries(counts).map(([k,v])=>`<div class="stat">${EMOJI[k]||''} ${k}: ${v}</div>`).join('');
+
+  document.getElementById('out').value=JSON.stringify(RESULT,null,1);
+  document.getElementById('dl').disabled=false;
+  document.getElementById('cp').disabled=false;
+  document.getElementById('run').disabled=false;
+  log(`✅ 완료 — 학원 ${academies.length}곳. 다운로드 후 mockup/academies.json 교체하세요.`);
+}
+
+function download(){
+  const blob=new Blob([document.getElementById('out').value],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='academies.json';
+  a.click();
+}
+async function copyJson(){
+  await navigator.clipboard.writeText(document.getElementById('out').value);
+  log('📋 클립보드에 복사됨');
+}
+</script>
+</body>
+</html>

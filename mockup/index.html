@@ -659,6 +659,10 @@ input[type=range]::-webkit-slider-thumb{
       <div class="chip" data-subj="art" onclick="tglChip(this)">🎨 미술</div>
       <div class="chip" data-subj="piano" onclick="tglChip(this)">🎹 피아노</div>
       <div class="chip" data-subj="coding" onclick="tglChip(this)">💻 코딩</div>
+      <div class="chip" data-subj="boxing" onclick="tglChip(this)">🥊 복싱</div>
+      <div class="chip" data-subj="ballet" onclick="tglChip(this)">🩰 발레</div>
+      <div class="chip" data-subj="soccer" onclick="tglChip(this)">⚽ 축구</div>
+      <div class="chip" data-subj="jumprope" onclick="tglChip(this)">🪢 줄넘기</div>
     </div></div>
     <div class="gap"></div>
 
@@ -1226,6 +1230,10 @@ const CATEGORIES=[
   {subj:'art',ico:'🎨',lbl:'미술',bg:'#D1FAE5'},
   {subj:'piano',ico:'🎹',lbl:'피아노',bg:'#F3E8FF'},
   {subj:'coding',ico:'💻',lbl:'코딩',bg:'#E0F2FE'},
+  {subj:'boxing',ico:'🥊',lbl:'복싱',bg:'#FEE2E2'},
+  {subj:'ballet',ico:'🩰',lbl:'발레',bg:'#FCE7F3'},
+  {subj:'soccer',ico:'⚽',lbl:'축구',bg:'#DCFCE7'},
+  {subj:'jumprope',ico:'🪢',lbl:'줄넘기',bg:'#FEF3C7'},
   {subj:null,ico:'🗺️',lbl:'지도',bg:'#F0F1F3'}
 ];
 
@@ -1460,8 +1468,8 @@ let mapInitialized=false;
 let mapPins=[];
 let SEARCH_Q='';
 
-const SUBJ_LABEL={english:'영어',math:'수학',taekwondo:'태권도',art:'미술',piano:'음악',coding:'코딩'};
-const SUBJ_CLASS={english:'en',math:'mt',taekwondo:'tk',art:'ar',piano:'mt',coding:'mt'};
+const SUBJ_LABEL={english:'영어',math:'수학',taekwondo:'태권도',art:'미술',piano:'음악',coding:'코딩',boxing:'복싱',ballet:'발레',soccer:'축구',jumprope:'줄넘기'};
+const SUBJ_CLASS={english:'en',math:'mt',taekwondo:'tk',art:'ar',piano:'mt',coding:'mt',boxing:'tk',ballet:'ar',soccer:'ar',jumprope:'mt'};
 const DAY_LABEL={mon:'월',tue:'화',wed:'수',thu:'목',fri:'금'};
 
 function toH(hhmm){
