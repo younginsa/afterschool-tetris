@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>live search self-test</title>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5ef5affc2b6e6ecc37445cbf06499dc&autoload=false&libraries=services"></script>
+</head>
+<body>
+<pre id="out">running…</pre>
+<script>
+const out=document.getElementById('out');
+function report(tag,obj){
+  const s=JSON.stringify(obj);
+  out.textContent+='\n'+tag+' '+s;
+  /* piggyback results into the local http.server access log; localhost is
+     exempt from mixed-content blocking so this works from https too */
+  fetch('http://localhost:8931/LIVETEST/'+tag+'/'+encodeURIComponent(s).slice(0,1800),{mode:'no-cors'}).catch(()=>{});
+}
+if(typeof kakao==='undefined'||!kakao.maps){
+  report('sdk',{ok:false,reason:'kakao undefined — domain not allowed or network blocked'});
+}else{
+  kakao.maps.load(()=>{
+    if(!kakao.maps.services){report('sdk',{ok:false,reason:'services lib missing'});return;}
+    report('sdk',{ok:true});
+    const ps=new kakao.maps.services.Places();
+    const loc=new kakao.maps.LatLng(37.30389632012045,127.0457384937563);
+    const D=kakao.maps.services.SortBy.DISTANCE;
+    const tests=[
+      ['boxing-radius10k','복싱',{location:loc,radius:10000,sort:D,size:15}],
+      ['kickboxing-radius10k','킥복싱',{location:loc,radius:10000,sort:D,size:15}],
+      ['rushclan-direct','광교러쉬클랜',{size:15}],
+      ['rushclan-spaced','광교 러쉬클랜',{size:15}],
+      ['boxing-noopts','복싱',{}],
+      ['boxing-radius2k','복싱',{location:loc,radius:2000,sort:D,size:15}]
+    ];
+    let i=0;
+    (function next(){
+      if(i>=tests.length){report('done',{});return;}
+      const [tag,kw,opt]=tests[i++];
+      try{
+        ps.keywordSearch(kw,(d,s)=>{
+          report(tag,{
+            q:kw,status:s,count:d?d.length:0,
+            top:(d||[]).slice(0,5).map(x=>[x.place_name,x.distance,x.category_name&&x.category_name.split('>').pop().trim()])
+          });
+          setTimeout(next,350);
+        },opt);
+      }catch(e){report(tag,{q:kw,exception:String(e)});setTimeout(next,350);}
+    })();
+  });
+}
+</script>
+</body>
+</html>
