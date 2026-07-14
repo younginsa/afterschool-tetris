@@ -1537,7 +1537,11 @@ function filteredAcademies(){
   const c=searchCons();
   let v=ACADEMIES;
   const q=SEARCH_Q.trim();
-  if(q)v=v.filter(a=>a.name.includes(q)||a.subjects.some(s=>(SUBJ_LABEL[s]||'').includes(q)));
+  const nq=q.replace(/\s+/g,'');
+  if(q)v=v.filter(a=>
+    a.name.replace(/\s+/g,'').includes(nq)||
+    (a.address||'').replace(/\s+/g,'').includes(nq)||
+    a.subjects.some(s=>(SUBJ_LABEL[s]||'').includes(nq)));
   /* a typed query is explicit intent, so it relaxes the subject constraint;
      shuttle / time / open-slot constraints still apply */
   if(c.subjects.length&&!q)v=v.filter(a=>a.subjects.some(s=>c.subjects.includes(s)));
@@ -1595,8 +1599,9 @@ function applySearch(){
      </div>`
     :'';
 
+  const registeredLbl=(q&&v.length)?`<div class="divlbl">등록된 학원 (${v.length})</div>`:'';
   document.getElementById('search-list').innerHTML=
-    nudge+empty+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('')+`<div id="live-results"></div>`;
+    nudge+empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('')+`<div id="live-results"></div>`;
   document.getElementById('sheet-count').textContent=
     `학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
 
@@ -1663,7 +1668,12 @@ function liveSearch(q){
   const token=++LIVE_TOKEN;
   const box=document.getElementById('live-results');
   if(!box)return;
-  if(!q||typeof kakao==='undefined'||!sdkReady||!kakao.maps.services){box.innerHTML='';clearLivePins();return;}
+  if(!q){box.innerHTML='';clearLivePins();return;}
+  /* fail loudly, never silently — the user must see why nothing appeared */
+  if(typeof kakao==='undefined'||!sdkReady||!kakao.maps.services){
+    box.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="info-txt">카카오 실시간 검색을 불러올 수 없어요. 네트워크 상태 또는 카카오 개발자 콘솔의 사이트 도메인 등록을 확인해주세요.</div></div>`;
+    return;
+  }
   box.innerHTML=`<div class="divlbl">🔎 카카오 실시간 검색 중…</div>`;
   const ps=new kakao.maps.services.Places();
   ps.keywordSearch(q,(data,status)=>{
@@ -1671,12 +1681,19 @@ function liveSearch(q){
     const b=document.getElementById('live-results');
     if(!b)return;
     clearLivePins();
-    if(status!==kakao.maps.services.Status.OK||!data.length){b.innerHTML='';return;}
+    console.log('[live-search]',q,status,data&&data.length);
+    if(status===kakao.maps.services.Status.ERROR){
+      b.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="info-txt">카카오 검색 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.</div></div>`;
+      return;
+    }
     const known=new Set(ACADEMIES.map(a=>a.id));
-    const fresh=data
-      .filter(p=>!known.has('kakao-'+p.id)&&parseInt(p.distance||'99999',10)<=3000)
-      .slice(0,10);
-    if(!fresh.length){b.innerHTML='';return;}
+    const fresh=(status===kakao.maps.services.Status.OK?data:[])
+      .filter(p=>!known.has('kakao-'+p.id))
+      .slice(0,12);
+    if(!fresh.length){
+      b.innerHTML=`<div class="empty-state" style="padding:16px 20px;">카카오에서도 '${esc(q)}' 주변 결과가 없어요<span>광교초 반경 10km 기준</span></div>`;
+      return;
+    }
     b.innerHTML=
       `<div class="divlbl">🔎 카카오 실시간 결과 · 아직 미등록 (${fresh.length})</div>`+
       fresh.map(p=>liveCardHtml(p,q)).join('');
@@ -1691,12 +1708,14 @@ function liveSearch(q){
         LIVE_PINS.push(ov);
       });
     }
-  },{location:new kakao.maps.LatLng(CENTER.lat,CENTER.lng),radius:3000,sort:kakao.maps.services.SortBy.DISTANCE});
+  },{location:new kakao.maps.LatLng(CENTER.lat,CENTER.lng),radius:10000,sort:kakao.maps.services.SortBy.DISTANCE,size:15});
 }
 
 function onSearchInput(v){
   SEARCH_Q=v;
   document.getElementById('search-clear').style.display=v?'':'none';
+  /* typing = search intent: surface the results list over the map */
+  if(v&&sheetState==='peek')setSheet('half');
   applySearch();
 }
 function clearSearch(){
@@ -1862,6 +1881,15 @@ if(typeof kakao!=='undefined'&&kakao.maps&&kakao.maps.load){
     if(pendingMapInit&&CENTER)initKakaoMap();
   });
 }
+
+/* Enter = search now (dismiss keyboard, skip the debounce) */
+document.getElementById('search-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    e.target.blur();
+    clearTimeout(liveTimer);
+    liveSearch(SEARCH_Q.trim());
+  }
+});
 
 /* Initial render */
 renderCategories();
