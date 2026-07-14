@@ -67,14 +67,15 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 | Decision | Rationale |
 |---|---|
 | **적합도 % replaces star rating** | Fit is the core metric, not academy quality |
-| **Constraint-first input** | Establish constraints *before* showing options. No search bar. |
+| **One-depth map-first search (July 2026)** | 학원찾기 = single screen: search bar + editable constraint chips + map base + draggable list sheet (peek/half/full). Replaced the two-depth wizard→results flow. Constraint-first *principle* survives as always-visible chips, not a gate page |
+| **Pure search is allowed** | Zero constraints still searches/browses everything. Intelligence degrades gracefully: no 적합도 badge, distance sort, emoji pins, nudge banner offering 조건 설정. Constraints set → fit badges, fit sort, score pins |
+| **Wizard demoted to 전체 조건 editor** | The old setup screen remains as full-condition editor / onboarding, reached via ⚙️ 전체 조건 chip or the nudge banner |
 | **Gap warnings surface automatically** | Parents don't notice dangerous pickup gaps without prompting |
 | **Shuttle is a top-level toggle, not a filter** | It's a hard constraint, not a preference |
 | **Combo suggestion lives inside slot view** | Cross-sell at the moment of commitment, not before |
 | **Vertical week-grid timetable in schedule** | Days as columns, time flows top→bottom (calendar-style). Replaced the horizontal timeline per user decision, July 2026 |
 | **Multi-child is first-class** | Child selector in setup; 지호/지안/같이 보기 tabs in schedule. 같이 보기 splits each day column (left=child 1, right=child 2). This is the differentiating wedge — no competitor does multi-child feasibility |
 | **Back = exactly one step; tabs reset the stack** | Navigation uses a real history stack synced to browser history (OS back-gesture works). Tab-bar taps are context switches: stack resets so back goes straight home |
-| **Results list↔map full-screen toggle** | List is default; floating pill button switches to full-screen map. Filter chips visible in both modes; map pins follow the active filter |
 | **Monthly cost estimate per slot** | Anchors decision-making to budget reality |
 | **44px minimum tap targets** | Toss WebKit / mobile-first ergonomics |
 

@@ -212,38 +212,75 @@ body{
 .pill.open{background:#D1FAE5;color:#065F46;}
 .pill.full{background:#F3F4F6;color:#9CA3AF;text-decoration:line-through;}
 
-/* RESULTS: FILTER BAR + LIST/MAP MODES */
-.filter-bar{
-  display:flex;gap:6px;
-  padding:10px 14px;background:#fff;
+/* ═══ ONE-DEPTH SEARCH SCREEN ═══ */
+.search-top{
+  background:#fff;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;
   border-bottom:.5px solid #EAECF0;flex-shrink:0;
-  overflow-x:auto;
 }
-.mchip{
-  padding:6px 12px;border-radius:100px;background:#F5F6F8;
-  font-size:11px;font-weight:700;color:#191F28;
+.search-bar{
+  display:flex;align-items:center;gap:8px;
+  background:#F5F6F8;border-radius:12px;
+  padding:11px 14px;margin-bottom:10px;
+}
+.search-bar input{
+  flex:1;border:none;background:none;outline:none;
+  font-size:16px;font-weight:600;color:#191F28;font-family:inherit;
+  min-width:0;
+}
+.search-bar input::placeholder{color:#B0B8C1;font-size:14px;}
+.search-clear{
+  border:none;background:#E5E8EF;border-radius:50%;
+  width:20px;height:20px;font-size:10px;color:#6B7684;
+  cursor:pointer;flex-shrink:0;
+}
+.cchips{
+  display:flex;gap:6px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.cchips::-webkit-scrollbar{display:none;}
+.cchip{
+  flex:0 0 auto;padding:8px 13px;border-radius:100px;
+  border:1px solid #E5E8EF;background:#fff;
+  font-size:12px;font-weight:700;color:#6B7684;
   cursor:pointer;white-space:nowrap;transition:all .15s;
-  border:1px solid #E5E8EF;
 }
-.mchip.on{background:#3182F6;color:#fff;border-color:#3182F6;}
-.mchip.subj-active{background:#E5F9F3;color:#047857;border-color:#A7F3D0;}
-.map-area{display:none;background:#E0E5EC;position:relative;overflow:hidden;}
-#sc-results.map-mode .map-area{display:block;flex:1;}
-#sc-results.map-mode .scrl{display:none;}
-.map-float{
-  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
-  background:#191F28;color:#fff;border-radius:100px;
-  padding:8px 18px;font-size:12px;font-weight:700;
-  white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:10;
+.cchip.on{border-color:#3182F6;background:#EBF2FF;color:#3182F6;}
+.cchip.reset{color:#EF4444;border-color:#FECACA;}
+.search-body{
+  flex:1;position:relative;overflow:hidden;
+  margin-bottom:calc(72px + env(safe-area-inset-bottom,0px));
 }
-.view-toggle{
-  position:absolute;left:50%;transform:translateX(-50%);
-  bottom:calc(84px + env(safe-area-inset-bottom,0px));
-  background:#191F28;color:#fff;border:none;border-radius:100px;
-  padding:11px 20px;font-size:13px;font-weight:700;
-  display:flex;align-items:center;gap:6px;
-  box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;
-  z-index:60;font-family:inherit;white-space:nowrap;
+#kakao-map{position:absolute;inset:0;background:#E0E5EC;}
+
+/* draggable list sheet over the map */
+.list-sheet{
+  position:absolute;left:0;right:0;top:0;bottom:0;
+  background:#fff;border-radius:20px 20px 0 0;
+  box-shadow:0 -4px 20px rgba(0,0,0,.12);
+  display:flex;flex-direction:column;
+  z-index:30;will-change:transform;
+  transition:transform .28s cubic-bezier(.3,.9,.3,1);
+}
+.list-sheet.dragging{transition:none;}
+.sheet-grab{
+  padding:10px 16px 10px;flex-shrink:0;
+  cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+}
+.grab-bar{width:44px;height:5px;border-radius:3px;background:#E5E8EF;margin:0 auto 9px;}
+.sheet-count{font-size:12px;font-weight:800;color:#191F28;text-align:center;}
+.sheet-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:14px;}
+.nudge{
+  margin:2px 14px 12px;background:#F0F5FF;
+  border:1px solid #BFDBFE;border-radius:12px;
+  padding:11px 14px;display:flex;align-items:center;gap:10px;
+  font-size:11px;color:#1C6FDF;line-height:1.5;cursor:pointer;
+}
+.nudge b{font-weight:800;}
+.nudge-cta{
+  margin-left:auto;flex-shrink:0;
+  background:#3182F6;color:#fff;border:none;border-radius:100px;
+  padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;
 }
 
 /* GRID STEPS */
@@ -364,9 +401,6 @@ body{
 }
 .info-txt{font-size:11px;color:#1C6FDF;line-height:1.55;}
 
-/* QUICK ACTIONS (legacy, unused on home now) */
-.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;}
-
 /* DIVIDER */
 .divlbl{padding:12px 16px 4px;font-size:11px;font-weight:700;color:#B0B8C1;text-transform:uppercase;letter-spacing:.05em;}
 .gap{height:14px;}
@@ -424,7 +458,7 @@ input[type=range]::-webkit-slider-thumb{
   border:none;border-radius:14px;cursor:pointer;font-family:inherit;
 }
 
-/* CHILD MANAGER BOTTOM SHEET */
+/* BOTTOM SHEET (child manager + mini constraint editors) */
 .sheet-bg{
   position:fixed;inset:0;background:rgba(0,0,0,.45);
   z-index:90;display:none;
@@ -469,6 +503,11 @@ input[type=range]::-webkit-slider-thumb{
 }
 .del-btn{
   width:100%;border:none;background:none;color:#EF4444;
+  font-size:13px;font-weight:700;padding:12px;margin-top:2px;
+  cursor:pointer;font-family:inherit;
+}
+.clear-btn{
+  width:100%;border:none;background:none;color:#6B7684;
   font-size:13px;font-weight:700;padding:12px;margin-top:2px;
   cursor:pointer;font-family:inherit;
 }
@@ -521,7 +560,7 @@ input[type=range]::-webkit-slider-thumb{
 
   <div class="bnav">
     <div class="btab on" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="goTab('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('search')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
     <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
   </div>
@@ -529,12 +568,47 @@ input[type=range]::-webkit-slider-thumb{
 
 
 <!-- ══════════════════════════════════════
-     SCREEN 2: SETUP
+     SCREEN 2: SEARCH — one-depth map + list
+══════════════════════════════════════ -->
+<div class="screen" id="sc-search">
+
+  <div class="search-top">
+    <div class="search-bar">
+      <span style="font-size:15px;">🔍</span>
+      <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" oninput="onSearchInput(this.value)">
+      <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="cchips" id="cchips"></div>
+  </div>
+
+  <div class="search-body" id="search-body">
+    <div id="kakao-map"></div>
+
+    <div class="list-sheet" id="list-sheet">
+      <div class="sheet-grab" id="sheet-grab">
+        <div class="grab-bar"></div>
+        <div class="sheet-count" id="sheet-count">학원 —개</div>
+      </div>
+      <div class="sheet-list" id="search-list"></div>
+    </div>
+  </div>
+
+  <div class="bnav">
+    <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
+    <div class="btab on" onclick="goTab('search')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SCREEN 3: FULL CONDITIONS (wizard / onboarding)
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-setup">
   <div class="nhdr">
     <button class="nback" onclick="goBack()">←</button>
-    <div><div class="ntitle">조건 설정</div><div class="nsub">맞는 학원을 찾아드릴게요</div></div>
+    <div><div class="ntitle">전체 조건 설정</div><div class="nsub">조건을 저장하면 적합도를 계산해드려요</div></div>
   </div>
   <div class="step-bar">
     <div class="sdot on"></div><div class="sdot on"></div>
@@ -572,13 +646,13 @@ input[type=range]::-webkit-slider-thumb{
 
     <div class="slabel">원하는 과목 <span style="font-size:11px;font-weight:400;color:#9CA3AF;">(복수선택)</span></div>
     <div class="slabel2">3개 이하 권장</div>
-    <div style="padding:0 18px;"><div class="chips">
-      <div class="chip on subj" onclick="tglChip(this)">🇺🇸 영어</div>
-      <div class="chip on subj" onclick="tglChip(this)">📐 수학</div>
-      <div class="chip" onclick="tglChip(this)">🥋 태권도</div>
-      <div class="chip" onclick="tglChip(this)">🎨 미술</div>
-      <div class="chip" onclick="tglChip(this)">🎹 피아노</div>
-      <div class="chip" onclick="tglChip(this)">💻 코딩</div>
+    <div style="padding:0 18px;"><div class="chips" id="cg-subjects">
+      <div class="chip" data-subj="english" onclick="tglChip(this)">🇺🇸 영어</div>
+      <div class="chip" data-subj="math" onclick="tglChip(this)">📐 수학</div>
+      <div class="chip" data-subj="taekwondo" onclick="tglChip(this)">🥋 태권도</div>
+      <div class="chip" data-subj="art" onclick="tglChip(this)">🎨 미술</div>
+      <div class="chip" data-subj="piano" onclick="tglChip(this)">🎹 피아노</div>
+      <div class="chip" data-subj="coding" onclick="tglChip(this)">💻 코딩</div>
     </div></div>
     <div class="gap"></div>
 
@@ -587,7 +661,7 @@ input[type=range]::-webkit-slider-thumb{
         <div style="font-size:14px;font-weight:800;color:#191F28;">🚌 셔틀버스 필수</div>
         <div style="font-size:11px;color:#6B7684;margin-top:2px;">셔틀 없는 학원은 제외됩니다</div>
       </div>
-      <div class="tgl" id="tgl-shuttle" onclick="this.classList.toggle('off')"></div>
+      <div class="tgl off" id="tgl-shuttle" onclick="this.classList.toggle('off')"></div>
     </div>
     <div class="gap"></div>
 
@@ -602,7 +676,7 @@ input[type=range]::-webkit-slider-thumb{
           <span style="font-size:12px;color:#6B7684;"> 까지</span>
         </div>
       </div>
-      <input type="range" min="16" max="21" value="18" step="0.5" oninput="setTime(this.value)">
+      <input type="range" id="arrival-range" min="16" max="21" value="18" step="0.5" oninput="setTime(this.value)">
       <div style="display:flex;justify-content:space-between;font-size:10px;color:#B0B8C1;margin-top:6px;">
         <span>16:00</span><span>18:30</span><span>21:00</span>
       </div>
@@ -611,56 +685,15 @@ input[type=range]::-webkit-slider-thumb{
 
     <div style="background:#F0F5FF;border-radius:14px;padding:14px;margin:0 16px;border:.5px solid #BFDBFE;">
       <div style="font-size:12px;font-weight:800;color:#1D4ED8;margin-bottom:6px;">🔍 입력된 조건</div>
-      <div style="font-size:11px;color:#3182F6;line-height:1.8;">
-        <span id="cond-child">👦 지호 — 광교초등학교 3학년</span><br>
-        📚 영어 + 수학<br>
-        🚌 셔틀 필수<br>
-        ⏰ 18:00 이전 귀가
+      <div style="font-size:11px;color:#3182F6;line-height:1.8;" id="cond-box">
+        <span id="cond-child">👦 지호 — 광교초등학교 3학년</span>
       </div>
     </div>
     <div class="gap"></div>
   </div>
 
   <div class="cta-wrap">
-    <button class="cta" onclick="go('results')">학원 찾기 — 조건에 맞는 학원 8개 →</button>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════
-     SCREEN 3: RESULTS (list ↔ map)
-══════════════════════════════════════ -->
-<div class="screen" id="sc-results">
-  <div class="nhdr">
-    <button class="nback" onclick="goBack()">←</button>
-    <div><div class="ntitle">광교 지역 학원</div><div class="nsub" id="results-sub">영어·수학 · 셔틀있음 · 18:00 이전</div></div>
-  </div>
-
-  <div class="filter-bar" id="map-chips">
-    <div class="mchip subj-active" id="subj-chip" style="display:none;" onclick="clearSubjectFilter()"></div>
-    <div class="mchip on" data-filter="all">전체 (—)</div>
-    <div class="mchip" data-filter="shuttle">🚌 셔틀 (—)</div>
-    <div class="mchip" data-filter="open">빈 슬롯 (—)</div>
-  </div>
-
-  <div class="map-area">
-    <div id="kakao-map" style="width:100%;height:100%;"></div>
-    <div class="map-float" id="map-float">조건 맞는 학원 — 개</div>
-  </div>
-
-  <div class="scrl">
-    <div class="divlbl">적합도 순</div>
-    <div id="results-list"></div>
-    <div class="gap"></div>
-  </div>
-
-  <button class="view-toggle" id="view-toggle" onclick="toggleResultsView()">🗺️ 지도로 보기</button>
-
-  <div class="bnav">
-    <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab on" onclick="goTab('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+    <button class="cta" onclick="applyWizard()">이 조건으로 찾기 →</button>
   </div>
 </div>
 
@@ -814,7 +847,7 @@ input[type=range]::-webkit-slider-thumb{
 
   <div class="bnav">
     <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="goTab('setup')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('search')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
     <div class="btab on" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
   </div>
@@ -822,7 +855,7 @@ input[type=range]::-webkit-slider-thumb{
 
 
 <!-- ══════════════════════════════════════
-     CHILD MANAGER BOTTOM SHEET
+     BOTTOM SHEET (child manager + constraint editors)
 ══════════════════════════════════════ -->
 <div class="sheet-bg" id="sheet-bg" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet">
@@ -836,11 +869,8 @@ input[type=range]::-webkit-slider-thumb{
 <script>
 /* ════════════════════════════════════════════════
    NAVIGATION — real history stack
-   · back button = exactly one step back
-   · tab-bar tap = context switch, stack resets (back → home)
-   · synced with browser history so OS back-gesture works
    ════════════════════════════════════════════════ */
-const SCREEN_IDS={home:'sc-home',setup:'sc-setup',results:'sc-results',slot:'sc-slot',sched:'sc-sched'};
+const SCREEN_IDS={home:'sc-home',search:'sc-search',setup:'sc-setup',slot:'sc-slot',sched:'sc-sched'};
 let NAV_STACK=['home'];
 
 function showScreen(id){
@@ -849,35 +879,26 @@ function showScreen(id){
   if(el){el.classList.add('on');window.scrollTo(0,0);}
   if(id==='sched')renderSched();
   if(id==='home')renderToday();
-  if(id==='results'&&mapMode)ensureMap();
+  if(id==='setup')syncWizard();
+  if(id==='search'){ensureMap();setSheet(sheetState,false);applySearch();}
 }
 
 function pushHistory(){
   try{history.pushState({stack:[...NAV_STACK]},'');}catch(e){}
 }
-
 function go(id){
   if(NAV_STACK[NAV_STACK.length-1]!==id)NAV_STACK.push(id);
-  pushHistory();
-  showScreen(id);
+  pushHistory();showScreen(id);
 }
-
 function goTab(id){
   NAV_STACK=(id==='home')?['home']:['home',id];
-  pushHistory();
-  showScreen(id);
+  pushHistory();showScreen(id);
 }
-
 function goBack(){
-  if(NAV_STACK.length>1){
-    NAV_STACK.pop();
-    pushHistory();
-  }else{
-    NAV_STACK=['home'];
-  }
+  if(NAV_STACK.length>1){NAV_STACK.pop();pushHistory();}
+  else NAV_STACK=['home'];
   showScreen(NAV_STACK[NAV_STACK.length-1]);
 }
-
 window.addEventListener('popstate',e=>{
   NAV_STACK=(e.state&&e.state.stack&&e.state.stack.length)?e.state.stack:['home'];
   showScreen(NAV_STACK[NAV_STACK.length-1]);
@@ -888,6 +909,7 @@ try{history.replaceState({stack:['home']},'');}catch(e){}
    CHILDREN (multi-child, editable, persisted)
    ════════════════════════════════════════════════ */
 const LS_KEY='tetris_children_v1';
+const LS_CONS='tetris_constraints_v1';
 const DEFAULT_CHILDREN=[
   {id:'c1',name:'지호',emoji:'👦',grade:3,school:'광교초등학교'},
   {id:'c2',name:'지안',emoji:'👧',grade:1,school:'광교초등학교'}
@@ -907,8 +929,25 @@ function saveChildren(){
 }
 function childById(id){return CHILDREN.find(c=>c.id===id);}
 
-/* Hardcoded weekly schedules for the two demo children.
-   Children added by the user start with an empty schedule. */
+/* per-child constraints — all optional (pure search works with none) */
+const DEFAULT_CONS={c1:{subjects:['english','math'],shuttle:true,arrival:18,openOnly:false}};
+let CONSTRAINTS=loadCons();
+function loadCons(){
+  try{
+    const v=JSON.parse(localStorage.getItem(LS_CONS));
+    if(v&&typeof v==='object')return v;
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_CONS));
+}
+function saveCons(){
+  try{localStorage.setItem(LS_CONS,JSON.stringify(CONSTRAINTS));}catch(e){}
+}
+function consOf(cid){
+  return CONSTRAINTS[cid]||{subjects:[],shuttle:false,arrival:null,openOnly:false};
+}
+function consActive(c){return !!(c.subjects.length||c.shuttle||c.arrival||c.openOnly);}
+
+/* Hardcoded weekly schedules for the two demo children. */
 const SCHEDULES={
   c1:{
     items:[
@@ -934,20 +973,22 @@ function schedOf(cid){return SCHEDULES[cid]||EMPTY_SCHED;}
 function krw(n){return '₩ '+n.toLocaleString('ko-KR');}
 
 /* ════════════════════════════════════════════════
-   CHILD MANAGER — bottom sheet (add / edit / delete)
+   BOTTOM SHEET — child manager + constraint editors
    ════════════════════════════════════════════════ */
 const EMOJI_CHOICES=['👦','👧','🧒','🐥','🦁','🐰'];
-let SHEET_MODE=null;      // 'list' | 'form'
-let EDITING_ID=null;      // null = adding
+let EDITING_ID=null;
 let F_EMOJI='👦',F_GRADE=1,F_SCHOOL='광교초등학교';
+let F_SUBJECTS=[];
 
 function openSheet(mode,childId){
-  SHEET_MODE=mode;
   EDITING_ID=childId||null;
   document.getElementById('sheet-bg').classList.add('show');
   document.getElementById('sheet').classList.add('show');
   if(mode==='list')renderSheetList();
-  else renderSheetForm();
+  else if(mode==='form')renderSheetForm();
+  else if(mode==='child')renderSheetChild();
+  else if(mode==='subjects')renderSheetSubjects();
+  else if(mode==='arrival')renderSheetArrival();
 }
 function closeSheet(){
   document.getElementById('sheet-bg').classList.remove('show');
@@ -1026,19 +1067,90 @@ function deleteChild(id){
   const c=childById(id);
   if(!confirm(`${c.name} 프로필을 삭제할까요?`))return;
   CHILDREN=CHILDREN.filter(x=>x.id!==id);
+  delete CONSTRAINTS[id];
   if(CURRENT_CHILD===id)CURRENT_CHILD=CHILDREN[0].id;
   if(SCHED_VIEW===id)SCHED_VIEW=CHILDREN[0].id;
-  saveChildren();
+  saveChildren();saveCons();
   refreshChildUI();
   closeSheet();
+}
+
+/* — mini constraint editors (from search chips) — */
+function renderSheetChild(){
+  document.getElementById('sheet-title').textContent='누구 기준으로 볼까요?';
+  document.getElementById('sheet-body').innerHTML=
+    `<div class="chips" style="margin-top:10px;">`+
+    CHILDREN.map(c=>
+      `<div class="chip${c.id===CURRENT_CHILD?' on':''}" onclick="setActiveChild('${c.id}')">${c.emoji} ${esc(c.name)} · ${c.grade}학년</div>`).join('')+
+    `</div>
+    <button class="cta sec" style="margin-top:22px;height:46px;" onclick="closeSheet();openSheet('list')">아이 관리</button>`;
+}
+function setActiveChild(cid){
+  CURRENT_CHILD=cid;
+  SCHED_VIEW=cid;
+  closeSheet();
+  refreshChildUI();
+}
+
+function renderSheetSubjects(){
+  const c=consOf(CURRENT_CHILD);
+  F_SUBJECTS=[...c.subjects];
+  document.getElementById('sheet-title').textContent='과목 선택';
+  document.getElementById('sheet-body').innerHTML=
+    `<div class="chips" style="margin-top:10px;" id="fg-subjects">`+
+    Object.entries(SUBJ_LABEL).map(([k,v])=>
+      `<div class="chip${F_SUBJECTS.includes(k)?' on subj':''}" data-subj="${k}" onclick="fTglSubj(this)">${v}</div>`).join('')+
+    `</div>
+    <button class="cta" style="margin-top:22px;" onclick="applySubjects()">적용</button>
+    <button class="clear-btn" onclick="F_SUBJECTS=[];applySubjects()">과목 조건 해제</button>`;
+}
+function fTglSubj(el){
+  const k=el.dataset.subj;
+  if(F_SUBJECTS.includes(k))F_SUBJECTS=F_SUBJECTS.filter(x=>x!==k);
+  else F_SUBJECTS.push(k);
+  el.classList.toggle('on');el.classList.toggle('subj');
+}
+function applySubjects(){
+  setCons({subjects:[...F_SUBJECTS]});
+  closeSheet();
+}
+
+function renderSheetArrival(){
+  const c=consOf(CURRENT_CHILD);
+  const v=c.arrival||18;
+  document.getElementById('sheet-title').textContent='최대 귀가 시간';
+  document.getElementById('sheet-body').innerHTML=`
+    <div style="text-align:center;margin:18px 0 14px;">
+      <span id="sheet-timeval" style="font-size:32px;font-weight:900;color:#3182F6;">${fmtT(v)}</span>
+      <span style="font-size:13px;color:#6B7684;"> 까지 귀가</span>
+    </div>
+    <input type="range" id="sheet-range" min="16" max="21" value="${v}" step="0.5"
+      oninput="document.getElementById('sheet-timeval').textContent=fmtT(parseFloat(this.value))">
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:#B0B8C1;margin-top:6px;">
+      <span>16:00</span><span>18:30</span><span>21:00</span>
+    </div>
+    <button class="cta" style="margin-top:22px;" onclick="applyArrival()">적용</button>
+    <button class="clear-btn" onclick="setCons({arrival:null});closeSheet()">귀가시간 조건 해제</button>`;
+}
+function applyArrival(){
+  setCons({arrival:parseFloat(document.getElementById('sheet-range').value)});
+  closeSheet();
+}
+
+function setCons(patch){
+  const c={...consOf(CURRENT_CHILD),...patch};
+  CONSTRAINTS[CURRENT_CHILD]=c;
+  saveCons();
+  applySearch();
 }
 
 /* re-render every surface that shows child data */
 function refreshChildUI(){
   renderChildChips();
-  syncSetupToChild();
+  syncWizard();
   renderToday();
   renderSched();
+  applySearch();
 }
 
 /* ════════════════════════════════════════════════
@@ -1098,17 +1210,24 @@ const CATEGORIES=[
 
 function renderCategories(){
   document.getElementById('cat-row').innerHTML=CATEGORIES.map(c=>
-    `<div class="cat" onclick="${c.subj?`openCategory('${c.subj}')`:'goResultsMap()'}">
+    `<div class="cat" onclick="${c.subj?`openCategory('${c.subj}')`:'openMapExplore()'}">
       <div class="cat-ico" style="background:${c.bg};">${c.ico}</div>
       <div class="cat-lbl">${c.lbl}</div>
     </div>`).join('');
 }
 
+/* category tap = pure search by subject keyword (no constraints needed) */
 function openCategory(subj){
-  resultsSubject=subj;
-  updateSubjectChip();
-  applyResultsFilter();
-  go('results');
+  SEARCH_Q=SUBJ_LABEL[subj]||'';
+  goTab('search');
+  const inp=document.getElementById('search-input');
+  inp.value=SEARCH_Q;
+  document.getElementById('search-clear').style.display=SEARCH_Q?'':'none';
+  applySearch();
+}
+function openMapExplore(){
+  goTab('search');
+  setSheet('peek');
 }
 
 /* ════════════════════════════════════════════════
@@ -1119,7 +1238,6 @@ let SCHED_VIEW=CURRENT_CHILD;
 
 function vtPct(t){return ((t-VT_START)/(VT_END-VT_START))*100;}
 
-/* idx/n split a day column when viewing multiple children side by side */
 function vtBlock(it,idx,n){
   const w=100/n;
   const label=n>1?it.short:it.name;
@@ -1167,11 +1285,9 @@ function renderSched(){
     ?`2026년 2학기 · ${shown.map(c=>c.name).join(' + ')}`
     :`2026년 2학기 · ${shown[0].school.replace('등학교','')} ${shown[0].grade}학년 ${shown[0].name}`;
 
-  /* time labels column */
   let timeCol='';
   for(let h=VT_START;h<=VT_END;h++)timeCol+=`<div class="vt-time" style="top:${vtPct(h)}%;">${h}:00</div>`;
 
-  /* day columns — one lane per shown child */
   const n=shown.length;
   const cols=VT_DAYS.map(d=>{
     let inner='';
@@ -1187,7 +1303,6 @@ function renderSched(){
   document.getElementById('vt-caption').textContent=
     n>1?`각 요일 왼쪽부터: ${shown.map(c=>c.name).join(' · ')}`:'';
 
-  /* legend */
   let leg='';let anyGap=false;
   shown.forEach(c=>{
     const s=schedOf(c.id);
@@ -1197,7 +1312,6 @@ function renderSched(){
   if(anyGap)leg+=legendItem(null,'공백',true);
   document.getElementById('sched-legend').innerHTML=leg;
 
-  /* banners */
   let banners='';
   shown.forEach(c=>{
     const s=schedOf(c.id);
@@ -1214,7 +1328,6 @@ function renderSched(){
   }
   document.getElementById('sched-banners').innerHTML=banners;
 
-  /* summary */
   let rows;
   if(n===1){
     const m=schedOf(shown[0].id).meta;
@@ -1242,7 +1355,7 @@ function renderSched(){
 function setSchedView(v){SCHED_VIEW=v;renderSched();}
 
 /* ════════════════════════════════════════════════
-   SETUP interactions
+   WIZARD (전체 조건) interactions
    ════════════════════════════════════════════════ */
 function pick(el,gid){
   document.querySelectorAll('#'+gid+' .chip').forEach(c=>c.classList.remove('on'));
@@ -1261,16 +1374,35 @@ function pickChildById(cid,el){
   SCHED_VIEW=cid;
   document.querySelectorAll('#cg-child .chip').forEach(c=>c.classList.remove('on'));
   if(el)el.classList.add('on');
-  syncSetupToChild();
+  syncWizard();
 }
 
-/* keep grade chips + condition summary in sync with the selected child */
-function syncSetupToChild(){
+/* wizard reflects the selected child's saved profile + constraints */
+function syncWizard(){
   const c=childById(CURRENT_CHILD);
   if(!c)return;
+  const cons=consOf(CURRENT_CHILD);
   document.querySelectorAll('#cg-grade .chip').forEach((g,i)=>g.classList.toggle('on',i===c.grade-1));
   document.querySelectorAll('#cg-school .chip').forEach(s=>s.classList.toggle('on',s.textContent===c.school));
+  document.querySelectorAll('#cg-subjects .chip').forEach(s=>{
+    const on=cons.subjects.includes(s.dataset.subj);
+    s.classList.toggle('on',on);s.classList.toggle('subj',on);
+  });
+  document.getElementById('tgl-shuttle').classList.toggle('off',!cons.shuttle);
+  const v=cons.arrival||18;
+  document.getElementById('arrival-range').value=v;
+  document.getElementById('timeval').textContent=fmtT(v);
   document.getElementById('cond-child').textContent=`${c.emoji} ${c.name} — ${c.school} ${c.grade}학년`;
+}
+
+/* save wizard state into the child's constraints, jump to search */
+function applyWizard(){
+  const subjects=[...document.querySelectorAll('#cg-subjects .chip.on')].map(el=>el.dataset.subj);
+  const shuttle=!document.getElementById('tgl-shuttle').classList.contains('off');
+  const arrival=parseFloat(document.getElementById('arrival-range').value);
+  CONSTRAINTS[CURRENT_CHILD]={...consOf(CURRENT_CHILD),subjects,shuttle,arrival};
+  saveCons();
+  goTab('search');
 }
 
 function tglChip(el){
@@ -1279,9 +1411,7 @@ function tglChip(el){
 }
 
 function setTime(v){
-  const h=Math.floor(v);
-  const m=(v%1)===0.5?'30':'00';
-  document.getElementById('timeval').textContent=h+':'+m;
+  document.getElementById('timeval').textContent=fmtT(parseFloat(v));
 }
 
 function tclick(el){
@@ -1299,65 +1429,68 @@ function tclick(el){
 document.addEventListener('touchstart',function(){},{passive:true});
 
 /* ════════════════════════════════════════════════
-   REAL DATA HYDRATION (Kakao Local API → JSON → DOM)
+   SEARCH — filtering, constraint chips, list sheet, map
    ════════════════════════════════════════════════ */
+let ACADEMIES=[];
+let CENTER=null;
+let kakaoMap=null;
+let mapInitialized=false;
+let mapPins=[];
+let SEARCH_Q='';
 
-let ACADEMIES = [];
-let CENTER = null;
-let kakaoMap = null;
-let mapInitialized = false;
-let resultsFilter = 'all';
-let resultsSubject = null;
-let mapMode = false;
-let mapPins = [];
+const SUBJ_LABEL={english:'영어',math:'수학',taekwondo:'태권도',art:'미술',piano:'음악',coding:'코딩'};
+const SUBJ_CLASS={english:'en',math:'mt',taekwondo:'tk',art:'ar',piano:'mt',coding:'mt'};
+const DAY_LABEL={mon:'월',tue:'화',wed:'수',thu:'목',fri:'금'};
 
-const SUBJ_LABEL = {english:'영어', math:'수학', taekwondo:'태권도', art:'미술', piano:'음악', coding:'코딩'};
-const SUBJ_CLASS = {english:'en', math:'mt', taekwondo:'tk', art:'ar', piano:'mt', coding:'mt'};
-const DAY_LABEL = {mon:'월', tue:'화', wed:'수', thu:'목', fri:'금'};
-
+function toH(hhmm){
+  const [h,m]=hhmm.split(':').map(Number);
+  return h+m/60;
+}
 function daysLabel(days){
-  const order = ['mon','tue','wed','thu','fri'];
-  return order.filter(d => days.includes(d)).map(d => DAY_LABEL[d]).join('·');
+  const order=['mon','tue','wed','thu','fri'];
+  return order.filter(d=>days.includes(d)).map(d=>DAY_LABEL[d]).join('·');
 }
-
 function groupSlots(a){
-  const m = new Map();
-  for (const s of a.slots){
-    const k = s.startTime + '-' + s.endTime;
-    const ex = m.get(k);
-    if (ex){ ex.days.push(s.day); ex.available = ex.available && s.available; }
-    else m.set(k, {startTime:s.startTime, endTime:s.endTime, days:[s.day], available:s.available});
+  const m=new Map();
+  for(const s of a.slots){
+    const k=s.startTime+'-'+s.endTime;
+    const ex=m.get(k);
+    if(ex){ex.days.push(s.day);ex.available=ex.available&&s.available;}
+    else m.set(k,{startTime:s.startTime,endTime:s.endTime,days:[s.day],available:s.available});
   }
-  return [...m.values()].sort((x,y) => x.startTime.localeCompare(y.startTime));
+  return [...m.values()].sort((x,y)=>x.startTime.localeCompare(y.startTime));
 }
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
-function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-function cardHtml(a, includeBanner){
-  const subj = a.subjects[0] || 'english';
-  const cls = SUBJ_CLASS[subj] || 'en';
-  const subjLabel = SUBJ_LABEL[subj] || subj;
-  const groups = groupSlots(a).slice(0, 3);
-  const mid = a.fitScore < 80;
-  const pills = groups.map((g, i) => {
-    const lbl = daysLabel(g.days);
-    if (!g.available) return `<div class="pill full">${lbl} ${g.startTime} (만석)</div>`;
-    const v = i === 0 ? 'open' : 'avail';
-    return `<div class="pill ${v}">${lbl} ${g.startTime}${v === 'open' ? ' ✓' : ''}</div>`;
+/* showFit=false → pure-search mode: no fit badge (constraints unknown) */
+function cardHtml(a,includeBanner,showFit){
+  const subj=a.subjects[0]||'english';
+  const cls=SUBJ_CLASS[subj]||'en';
+  const subjLabel=SUBJ_LABEL[subj]||subj;
+  const groups=groupSlots(a).slice(0,3);
+  const mid=a.fitScore<80;
+  const pills=groups.map((g,i)=>{
+    const lbl=daysLabel(g.days);
+    if(!g.available)return `<div class="pill full">${lbl} ${g.startTime} (만석)</div>`;
+    const v=i===0?'open':'avail';
+    return `<div class="pill ${v}">${lbl} ${g.startTime}${v==='open'?' ✓':''}</div>`;
   }).join('');
-  let banner = '';
-  if (includeBanner){
-    if (!a.shuttleAvailable) banner = `<div class="amber-info">⚠️ 셔틀 없음 · 보호자 픽업 필요</div>`;
-    else if (a.fitScore >= 90) banner = `<div class="green-info">✓ 셔틀 운행 중 · 빈 슬롯 있음</div>`;
+  let banner='';
+  if(includeBanner){
+    if(!a.shuttleAvailable)banner=`<div class="amber-info">⚠️ 셔틀 없음 · 보호자 픽업 필요</div>`;
+    else if(a.fitScore>=90)banner=`<div class="green-info">✓ 셔틀 운행 중 · 빈 슬롯 있음</div>`;
   }
+  const fit=showFit
+    ?`<div class="fit-badge"><div class="fit-num${mid?' mid':''}">${a.fitScore}<span style="font-size:11px;">%</span></div><div class="fit-lbl${mid?' mid':''}">적합도</div></div>`
+    :`<div class="fit-badge"><div style="font-size:20px;">${a.emoji||'📚'}</div></div>`;
   return `<div class="card" onclick="openSlot('${esc(a.id)}')">
-    <div><span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable ? '<span class="tag sh">🚌 셔틀</span>' : ''}</div>
+    <div><span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?'<span class="tag sh">🚌 셔틀</span>':''}</div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
       <div>
         <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(a.name)}</div>
-        <div style="font-size:11px;color:#6B7684;margin-top:2px;">${esc(a.address)} · ${a.distanceKm}km${!a.shuttleAvailable ? ' · 셔틀없음' : ''}</div>
+        <div style="font-size:11px;color:#6B7684;margin-top:2px;">${esc(a.address)} · ${a.distanceKm}km${!a.shuttleAvailable?' · 셔틀없음':''}</div>
       </div>
-      <div class="fit-badge"><div class="fit-num${mid ? ' mid' : ''}">${a.fitScore}<span style="font-size:11px;">%</span></div><div class="fit-lbl${mid ? ' mid' : ''}">적합도</div></div>
+      ${fit}
     </div>
     ${banner}
     <div class="pills">${pills}</div>
@@ -1365,167 +1498,250 @@ function cardHtml(a, includeBanner){
 }
 
 function hydrateHome(){
-  const shuttleCount = ACADEMIES.filter(a => a.shuttleAvailable).length;
-  document.getElementById('cat-caption').textContent = `카테고리 · 광교 ${ACADEMIES.length}개 학원 · 🚌 셔틀 ${shuttleCount}곳`;
-  document.getElementById('recents-list').innerHTML = ACADEMIES.slice(0, 2).map(a => cardHtml(a, false)).join('');
+  const shuttleCount=ACADEMIES.filter(a=>a.shuttleAvailable).length;
+  document.getElementById('cat-caption').textContent=`카테고리 · 광교 ${ACADEMIES.length}개 학원 · 🚌 셔틀 ${shuttleCount}곳`;
+  document.getElementById('recents-list').innerHTML=ACADEMIES.slice(0,2).map(a=>cardHtml(a,false,true)).join('');
 }
 
 function filteredAcademies(){
-  let v = ACADEMIES;
-  if (resultsSubject) v = v.filter(a => a.subjects.includes(resultsSubject));
-  if (resultsFilter === 'shuttle') v = v.filter(a => a.shuttleAvailable);
-  if (resultsFilter === 'open') v = v.filter(a => a.slots.some(s => s.available));
-  return v.slice(0, 20);
+  const c=consOf(CURRENT_CHILD);
+  let v=ACADEMIES;
+  const q=SEARCH_Q.trim();
+  if(q)v=v.filter(a=>a.name.includes(q)||a.subjects.some(s=>(SUBJ_LABEL[s]||'').includes(q)));
+  if(c.subjects.length)v=v.filter(a=>a.subjects.some(s=>c.subjects.includes(s)));
+  if(c.shuttle)v=v.filter(a=>a.shuttleAvailable);
+  if(c.openOnly)v=v.filter(a=>a.slots.some(s=>s.available));
+  if(c.arrival)v=v.filter(a=>a.slots.some(s=>s.available&&toH(s.endTime)<=c.arrival));
+  const act=consActive(c);
+  v=[...v].sort(act?(x,y)=>y.fitScore-x.fitScore:(x,y)=>x.distanceKm-y.distanceKm);
+  return v.slice(0,30);
 }
 
-function updateSubjectChip(){
-  const chip = document.getElementById('subj-chip');
-  if (resultsSubject){
-    chip.style.display = '';
-    chip.textContent = `${SUBJ_LABEL[resultsSubject] || resultsSubject} ✕`;
-  } else {
-    chip.style.display = 'none';
-  }
+/* constraint chips above the map */
+function renderConstraintChips(){
+  const c=consOf(CURRENT_CHILD);
+  const kid=childById(CURRENT_CHILD);
+  const subjLbl=c.subjects.length?c.subjects.map(s=>SUBJ_LABEL[s]).join('·'):'과목';
+  const arrLbl=c.arrival?`~${fmtT(c.arrival)}`:'귀가시간';
+  let html=
+    `<div class="cchip on" onclick="openSheet('child')">${kid.emoji} ${esc(kid.name)} ▾</div>`+
+    `<div class="cchip${c.subjects.length?' on':''}" onclick="openSheet('subjects')">${subjLbl} ▾</div>`+
+    `<div class="cchip${c.shuttle?' on':''}" onclick="setCons({shuttle:${!c.shuttle}})">🚌 셔틀</div>`+
+    `<div class="cchip${c.arrival?' on':''}" onclick="openSheet('arrival')">${arrLbl} ▾</div>`+
+    `<div class="cchip${c.openOnly?' on':''}" onclick="setCons({openOnly:${!c.openOnly}})">빈 슬롯</div>`+
+    `<div class="cchip" onclick="go('setup')">⚙️ 전체 조건</div>`;
+  if(consActive(c))
+    html+=`<div class="cchip reset" onclick="resetCons()">초기화 ✕</div>`;
+  document.getElementById('cchips').innerHTML=html;
+}
+function resetCons(){
+  CONSTRAINTS[CURRENT_CHILD]={subjects:[],shuttle:false,arrival:null,openOnly:false};
+  saveCons();
+  applySearch();
 }
 
-function clearSubjectFilter(){
-  resultsSubject = null;
-  updateSubjectChip();
-  applyResultsFilter();
-}
+function applySearch(){
+  if(!document.getElementById('search-list'))return;
+  const c=consOf(CURRENT_CHILD);
+  const act=consActive(c);
+  const v=filteredAcademies();
 
-function applyResultsFilter(){
-  const v = filteredAcademies();
-  document.getElementById('results-list').innerHTML = v.map((a, i) => cardHtml(a, i < 2)).join('');
-  document.getElementById('map-float').textContent = `조건 맞는 학원 ${v.length}개`;
-  /* map pins follow the active filter */
-  if (kakaoMap && mapPins.length){
-    const ids = new Set(v.map(a => a.id));
-    mapPins.forEach(p => p.overlay.setMap(ids.has(p.id) ? kakaoMap : null));
-  }
-}
+  renderConstraintChips();
 
-function hydrateResults(){
-  const all = ACADEMIES.length;
-  const sh = ACADEMIES.filter(a => a.shuttleAvailable).length;
-  const op = ACADEMIES.filter(a => a.slots.some(s => s.available)).length;
-  const chips = document.querySelectorAll('#map-chips .mchip[data-filter]');
-  chips[0].textContent = `전체 (${all})`;
-  chips[1].textContent = `🚌 셔틀 (${sh})`;
-  chips[2].textContent = `빈 슬롯 (${op})`;
-  chips.forEach(c => {
-    c.addEventListener('click', () => {
-      chips.forEach(x => x.classList.remove('on'));
-      c.classList.add('on');
-      resultsFilter = c.dataset.filter;
-      applyResultsFilter();
+  const nudge=!act
+    ?`<div class="nudge" onclick="go('setup')">🧩 <span><b>${esc(childById(CURRENT_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`
+    :'';
+  document.getElementById('search-list').innerHTML=
+    nudge+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('');
+  document.getElementById('sheet-count').textContent=
+    `학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
+
+  /* map pins follow filter + mode */
+  if(kakaoMap&&mapPins.length){
+    const ids=new Set(v.map(a=>a.id));
+    mapPins.forEach(p=>{
+      p.overlay.setMap(ids.has(p.id)?kakaoMap:null);
+      if(act){
+        p.el.textContent=p.a.fitScore;
+        p.el.style.background=p.a.fitScore<80?'#D97706':'#059669';
+        p.el.style.color='#fff';
+        p.el.style.fontSize='10px';
+      }else{
+        p.el.textContent=p.a.emoji||'📚';
+        p.el.style.background='#fff';
+        p.el.style.color='#191F28';
+        p.el.style.fontSize='13px';
+      }
     });
-  });
-  applyResultsFilter();
+  }
 }
 
-/* LIST ↔ MAP view toggle */
-function setResultsView(map){
-  mapMode = map;
-  document.getElementById('sc-results').classList.toggle('map-mode', mapMode);
-  document.getElementById('view-toggle').textContent = mapMode ? '☰ 목록으로 보기' : '🗺️ 지도로 보기';
-  if (mapMode) ensureMap();
+function onSearchInput(v){
+  SEARCH_Q=v;
+  document.getElementById('search-clear').style.display=v?'':'none';
+  applySearch();
 }
-function toggleResultsView(){ setResultsView(!mapMode); }
-
-function goResultsMap(){
-  go('results');
-  setResultsView(true);
+function clearSearch(){
+  SEARCH_Q='';
+  const inp=document.getElementById('search-input');
+  inp.value='';
+  document.getElementById('search-clear').style.display='none';
+  applySearch();
+  inp.focus();
 }
 
+/* ── draggable list sheet (peek / half / full) ── */
+let sheetState='half';
+const SHEET_STATES=['peek','half','full'];
+
+function sheetTopFor(state){
+  const H=document.getElementById('search-body').clientHeight;
+  if(state==='full')return 0;
+  if(state==='half')return Math.round(H*0.48);
+  return Math.max(H-92,0); /* peek: grab handle + count visible */
+}
+function setSheet(state,animate=true){
+  sheetState=state;
+  const sheet=document.getElementById('list-sheet');
+  sheet.classList.toggle('dragging',!animate);
+  sheet.style.transform=`translateY(${sheetTopFor(state)}px)`;
+  if(!animate)requestAnimationFrame(()=>sheet.classList.remove('dragging'));
+}
+
+(function initSheetDrag(){
+  const grab=document.getElementById('sheet-grab');
+  const sheet=document.getElementById('list-sheet');
+  let startY=null,baseTop=0,moved=false;
+
+  function currentTop(){
+    const m=/translateY\(([-\d.]+)px\)/.exec(sheet.style.transform);
+    return m?parseFloat(m[1]):sheetTopFor(sheetState);
+  }
+  function onStart(y){
+    startY=y;baseTop=currentTop();moved=false;
+    sheet.classList.add('dragging');
+  }
+  function onMove(y){
+    if(startY===null)return;
+    const H=document.getElementById('search-body').clientHeight;
+    let t=baseTop+(y-startY);
+    t=Math.max(0,Math.min(t,sheetTopFor('peek')));
+    if(Math.abs(y-startY)>4)moved=true;
+    sheet.style.transform=`translateY(${t}px)`;
+  }
+  function onEnd(){
+    if(startY===null)return;
+    sheet.classList.remove('dragging');
+    const t=currentTop();
+    if(!moved){
+      /* tap: cycle peek→half→full→peek */
+      const next={peek:'half',half:'full',full:'peek'}[sheetState];
+      setSheet(next);
+    }else{
+      /* snap to nearest state */
+      let best='half',bd=Infinity;
+      SHEET_STATES.forEach(s=>{
+        const d=Math.abs(sheetTopFor(s)-t);
+        if(d<bd){bd=d;best=s;}
+      });
+      setSheet(best);
+    }
+    startY=null;
+  }
+  grab.addEventListener('touchstart',e=>onStart(e.touches[0].clientY),{passive:true});
+  grab.addEventListener('touchmove',e=>onMove(e.touches[0].clientY),{passive:true});
+  grab.addEventListener('touchend',onEnd);
+  grab.addEventListener('mousedown',e=>{onStart(e.clientY);e.preventDefault();});
+  window.addEventListener('mousemove',e=>onMove(e.clientY));
+  window.addEventListener('mouseup',onEnd);
+  window.addEventListener('resize',()=>setSheet(sheetState,false));
+})();
+
+/* ── Kakao map ── */
 function initKakaoMap(){
-  if (mapInitialized) return;
-  if (typeof kakao === 'undefined' || !kakao.maps || !kakao.maps.Map){
+  if(mapInitialized)return;
+  if(typeof kakao==='undefined'||!kakao.maps||!kakao.maps.Map){
     console.warn('Kakao SDK not ready');
     return;
   }
-  const container = document.getElementById('kakao-map');
-  if (!container || container.offsetWidth === 0) return;
-  const ctr = new kakao.maps.LatLng(CENTER.lat, CENTER.lng);
-  kakaoMap = new kakao.maps.Map(container, {center: ctr, level: 4});
+  const container=document.getElementById('kakao-map');
+  if(!container||container.offsetWidth===0)return;
+  const ctr=new kakao.maps.LatLng(CENTER.lat,CENTER.lng);
+  kakaoMap=new kakao.maps.Map(container,{center:ctr,level:4});
 
-  const schoolEl = document.createElement('div');
-  schoolEl.style.cssText = 'background:#3182F6;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;';
-  schoolEl.textContent = '🏫';
-  new kakao.maps.CustomOverlay({position: ctr, content: schoolEl, yAnchor:0.5, xAnchor:0.5, zIndex:5}).setMap(kakaoMap);
+  const schoolEl=document.createElement('div');
+  schoolEl.style.cssText='background:#3182F6;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;';
+  schoolEl.textContent='🏫';
+  new kakao.maps.CustomOverlay({position:ctr,content:schoolEl,yAnchor:0.5,xAnchor:0.5,zIndex:5}).setMap(kakaoMap);
 
-  ACADEMIES.slice(0, 30).forEach(a => {
-    const pos = new kakao.maps.LatLng(a.lat, a.lng);
-    const mid = a.fitScore < 80;
-    const color = mid ? '#D97706' : '#059669';
-    const el = document.createElement('div');
-    el.style.cssText = `background:${color};color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;`;
-    el.textContent = a.fitScore;
-    el.addEventListener('click', () => openSlot(a.id));
-    const overlay = new kakao.maps.CustomOverlay({position: pos, content: el, yAnchor:0.5, xAnchor:0.5, zIndex:3});
+  ACADEMIES.slice(0,30).forEach(a=>{
+    const pos=new kakao.maps.LatLng(a.lat,a.lng);
+    const el=document.createElement('div');
+    el.style.cssText='color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;background:#059669;';
+    el.textContent=a.fitScore;
+    el.addEventListener('click',()=>openSlot(a.id));
+    const overlay=new kakao.maps.CustomOverlay({position:pos,content:el,yAnchor:0.5,xAnchor:0.5,zIndex:3});
     overlay.setMap(kakaoMap);
-    mapPins.push({id: a.id, overlay});
+    mapPins.push({id:a.id,overlay,el,a});
   });
 
-  mapInitialized = true;
-  applyResultsFilter();
+  mapInitialized=true;
+  applySearch();
 }
 
 function relayoutMap(){
-  if (!kakaoMap) return;
-  setTimeout(() => {
+  if(!kakaoMap)return;
+  setTimeout(()=>{
     kakaoMap.relayout();
-    kakaoMap.setCenter(new kakao.maps.LatLng(CENTER.lat, CENTER.lng));
-  }, 50);
+    kakaoMap.setCenter(new kakao.maps.LatLng(CENTER.lat,CENTER.lng));
+  },50);
 }
 
 function ensureMap(){
-  if (mapInitialized){ relayoutMap(); return; }
-  if (sdkReady && CENTER) setTimeout(initKakaoMap, 120);
-  else pendingMapInit = true;
+  if(mapInitialized){relayoutMap();return;}
+  if(sdkReady&&CENTER)setTimeout(initKakaoMap,120);
+  else pendingMapInit=true;
 }
 
 function openSlot(academyId){
-  const a = ACADEMIES.find(x => x.id === academyId);
-  if (!a) return;
-  const subj = a.subjects[0] || 'english';
-  const cls = SUBJ_CLASS[subj] || 'en';
-  const subjLabel = SUBJ_LABEL[subj] || subj;
-  document.getElementById('slot-emoji').textContent = a.emoji || '📚';
-  document.getElementById('slot-name').textContent = a.name;
-  document.getElementById('slot-addr').textContent = `${a.address} · ${a.distanceKm}km`;
-  document.getElementById('slot-tags').innerHTML =
-    `<span class="tag ${cls}">${subjLabel}</span>` +
-    (a.shuttleAvailable ? `<span class="tag sh">🚌 셔틀</span>` : '') +
+  const a=ACADEMIES.find(x=>x.id===academyId);
+  if(!a)return;
+  const subj=a.subjects[0]||'english';
+  const cls=SUBJ_CLASS[subj]||'en';
+  const subjLabel=SUBJ_LABEL[subj]||subj;
+  document.getElementById('slot-emoji').textContent=a.emoji||'📚';
+  document.getElementById('slot-name').textContent=a.name;
+  document.getElementById('slot-addr').textContent=`${a.address} · ${a.distanceKm}km`;
+  document.getElementById('slot-tags').innerHTML=
+    `<span class="tag ${cls}">${subjLabel}</span>`+
+    (a.shuttleAvailable?`<span class="tag sh">🚌 셔틀</span>`:'')+
     `<span class="tag ok">${a.fitScore}% 적합</span>`;
   go('slot');
 }
 
-let sdkReady = false;
-let pendingMapInit = false;
+let sdkReady=false;
+let pendingMapInit=false;
 
 async function bootstrap(){
-  try {
-    const res = await fetch('./academies.json', {cache:'no-cache'});
-    const data = await res.json();
-    ACADEMIES = data.academies;
-    CENTER = data.center;
+  try{
+    const res=await fetch('./academies.json',{cache:'no-cache'});
+    const data=await res.json();
+    ACADEMIES=data.academies;
+    CENTER=data.center;
     hydrateHome();
-    hydrateResults();
-    if (pendingMapInit && sdkReady) initKakaoMap();
-  } catch (e){
-    console.error('Failed to load academies.json:', e);
+    applySearch();
+    if(pendingMapInit&&sdkReady)initKakaoMap();
+  }catch(e){
+    console.error('Failed to load academies.json:',e);
   }
 }
 
-/* Kick off data fetch immediately (independent of SDK) */
 bootstrap();
 
-/* Preload SDK in parallel; mark ready when done */
-if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load){
-  kakao.maps.load(() => {
-    sdkReady = true;
-    if (pendingMapInit && CENTER) initKakaoMap();
+if(typeof kakao!=='undefined'&&kakao.maps&&kakao.maps.load){
+  kakao.maps.load(()=>{
+    sdkReady=true;
+    if(pendingMapInit&&CENTER)initKakaoMap();
   });
 }
 
@@ -1533,7 +1749,7 @@ if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load){
 renderCategories();
 renderToday();
 renderChildChips();
-syncSetupToChild();
+syncWizard();
 renderSched();
 </script>
 </body>
