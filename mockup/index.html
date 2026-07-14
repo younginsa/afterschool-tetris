@@ -288,6 +288,14 @@ body{
   display:flex;flex-direction:column;gap:6px;align-items:center;
 }
 .empty-state span{font-size:11px;font-weight:600;color:#6B7684;line-height:1.5;}
+.rescan-btn{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  z-index:35;border:none;background:#fff;color:#3182F6;
+  border-radius:100px;padding:9px 16px;font-size:12px;font-weight:800;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);cursor:pointer;font-family:inherit;
+  display:none;white-space:nowrap;
+}
+.rescan-btn.show{display:block;}
 
 /* GRID STEPS */
 .step-bar{
@@ -589,6 +597,7 @@ input[type=range]::-webkit-slider-thumb{
 
   <div class="search-body" id="search-body">
     <div id="kakao-map"></div>
+    <button class="rescan-btn" id="rescan-btn" onclick="rescanArea()">↻ 이 지역에서 재검색</button>
 
     <div class="list-sheet" id="list-sheet">
       <div class="sheet-grab" id="sheet-grab">
@@ -1635,7 +1644,7 @@ function applySearch(){
    Curated academies.json stays the base (it carries our verified
    slot/shuttle data); this layer surfaces academies we haven't
    registered yet, clearly badged 미검증 with no fit score. */
-let liveTimer=null,LIVE_TOKEN=0,LIVE_PINS=[];
+let liveTimer=null,LIVE_TOKEN=0,LIVE_PINS=[],suppressIdle=false;
 
 const LIVE_SUBJ_GUESS=[['킥복싱','boxing'],['복싱','boxing'],['태권도','taekwondo'],['발레','ballet'],['축구','soccer'],['줄넘기','jumprope'],['영어','english'],['수학','math'],['미술','art'],['피아노','piano'],['음악','piano'],['코딩','coding']];
 function guessSubject(p,q){
@@ -1644,11 +1653,20 @@ function guessSubject(p,q){
   return null;
 }
 
+function kmFromCenter(p){
+  /* bounds-mode results carry no distance field — compute it */
+  if(p.distance)return Math.round(parseInt(p.distance,10)/10)/100;
+  const R=6371,rad=Math.PI/180;
+  const dLat=(parseFloat(p.y)-CENTER.lat)*rad,dLng=(parseFloat(p.x)-CENTER.lng)*rad;
+  const a=Math.sin(dLat/2)**2+Math.cos(CENTER.lat*rad)*Math.cos(parseFloat(p.y)*rad)*Math.sin(dLng/2)**2;
+  return Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))*100)/100;
+}
+
 function liveCardHtml(p,q){
   const subj=guessSubject(p,q);
   const lbl=subj?SUBJ_LABEL[subj]:((p.category_name||'').split('>').pop().trim()||'기타');
   const cls=subj?(SUBJ_CLASS[subj]||'en'):'mt';
-  const km=Math.round(parseInt(p.distance||'0',10)/10)/100;
+  const km=kmFromCenter(p);
   return `<div class="card" onclick="window.open('${esc(p.place_url)}','_blank')">
     <div><span class="tag ${cls}">${esc(lbl)}</span><span class="tag warn">미검증</span></div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
@@ -1664,7 +1682,8 @@ function liveCardHtml(p,q){
 
 function clearLivePins(){LIVE_PINS.forEach(o=>o.setMap(null));LIVE_PINS=[];}
 
-function liveSearch(q){
+/* wide=false → search the CURRENT MAP AREA (bounds); wide=true → 10km around 광교초 */
+function liveSearch(q,wide){
   const token=++LIVE_TOKEN;
   const box=document.getElementById('live-results');
   if(!box)return;
@@ -1674,14 +1693,21 @@ function liveSearch(q){
     box.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="info-txt">카카오 실시간 검색을 불러올 수 없어요. 네트워크 상태 또는 카카오 개발자 콘솔의 사이트 도메인 등록을 확인해주세요.</div></div>`;
     return;
   }
-  box.innerHTML=`<div class="divlbl">🔎 카카오 실시간 검색 중…</div>`;
+  const rescan=document.getElementById('rescan-btn');
+  if(rescan)rescan.classList.remove('show');
+  const useBounds=!wide&&kakaoMap&&mapInitialized;
+  const scopeLbl=useBounds?'현재 지도 영역':'광교 반경 10km';
+  box.innerHTML=`<div class="divlbl">🔎 카카오 실시간 검색 중… (${scopeLbl})</div>`;
+  const opts=useBounds
+    ?{bounds:kakaoMap.getBounds(),size:15}
+    :{location:new kakao.maps.LatLng(CENTER.lat,CENTER.lng),radius:10000,sort:kakao.maps.services.SortBy.DISTANCE,size:15};
   const ps=new kakao.maps.services.Places();
   ps.keywordSearch(q,(data,status)=>{
     if(token!==LIVE_TOKEN)return;               /* stale response */
     const b=document.getElementById('live-results');
     if(!b)return;
     clearLivePins();
-    console.log('[live-search]',q,status,data&&data.length);
+    console.log('[live-search]',q,scopeLbl,status,data&&data.length);
     if(status===kakao.maps.services.Status.ERROR){
       b.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="info-txt">카카오 검색 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.</div></div>`;
       return;
@@ -1691,25 +1717,34 @@ function liveSearch(q){
       .filter(p=>!known.has('kakao-'+p.id))
       .slice(0,12);
     if(!fresh.length){
-      b.innerHTML=`<div class="empty-state" style="padding:16px 20px;">카카오에서도 '${esc(q)}' 주변 결과가 없어요<span>광교초 반경 10km 기준</span></div>`;
+      b.innerHTML=`<div class="empty-state" style="padding:16px 20px;">${scopeLbl}에는 '${esc(q)}' 결과가 없어요
+        ${useBounds?`<button class="nudge-cta" style="margin:8px auto 0;" onclick="wideSearch()">반경 10km로 넓게 검색</button>`:'<span>지도를 옮겨 다른 지역에서 재검색해보세요</span>'}
+      </div>`;
       return;
     }
     b.innerHTML=
-      `<div class="divlbl">🔎 카카오 실시간 결과 · 아직 미등록 (${fresh.length})</div>`+
+      `<div class="divlbl">🔎 카카오 실시간 결과 · ${scopeLbl} · 미등록 (${fresh.length})</div>`+
       fresh.map(p=>liveCardHtml(p,q)).join('');
     if(kakaoMap){
+      const bnds=new kakao.maps.LatLngBounds();
       fresh.forEach(p=>{
+        const pos=new kakao.maps.LatLng(parseFloat(p.y),parseFloat(p.x));
+        bnds.extend(pos);
         const el=document.createElement('div');
         el.style.cssText='background:#fff;color:#191F28;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px dashed #3182F6;cursor:pointer;';
         el.textContent='🔎';
         el.addEventListener('click',()=>window.open(p.place_url,'_blank'));
-        const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(parseFloat(p.y),parseFloat(p.x)),content:el,yAnchor:0.5,xAnchor:0.5,zIndex:4});
+        const ov=new kakao.maps.CustomOverlay({position:pos,content:el,yAnchor:0.5,xAnchor:0.5,zIndex:4});
         ov.setMap(kakaoMap);
         LIVE_PINS.push(ov);
       });
+      /* wide-mode results can be off-screen — bring them into view */
+      if(!useBounds){suppressIdle=true;kakaoMap.setBounds(bnds);}
     }
-  },{location:new kakao.maps.LatLng(CENTER.lat,CENTER.lng),radius:10000,sort:kakao.maps.services.SortBy.DISTANCE,size:15});
+  },opts);
 }
+function wideSearch(){clearTimeout(liveTimer);liveSearch(SEARCH_Q.trim(),true);}
+function rescanArea(){clearTimeout(liveTimer);liveSearch(SEARCH_Q.trim());}
 
 function onSearchInput(v){
   SEARCH_Q=v;
@@ -1820,6 +1855,12 @@ function initKakaoMap(){
     const overlay=new kakao.maps.CustomOverlay({position:pos,content:el,yAnchor:0.5,xAnchor:0.5,zIndex:3});
     overlay.setMap(kakaoMap);
     mapPins.push({id:a.id,overlay,el,a});
+  });
+
+  /* map moved while a query is active → offer re-search in the new area */
+  kakao.maps.event.addListener(kakaoMap,'idle',()=>{
+    if(suppressIdle){suppressIdle=false;return;}
+    if(SEARCH_Q.trim())document.getElementById('rescan-btn').classList.add('show');
   });
 
   mapInitialized=true;
