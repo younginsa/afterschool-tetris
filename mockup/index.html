@@ -282,6 +282,12 @@ body{
   background:#3182F6;color:#fff;border:none;border-radius:100px;
   padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;
 }
+.empty-state{
+  padding:30px 20px;text-align:center;
+  font-size:13px;font-weight:800;color:#191F28;
+  display:flex;flex-direction:column;gap:6px;align-items:center;
+}
+.empty-state span{font-size:11px;font-weight:600;color:#6B7684;line-height:1.5;}
 
 /* GRID STEPS */
 .step-bar{
@@ -947,6 +953,13 @@ function consOf(cid){
 }
 function consActive(c){return !!(c.subjects.length||c.shuttle||c.arrival||c.openOnly);}
 
+/* search screen: who the fit is computed for — null = pure browse (default) */
+let SEARCH_CHILD=null;
+/* filters used while no child is selected (session only, not persisted) */
+let SESSION_CONS={subjects:[],shuttle:false,arrival:null,openOnly:false};
+function searchCons(){return SEARCH_CHILD?consOf(SEARCH_CHILD):SESSION_CONS;}
+function fitMode(){return !!(SEARCH_CHILD&&consActive(searchCons()));}
+
 /* Hardcoded weekly schedules for the two demo children. */
 const SCHEDULES={
   c1:{
@@ -1069,6 +1082,7 @@ function deleteChild(id){
   CHILDREN=CHILDREN.filter(x=>x.id!==id);
   delete CONSTRAINTS[id];
   if(CURRENT_CHILD===id)CURRENT_CHILD=CHILDREN[0].id;
+  if(SEARCH_CHILD===id)SEARCH_CHILD=null;
   if(SCHED_VIEW===id)SCHED_VIEW=CHILDREN[0].id;
   saveChildren();saveCons();
   refreshChildUI();
@@ -1081,19 +1095,26 @@ function renderSheetChild(){
   document.getElementById('sheet-body').innerHTML=
     `<div class="chips" style="margin-top:10px;">`+
     CHILDREN.map(c=>
-      `<div class="chip${c.id===CURRENT_CHILD?' on':''}" onclick="setActiveChild('${c.id}')">${c.emoji} ${esc(c.name)} · ${c.grade}학년</div>`).join('')+
+      `<div class="chip${c.id===SEARCH_CHILD?' on':''}" onclick="setActiveChild('${c.id}')">${c.emoji} ${esc(c.name)} · ${c.grade}학년</div>`).join('')+
+    `<div class="chip${SEARCH_CHILD?'':' on'}" onclick="clearSearchChild()">선택 안함 — 전체 보기</div>`+
     `</div>
     <button class="cta sec" style="margin-top:22px;height:46px;" onclick="closeSheet();openSheet('list')">아이 관리</button>`;
 }
 function setActiveChild(cid){
+  SEARCH_CHILD=cid;
   CURRENT_CHILD=cid;
   SCHED_VIEW=cid;
   closeSheet();
   refreshChildUI();
 }
+function clearSearchChild(){
+  SEARCH_CHILD=null;
+  closeSheet();
+  applySearch();
+}
 
 function renderSheetSubjects(){
-  const c=consOf(CURRENT_CHILD);
+  const c=searchCons();
   F_SUBJECTS=[...c.subjects];
   document.getElementById('sheet-title').textContent='과목 선택';
   document.getElementById('sheet-body').innerHTML=
@@ -1116,7 +1137,7 @@ function applySubjects(){
 }
 
 function renderSheetArrival(){
-  const c=consOf(CURRENT_CHILD);
+  const c=searchCons();
   const v=c.arrival||18;
   document.getElementById('sheet-title').textContent='최대 귀가 시간';
   document.getElementById('sheet-body').innerHTML=`
@@ -1138,9 +1159,9 @@ function applyArrival(){
 }
 
 function setCons(patch){
-  const c={...consOf(CURRENT_CHILD),...patch};
-  CONSTRAINTS[CURRENT_CHILD]=c;
-  saveCons();
+  const c={...searchCons(),...patch};
+  if(SEARCH_CHILD){CONSTRAINTS[SEARCH_CHILD]=c;saveCons();}
+  else SESSION_CONS=c;
   applySearch();
 }
 
@@ -1402,6 +1423,7 @@ function applyWizard(){
   const arrival=parseFloat(document.getElementById('arrival-range').value);
   CONSTRAINTS[CURRENT_CHILD]={...consOf(CURRENT_CHILD),subjects,shuttle,arrival};
   saveCons();
+  SEARCH_CHILD=CURRENT_CHILD;
   goTab('search');
 }
 
@@ -1504,27 +1526,29 @@ function hydrateHome(){
 }
 
 function filteredAcademies(){
-  const c=consOf(CURRENT_CHILD);
+  const c=searchCons();
   let v=ACADEMIES;
   const q=SEARCH_Q.trim();
   if(q)v=v.filter(a=>a.name.includes(q)||a.subjects.some(s=>(SUBJ_LABEL[s]||'').includes(q)));
-  if(c.subjects.length)v=v.filter(a=>a.subjects.some(s=>c.subjects.includes(s)));
+  /* a typed query is explicit intent, so it relaxes the subject constraint;
+     shuttle / time / open-slot constraints still apply */
+  if(c.subjects.length&&!q)v=v.filter(a=>a.subjects.some(s=>c.subjects.includes(s)));
   if(c.shuttle)v=v.filter(a=>a.shuttleAvailable);
   if(c.openOnly)v=v.filter(a=>a.slots.some(s=>s.available));
   if(c.arrival)v=v.filter(a=>a.slots.some(s=>s.available&&toH(s.endTime)<=c.arrival));
-  const act=consActive(c);
+  const act=fitMode();
   v=[...v].sort(act?(x,y)=>y.fitScore-x.fitScore:(x,y)=>x.distanceKm-y.distanceKm);
   return v.slice(0,30);
 }
 
 /* constraint chips above the map */
 function renderConstraintChips(){
-  const c=consOf(CURRENT_CHILD);
-  const kid=childById(CURRENT_CHILD);
+  const c=searchCons();
+  const kid=SEARCH_CHILD?childById(SEARCH_CHILD):null;
   const subjLbl=c.subjects.length?c.subjects.map(s=>SUBJ_LABEL[s]).join('·'):'과목';
   const arrLbl=c.arrival?`~${fmtT(c.arrival)}`:'귀가시간';
   let html=
-    `<div class="cchip on" onclick="openSheet('child')">${kid.emoji} ${esc(kid.name)} ▾</div>`+
+    `<div class="cchip${kid?' on':''}" onclick="openSheet('child')">${kid?`${kid.emoji} ${esc(kid.name)}`:'아이 선택'} ▾</div>`+
     `<div class="cchip${c.subjects.length?' on':''}" onclick="openSheet('subjects')">${subjLbl} ▾</div>`+
     `<div class="cchip${c.shuttle?' on':''}" onclick="setCons({shuttle:${!c.shuttle}})">🚌 셔틀</div>`+
     `<div class="cchip${c.arrival?' on':''}" onclick="openSheet('arrival')">${arrLbl} ▾</div>`+
@@ -1535,24 +1559,36 @@ function renderConstraintChips(){
   document.getElementById('cchips').innerHTML=html;
 }
 function resetCons(){
-  CONSTRAINTS[CURRENT_CHILD]={subjects:[],shuttle:false,arrival:null,openOnly:false};
-  saveCons();
+  const blank={subjects:[],shuttle:false,arrival:null,openOnly:false};
+  if(SEARCH_CHILD){CONSTRAINTS[SEARCH_CHILD]=blank;saveCons();}
+  else SESSION_CONS=blank;
   applySearch();
 }
 
 function applySearch(){
   if(!document.getElementById('search-list'))return;
-  const c=consOf(CURRENT_CHILD);
-  const act=consActive(c);
+  const c=searchCons();
+  const act=fitMode();
   const v=filteredAcademies();
+  const q=SEARCH_Q.trim();
 
   renderConstraintChips();
 
-  const nudge=!act
-    ?`<div class="nudge" onclick="go('setup')">🧩 <span><b>${esc(childById(CURRENT_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`
+  let nudge='';
+  if(!SEARCH_CHILD)
+    nudge=`<div class="nudge" onclick="openSheet('child')">🧩 <span>아이를 선택하면 <b>적합도·공백 경고</b>를 보여드려요</span><button class="nudge-cta">아이 선택</button></div>`;
+  else if(!act)
+    nudge=`<div class="nudge" onclick="go('setup')">🧩 <span><b>${esc(childById(SEARCH_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`;
+
+  const empty=!v.length
+    ?`<div class="empty-state">🔍 ${q?`'${esc(q)}' 검색 결과가 없어요`:'조건에 맞는 학원이 없어요'}
+       <span>광교 지역 데이터에 아직 등록되지 않은 학원일 수 있어요.${consActive(c)?' 조건을 풀면 더 많이 보여요.':''}</span>
+       ${consActive(c)?`<button class="nudge-cta" style="margin:8px auto 0;" onclick="resetCons()">조건 초기화</button>`:''}
+     </div>`
     :'';
+
   document.getElementById('search-list').innerHTML=
-    nudge+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('');
+    nudge+empty+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('');
   document.getElementById('sheet-count').textContent=
     `학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
 
