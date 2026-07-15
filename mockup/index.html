@@ -1474,7 +1474,6 @@ let ACADEMIES=[];
 let CENTER=null;
 let kakaoMap=null;
 let mapInitialized=false;
-let mapPins=[];
 let SEARCH_Q='';
 
 const SUBJ_LABEL={english:'영어',math:'수학',taekwondo:'태권도',art:'미술',piano:'음악',coding:'코딩',boxing:'복싱',ballet:'발레',soccer:'축구',jumprope:'줄넘기'};
@@ -1502,7 +1501,7 @@ function groupSlots(a){
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 /* showFit=false → pure-search mode: no fit badge (constraints unknown) */
-function cardHtml(a,includeBanner,showFit){
+function cardHtml(a,includeBanner,showFit,rank){
   const subj=a.subjects[0]||'english';
   const cls=SUBJ_CLASS[subj]||'en';
   const subjLabel=SUBJ_LABEL[subj]||subj;
@@ -1522,8 +1521,9 @@ function cardHtml(a,includeBanner,showFit){
   const fit=showFit
     ?`<div class="fit-badge"><div class="fit-num${mid?' mid':''}">${a.fitScore}<span style="font-size:11px;">%</span></div><div class="fit-lbl${mid?' mid':''}">적합도</div></div>`
     :`<div class="fit-badge"><div style="font-size:20px;">${a.emoji||'📚'}</div></div>`;
+  const rankTag=rank?`<span class="tag" style="background:#191F28;color:#fff;">${rank}</span>`:'';
   return `<div class="card" onclick="openSlot('${esc(a.id)}')">
-    <div><span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?'<span class="tag sh">🚌 셔틀</span>':''}</div>
+    <div>${rankTag}<span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?'<span class="tag sh">🚌 셔틀</span>':''}</div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
       <div>
         <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(a.name)}</div>
@@ -1610,7 +1610,7 @@ function applySearch(){
 
   const registeredLbl=(q&&v.length)?`<div class="divlbl">등록된 학원 (${v.length})</div>`:'';
   document.getElementById('search-list').innerHTML=
-    nudge+empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('')+`<div id="live-results"></div>`;
+    nudge+empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act,i+1)).join('')+`<div id="live-results"></div>`;
   LAST_REG_COUNT=v.length;
   document.getElementById('sheet-count').textContent=
     q?`등록 학원 ${v.length}개 · 🔎 실시간 검색 중…`:`학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
@@ -1621,24 +1621,8 @@ function applySearch(){
   if(q)liveTimer=setTimeout(()=>liveSearch(q),450);
   else clearLivePins();
 
-  /* map pins follow filter + mode */
-  if(kakaoMap&&mapPins.length){
-    const ids=new Set(v.map(a=>a.id));
-    mapPins.forEach(p=>{
-      p.overlay.setMap(ids.has(p.id)?kakaoMap:null);
-      if(act){
-        p.el.textContent=p.a.fitScore;
-        p.el.style.background=p.a.fitScore<80?'#D97706':'#059669';
-        p.el.style.color='#fff';
-        p.el.style.fontSize='10px';
-      }else{
-        p.el.textContent=p.a.emoji||'📚';
-        p.el.style.background='#fff';
-        p.el.style.color='#191F28';
-        p.el.style.fontSize='13px';
-      }
-    });
-  }
+  /* map pins mirror the filtered list */
+  renderRegPins(v,act);
 }
 
 /* ── live Kakao search on the end-user device ──
@@ -1646,6 +1630,29 @@ function applySearch(){
    slot/shuttle data); this layer surfaces academies we haven't
    registered yet, clearly badged 미검증 with no fit score. */
 let liveTimer=null,LIVE_TOKEN=0,LIVE_PINS=[],suppressIdle=false,LAST_REG_COUNT=0;
+let REG_PINS=[],REG_PIN_KEY='';
+
+/* registered pins mirror the CURRENT filtered list exactly — numbered to
+   match the cards (1..N); live pins continue the numbering (N+1..) */
+function renderRegPins(v,act){
+  if(!kakaoMap)return;
+  const key=v.map(a=>a.id).join(',')+'|'+(act?1:0);
+  if(key===REG_PIN_KEY)return;
+  REG_PIN_KEY=key;
+  REG_PINS.forEach(o=>o.setMap(null));
+  REG_PINS=[];
+  v.slice(0,40).forEach((a,i)=>{
+    const color=act?(a.fitScore<80?'#D97706':'#059669'):'#3182F6';
+    const el=document.createElement('div');
+    el.style.cssText=`background:${color};color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;`;
+    el.textContent=i+1;
+    el.title=a.name;
+    el.addEventListener('click',()=>openSlot(a.id));
+    const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(a.lat,a.lng),content:el,yAnchor:0.5,xAnchor:0.5,zIndex:3});
+    ov.setMap(kakaoMap);
+    REG_PINS.push(ov);
+  });
+}
 
 const LIVE_SUBJ_GUESS=[['킥복싱','boxing'],['복싱','boxing'],['태권도','taekwondo'],['발레','ballet'],['축구','soccer'],['줄넘기','jumprope'],['영어','english'],['수학','math'],['미술','art'],['피아노','piano'],['음악','piano'],['코딩','coding']];
 function guessSubject(p,q){
@@ -1663,13 +1670,14 @@ function kmFromCenter(p){
   return Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))*100)/100;
 }
 
-function liveCardHtml(p,q){
+function liveCardHtml(p,q,rank){
   const subj=guessSubject(p,q);
   const lbl=subj?SUBJ_LABEL[subj]:((p.category_name||'').split('>').pop().trim()||'기타');
   const cls=subj?(SUBJ_CLASS[subj]||'en'):'mt';
   const km=kmFromCenter(p);
+  const rankTag=rank?`<span class="tag" style="background:#fff;color:#3182F6;border:1.5px dashed #3182F6;">${rank}</span>`:'';
   return `<div class="card" onclick="openLivePlace('${esc(p.id)}')">
-    <div><span class="tag ${cls}">${esc(lbl)}</span><span class="tag warn">미검증</span></div>
+    <div>${rankTag}<span class="tag ${cls}">${esc(lbl)}</span><span class="tag warn">미검증</span></div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
       <div>
         <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(p.place_name)}</div>
@@ -1761,15 +1769,16 @@ function liveSearch(q,wide){
     }
     b.innerHTML=
       `<div class="divlbl">🔎 카카오 실시간 결과 · ${scopeLbl} · 미등록 (${fresh.length})</div>`+
-      fresh.map(p=>liveCardHtml(p,q)).join('');
+      fresh.map((p,j)=>liveCardHtml(p,q,LAST_REG_COUNT+j+1)).join('');
     if(kakaoMap){
       const bnds=new kakao.maps.LatLngBounds();
-      fresh.forEach(p=>{
+      fresh.forEach((p,j)=>{
         const pos=new kakao.maps.LatLng(parseFloat(p.y),parseFloat(p.x));
         bnds.extend(pos);
         const el=document.createElement('div');
-        el.style.cssText='background:#fff;color:#191F28;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px dashed #3182F6;cursor:pointer;';
-        el.textContent='🔎';
+        el.style.cssText='background:#fff;color:#3182F6;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px dashed #3182F6;cursor:pointer;';
+        el.textContent=LAST_REG_COUNT+j+1;
+        el.title=p.place_name;
         el.addEventListener('click',()=>openLivePlace(p.id));
         const ov=new kakao.maps.CustomOverlay({position:pos,content:el,yAnchor:0.5,xAnchor:0.5,zIndex:4});
         ov.setMap(kakaoMap);
@@ -1882,17 +1891,6 @@ function initKakaoMap(){
   schoolEl.style.cssText='background:#3182F6;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;';
   schoolEl.textContent='🏫';
   new kakao.maps.CustomOverlay({position:ctr,content:schoolEl,yAnchor:0.5,xAnchor:0.5,zIndex:5}).setMap(kakaoMap);
-
-  ACADEMIES.slice(0,30).forEach(a=>{
-    const pos=new kakao.maps.LatLng(a.lat,a.lng);
-    const el=document.createElement('div');
-    el.style.cssText='color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;background:#059669;';
-    el.textContent=a.fitScore;
-    el.addEventListener('click',()=>openSlot(a.id));
-    const overlay=new kakao.maps.CustomOverlay({position:pos,content:el,yAnchor:0.5,xAnchor:0.5,zIndex:3});
-    overlay.setMap(kakaoMap);
-    mapPins.push({id:a.id,overlay,el,a});
-  });
 
   /* map moved while a query is active → offer re-search in the new area */
   kakao.maps.event.addListener(kakaoMap,'idle',()=>{
