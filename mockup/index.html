@@ -1611,8 +1611,9 @@ function applySearch(){
   const registeredLbl=(q&&v.length)?`<div class="divlbl">등록된 학원 (${v.length})</div>`:'';
   document.getElementById('search-list').innerHTML=
     nudge+empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act)).join('')+`<div id="live-results"></div>`;
+  LAST_REG_COUNT=v.length;
   document.getElementById('sheet-count').textContent=
-    `학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
+    q?`등록 학원 ${v.length}개 · 🔎 실시간 검색 중…`:`학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
 
   /* live Kakao fallback: runs on the user's device, shows unregistered
      academies for the typed query (debounced) */
@@ -1644,7 +1645,7 @@ function applySearch(){
    Curated academies.json stays the base (it carries our verified
    slot/shuttle data); this layer surfaces academies we haven't
    registered yet, clearly badged 미검증 with no fit score. */
-let liveTimer=null,LIVE_TOKEN=0,LIVE_PINS=[],suppressIdle=false;
+let liveTimer=null,LIVE_TOKEN=0,LIVE_PINS=[],suppressIdle=false,LAST_REG_COUNT=0;
 
 const LIVE_SUBJ_GUESS=[['킥복싱','boxing'],['복싱','boxing'],['태권도','taekwondo'],['발레','ballet'],['축구','soccer'],['줄넘기','jumprope'],['영어','english'],['수학','math'],['미술','art'],['피아노','piano'],['음악','piano'],['코딩','coding']];
 function guessSubject(p,q){
@@ -1667,7 +1668,7 @@ function liveCardHtml(p,q){
   const lbl=subj?SUBJ_LABEL[subj]:((p.category_name||'').split('>').pop().trim()||'기타');
   const cls=subj?(SUBJ_CLASS[subj]||'en'):'mt';
   const km=kmFromCenter(p);
-  return `<div class="card" onclick="window.open('${esc(p.place_url)}','_blank')">
+  return `<div class="card" onclick="openLivePlace('${esc(p.id)}')">
     <div><span class="tag ${cls}">${esc(lbl)}</span><span class="tag warn">미검증</span></div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
       <div>
@@ -1678,6 +1679,38 @@ function liveCardHtml(p,q){
       <div style="font-size:20px;">🔎</div>
     </div>
   </div>`;
+}
+
+/* in-app detail sheet for a live (unverified) place — keeps the user
+   inside the app; Kakao Map is a secondary link, not the tap target */
+let LIVE_PLACES={};
+const LS_REQ='tetris_reg_requests_v1';
+function loadReqs(){try{return JSON.parse(localStorage.getItem(LS_REQ))||[];}catch(e){return [];}}
+function openLivePlace(pid){
+  const p=LIVE_PLACES[pid];
+  if(!p)return;
+  const subj=guessSubject(p,SEARCH_Q.trim());
+  const lbl=subj?SUBJ_LABEL[subj]:((p.category_name||'').split('>').pop().trim()||'기타');
+  const cls=subj?(SUBJ_CLASS[subj]||'en'):'mt';
+  const requested=loadReqs().includes(p.id);
+  document.getElementById('sheet-bg').classList.add('show');
+  document.getElementById('sheet').classList.add('show');
+  document.getElementById('sheet-title').textContent=p.place_name;
+  document.getElementById('sheet-body').innerHTML=`
+    <div style="margin-top:4px;"><span class="tag ${cls}">${esc(lbl)}</span><span class="tag warn">미검증</span></div>
+    <div style="font-size:13px;color:#6B7684;line-height:1.8;margin-top:8px;">
+      📍 ${esc(p.road_address_name||p.address_name)} · ${kmFromCenter(p)}km<br>
+      🏷️ ${esc(p.category_name||'분류 정보 없음')}<br>
+      🕐 시간표·셔틀·수강료는 아직 검증 전이에요
+    </div>
+    ${p.phone?`<a href="tel:${esc(p.phone)}" style="text-decoration:none;"><button class="cta" style="margin-top:18px;">📞 전화하기 — ${esc(p.phone)}</button></a>`:''}
+    <button class="cta sec" style="margin-top:10px;" ${requested?'disabled':''} onclick="requestRegister('${esc(p.id)}')">${requested?'✓ 등록 요청됨 — 검증 후 추가돼요':'🧩 우리 동네에 등록 요청'}</button>
+    <button class="clear-btn" onclick="window.open('${esc(p.place_url)}','_blank')">카카오맵에서 자세히 보기 ↗</button>`;
+}
+function requestRegister(pid){
+  const reqs=loadReqs();
+  if(!reqs.includes(pid)){reqs.push(pid);try{localStorage.setItem(LS_REQ,JSON.stringify(reqs));}catch(e){}}
+  openLivePlace(pid);
 }
 
 function clearLivePins(){LIVE_PINS.forEach(o=>o.setMap(null));LIVE_PINS=[];}
@@ -1716,6 +1749,10 @@ function liveSearch(q,wide){
     const fresh=(status===kakao.maps.services.Status.OK?data:[])
       .filter(p=>!known.has('kakao-'+p.id))
       .slice(0,12);
+    LIVE_PLACES={};
+    fresh.forEach(p=>{LIVE_PLACES[p.id]=p;});
+    const cnt=document.getElementById('sheet-count');
+    if(cnt)cnt.textContent=`등록 학원 ${LAST_REG_COUNT}개 · 🔎 실시간 ${fresh.length}개`;
     if(!fresh.length){
       b.innerHTML=`<div class="empty-state" style="padding:16px 20px;">${scopeLbl}에는 '${esc(q)}' 결과가 없어요
         ${useBounds?`<button class="nudge-cta" style="margin:8px auto 0;" onclick="wideSearch()">반경 10km로 넓게 검색</button>`:'<span>지도를 옮겨 다른 지역에서 재검색해보세요</span>'}
@@ -1733,7 +1770,7 @@ function liveSearch(q,wide){
         const el=document.createElement('div');
         el.style.cssText='background:#fff;color:#191F28;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px dashed #3182F6;cursor:pointer;';
         el.textContent='🔎';
-        el.addEventListener('click',()=>window.open(p.place_url,'_blank'));
+        el.addEventListener('click',()=>openLivePlace(p.id));
         const ov=new kakao.maps.CustomOverlay({position:pos,content:el,yAnchor:0.5,xAnchor:0.5,zIndex:4});
         ov.setMap(kakaoMap);
         LIVE_PINS.push(ov);
