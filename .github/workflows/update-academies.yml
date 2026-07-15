@@ -1,0 +1,35 @@
+name: Update academies data
+
+on:
+  schedule:
+    - cron: '0 20 * * *'   # 05:00 KST daily
+  workflow_dispatch: {}     # manual run from the Actions tab
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch academies from Kakao Local API
+        run: node scripts/fetch-academies.mjs
+        env:
+          KAKAO_REST_KEY: ${{ secrets.KAKAO_REST_KEY }}
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet mockup/academies.json; then
+            echo "No data changes today."
+            exit 0
+          fi
+          git config user.name "academies-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add mockup/academies.json
+          git commit -m "chore: daily academies data refresh"
+          git push
