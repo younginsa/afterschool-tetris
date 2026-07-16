@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>pin self-test</title></head>
+<body>
+<pre id="out">loading app…</pre>
+<iframe id="app" src="/index.html" style="width:390px;height:780px;border:1px solid #ccc;"></iframe>
+<script>
+const out=document.getElementById('out');
+function report(tag,obj){
+  const s=JSON.stringify(obj);
+  out.textContent+='\n'+tag+' '+s;
+  fetch('http://localhost:8931/PINTEST/'+tag+'/'+encodeURIComponent(s).slice(0,1800),{mode:'no-cors'}).catch(()=>{});
+}
+const f=document.getElementById('app');
+f.addEventListener('load',()=>{
+  const w=f.contentWindow;
+  /* wait for bootstrap (academies.json) + kakao sdk */
+  setTimeout(()=>{
+    try{
+      w.goTab('search');
+      setTimeout(()=>{
+        try{
+          const inp=w.document.getElementById('search-input');
+          inp.value='복싱';
+          w.onSearchInput('복싱');
+          w.submitSearch();
+          setTimeout(()=>{
+            try{
+              const d=w.__debug();
+              d.hasRush=d.pinTitles.some(t=>t&&t.includes('러쉬'));
+              report('result',d);
+            }catch(e){report('err-read',{e:String(e)});}
+          },3500);
+        }catch(e){report('err-submit',{e:String(e)});}
+      },2000);
+    }catch(e){report('err-nav',{e:String(e)});}
+  },2500);
+});
+</script>
+</body>
+</html>

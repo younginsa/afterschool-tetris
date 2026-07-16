@@ -234,6 +234,11 @@ body{
   width:20px;height:20px;font-size:10px;color:#6B7684;
   cursor:pointer;flex-shrink:0;
 }
+.search-go{
+  border:none;background:#3182F6;border-radius:10px;
+  width:36px;height:32px;font-size:14px;
+  cursor:pointer;flex-shrink:0;
+}
 .cchips{
   display:flex;gap:6px;overflow-x:auto;
   -webkit-overflow-scrolling:touch;
@@ -588,9 +593,9 @@ input[type=range]::-webkit-slider-thumb{
 
   <div class="search-top">
     <div class="search-bar">
-      <span style="font-size:15px;">🔍</span>
-      <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" oninput="onSearchInput(this.value)">
+      <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" enterkeyhint="search" oninput="onSearchInput(this.value)">
       <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()">✕</button>
+      <button class="search-go" onclick="submitSearch()">🔍</button>
     </div>
     <div class="cchips" id="cchips"></div>
   </div>
@@ -1262,6 +1267,7 @@ function openCategory(subj){
   inp.value=SEARCH_Q;
   document.getElementById('search-clear').style.display=SEARCH_Q?'':'none';
   applySearch();
+  if(SEARCH_Q)liveSearch(SEARCH_Q);
 }
 function openMapExplore(){
   goTab('search');
@@ -1608,28 +1614,42 @@ function applySearch(){
      </div>`
     :'';
 
+  /* keep previous live results across re-renders (constraint chip taps
+     re-run this function; live search only re-runs on explicit submit) */
+  const prevLive=document.getElementById('live-results');
+  const liveHtml=prevLive?prevLive.innerHTML:'';
+
   const registeredLbl=(q&&v.length)?`<div class="divlbl">등록된 학원 (${v.length})</div>`:'';
   document.getElementById('search-list').innerHTML=
     nudge+empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act,i+1)).join('')+`<div id="live-results"></div>`;
+  document.getElementById('live-results').innerHTML=liveHtml;
   LAST_REG_COUNT=v.length;
   document.getElementById('sheet-count').textContent=
-    q?`등록 학원 ${v.length}개 · 🔎 실시간 검색 중…`:`학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
+    `학원 ${v.length}개 · ${act?'적합도순':'거리순'}`;
 
-  /* live Kakao fallback: runs on the user's device, shows unregistered
-     academies for the typed query (debounced) */
-  clearTimeout(liveTimer);
-  if(q)liveTimer=setTimeout(()=>liveSearch(q),450);
-  else clearLivePins();
+  if(!q)clearLivePins();
 
   /* map pins mirror the filtered list */
   renderRegPins(v,act);
+}
+
+/* explicit search: fires on 🔍 tap, Enter, or the keyboard 검색 key —
+   typing alone never searches (as-you-type read as filtering, not search) */
+function submitSearch(){
+  const inp=document.getElementById('search-input');
+  SEARCH_Q=inp.value;
+  inp.blur();
+  if(sheetState==='peek')setSheet('half');
+  applySearch();
+  const q=SEARCH_Q.trim();
+  if(q)liveSearch(q);
 }
 
 /* ── live Kakao search on the end-user device ──
    Curated academies.json stays the base (it carries our verified
    slot/shuttle data); this layer surfaces academies we haven't
    registered yet, clearly badged 미검증 with no fit score. */
-let liveTimer=null,LIVE_TOKEN=0,LIVE_PINS=[],suppressIdle=false,LAST_REG_COUNT=0;
+let LIVE_TOKEN=0,LIVE_PINS=[],suppressIdle=false,LAST_REG_COUNT=0;
 let REG_PINS=[],REG_PIN_KEY='';
 
 /* registered pins mirror the CURRENT filtered list exactly — numbered to
@@ -1789,15 +1809,16 @@ function liveSearch(q,wide){
     }
   },opts);
 }
-function wideSearch(){clearTimeout(liveTimer);liveSearch(SEARCH_Q.trim(),true);}
-function rescanArea(){clearTimeout(liveTimer);liveSearch(SEARCH_Q.trim());}
+function wideSearch(){liveSearch(SEARCH_Q.trim(),true);}
+function rescanArea(){liveSearch(SEARCH_Q.trim());}
 
 function onSearchInput(v){
-  SEARCH_Q=v;
   document.getElementById('search-clear').style.display=v?'':'none';
-  /* typing = search intent: surface the results list over the map */
-  if(v&&sheetState==='peek')setSheet('half');
-  applySearch();
+  /* emptying the box resets to browse mode immediately */
+  if(!v.trim()&&SEARCH_Q){
+    SEARCH_Q='';
+    applySearch();
+  }
 }
 function clearSearch(){
   SEARCH_Q='';
@@ -1958,14 +1979,22 @@ if(typeof kakao!=='undefined'&&kakao.maps&&kakao.maps.load){
   });
 }
 
-/* Enter = search now (dismiss keyboard, skip the debounce) */
+/* Enter / keyboard 검색 key = submit */
 document.getElementById('search-input').addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    e.target.blur();
-    clearTimeout(liveTimer);
-    liveSearch(SEARCH_Q.trim());
-  }
+  if(e.key==='Enter')submitSearch();
 });
+
+/* test hook: lets tools/pin-test.html read internal state (top-level
+   `let` bindings are not reachable from the embedding frame) */
+window.__debug=function(){
+  return {
+    mapInit:mapInitialized,
+    regPins:REG_PINS.length,
+    livePins:LIVE_PINS.length,
+    regCount:LAST_REG_COUNT,
+    pinTitles:REG_PINS.map(o=>{try{return o.getContent().title;}catch(e){return '?';}})
+  };
+};
 
 /* Initial render */
 renderCategories();
