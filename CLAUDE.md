@@ -166,6 +166,16 @@ type Selection = {
 
 ---
 
+## Operational setup (machine-independent — read when starting on a new machine)
+
+- **Deployed URL**: https://afterschool-tetris.vercel.app — Vercel project root dir is `mockup/`, auto-deploys on push to `main`
+- **Local dev**: `cd mockup && python3 -m http.server 8931` → http://localhost:8931 (no build step; vanilla HTML+JS)
+- **Kakao developers app**: 방과후 테트리스, app ID **1484672**. JS SDK 도메인 registered: `http://localhost:8931` and `https://afterschool-tetris.vercel.app`. If the map or live search dies with `kakao undefined`, an unregistered origin is the cause — check this first
+- **REST API key**: exists ONLY as GitHub Actions secret `KAKAO_REST_KEY` (never commit it). Kakao's new console rotates via 복제 키 생성, not 재발급
+- **Daily data refresh**: `.github/workflows/update-academies.yml` (05:00 KST cron + manual Run workflow) runs `scripts/fetch-academies.mjs` → commits `mockup/academies.json` on change. Adding a search category = one line in `KEYWORDS` (script + `mockup/tools/update-data.html`) + label/color/icon in `mockup/index.html`
+- **Diagnostics**: `mockup/tools/live-test.html` (raw Kakao query probe), `mockup/tools/pin-test.html` (iframe harness driving a real search; reads `window.__debug()`). Both report into the local http.server access log via GET requests — useful when the shell can't reach the network
+- **Next planned work**: verification tier — distinguish phone-verified academies (real slots/shuttle) from auto-imported ones (mock slots) before real-parent testing
+
 ## Out-of-band reminders
 
 - Korean copy is the source of truth — do not paraphrase or shorten it without explicit ask
