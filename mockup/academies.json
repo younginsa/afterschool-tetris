@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-07-20T21:10:32.040Z",
+ "generatedAt": "2026-07-21T21:06:59.191Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -6665,67 +6665,6 @@
    "placeUrl": "http://place.map.kakao.com/1924907628"
   },
   {
-   "id": "kakao-123792941",
-   "name": "메카코딩학원 광교캠퍼스",
-   "address": "경기 수원시 영통구 에듀타운로 84",
-   "phone": "031-895-5774",
-   "distanceKm": 1.68,
-   "subjects": [
-    "coding"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 280000,
-   "fitScore": 89,
-   "emoji": "💻",
-   "lng": 127.047385980218,
-   "lat": 37.2887906851015,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/123792941"
-  },
-  {
    "id": "kakao-1902127971",
    "name": "인텔 마이티 인공지능 코딩학원 광교캠퍼스",
    "address": "경기 수원시 영통구 에듀타운로 84",
@@ -6797,6 +6736,67 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1902127971"
+  },
+  {
+   "id": "kakao-123792941",
+   "name": "메카코딩학원 광교캠퍼스",
+   "address": "경기 수원시 영통구 에듀타운로 84",
+   "phone": "031-895-5774",
+   "distanceKm": 1.68,
+   "subjects": [
+    "coding"
+   ],
+   "shuttleAvailable": true,
+   "monthlyCostKRW": 280000,
+   "fitScore": 89,
+   "emoji": "💻",
+   "lng": 127.047385980218,
+   "lat": 37.2887906851015,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/123792941"
   },
   {
    "id": "kakao-1278260353",
