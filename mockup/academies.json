@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-07-26T20:56:22.275Z",
+ "generatedAt": "2026-07-27T21:08:25.974Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -7392,6 +7392,55 @@
    "placeUrl": "http://place.map.kakao.com/19401489"
   },
   {
+   "id": "kakao-2045571554",
+   "name": "브리앙뜨",
+   "address": "경기 용인시 수지구 성복1로163번길 11",
+   "phone": "010-5967-7813",
+   "distanceKm": 1.9,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 150000,
+   "fitScore": 90,
+   "emoji": "🎨",
+   "lng": 127.06097785167171,
+   "lat": 37.31595520950067,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": false
+    },
+    {
+     "day": "wed",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/2045571554"
+  },
+  {
    "id": "kakao-562597317",
    "name": "스마트해법수학 광교마을45단지점",
    "address": "경기 용인시 수지구 광교마을로 11",
@@ -10714,73 +10763,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1392130246"
-  },
-  {
-   "id": "kakao-822339376",
-   "name": "중대미술",
-   "address": "경기 수원시 영통구 광교중앙로266번길 20",
-   "phone": "",
-   "distanceKm": 2.37,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 150000,
-   "fitScore": 72,
-   "emoji": "🎨",
-   "lng": 127.068653038119,
-   "lat": 37.2929277381743,
-   "slots": [
-    {
-     "day": "mon",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": false
-    },
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": false
-    },
-    {
-     "day": "thu",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": false
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/822339376"
   },
   {
    "id": "kakao-50291161",
