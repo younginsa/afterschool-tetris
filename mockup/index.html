@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#3182F6">
 <title>방과후 테트리스</title>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5ef5affc2b6e6ecc37445cbf06499dc&autoload=false&libraries=services,clusterer"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none;}
@@ -19,6 +20,11 @@ body{
   -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing:antialiased;
 }
+
+/* LUCIDE ICONS */
+svg.lucide{stroke-width:2;vertical-align:-.15em;flex-shrink:0;}
+i[data-lucide]{display:inline-block;width:1em;height:1em;}
+.logo svg.lucide{vertical-align:-.18em;}
 
 /* SCREENS — fill the entire viewport, only the .on one is visible */
 .screen{
@@ -46,7 +52,7 @@ body{
   width:36px;height:36px;border-radius:50%;
   border:none;background:#F5F6F8;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:18px;color:#191F28;flex-shrink:0;
+  cursor:pointer;color:#191F28;flex-shrink:0;
 }
 .ntitle{font-size:17px;font-weight:800;color:#191F28;}
 .nsub{font-size:11px;color:#6B7684;margin-top:1px;}
@@ -63,11 +69,12 @@ body{
   border:none;background:#EBF2FF;color:#3182F6;
   border-radius:100px;padding:9px 14px;
   font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;
+  display:inline-flex;align-items:center;gap:4px;
 }
 
 /* TODAY SCHEDULE CARD */
 .td-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
-.td-title{font-size:15px;font-weight:900;color:#191F28;}
+.td-title{font-size:15px;font-weight:900;color:#191F28;display:inline-flex;align-items:center;gap:6px;}
 .td-date{font-size:11px;color:#6B7684;font-weight:600;}
 .td-link{font-size:11px;color:#3182F6;font-weight:700;}
 .td-child{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:#191F28;margin:10px 0 6px;}
@@ -80,7 +87,7 @@ body{
 .td-time{color:#3182F6;font-weight:800;font-size:11px;min-width:84px;flex-shrink:0;}
 .td-gap .td-time{color:#B45309;}
 .td-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.td-none{font-size:11px;color:#B0B8C1;padding:2px 10px 6px;}
+.td-none{font-size:11px;color:#B0B8C1;padding:2px 10px 6px;display:flex;align-items:center;gap:5px;}
 
 /* CATEGORY ICON ROW */
 .cat-row{
@@ -97,7 +104,7 @@ body{
 .cat:active{transform:scale(.95);}
 .cat-ico{
   width:54px;height:54px;border-radius:17px;
-  display:flex;align-items:center;justify-content:center;font-size:25px;
+  display:flex;align-items:center;justify-content:center;
 }
 .cat-lbl{font-size:11px;font-weight:600;color:#191F28;white-space:nowrap;}
 
@@ -123,7 +130,7 @@ body{
   flex:1;display:flex;flex-direction:column;
   align-items:center;gap:3px;cursor:pointer;padding:6px 0;
 }
-.btab-ico{font-size:20px;color:#B0B8C1;transition:color .15s;}
+.btab-ico{color:#B0B8C1;transition:color .15s;display:flex;}
 .btab-lbl{font-size:10px;color:#B0B8C1;font-weight:500;transition:color .15s;}
 .btab.on .btab-ico,.btab.on .btab-lbl{color:#3182F6;}
 
@@ -135,6 +142,7 @@ body{
   font-size:13px;font-weight:600;color:#6B7684;
   cursor:pointer;transition:all .15s;
   -webkit-tap-highlight-color:transparent;
+  display:inline-flex;align-items:center;gap:5px;
 }
 .chip.on{border-color:#3182F6;background:#EBF2FF;color:#3182F6;}
 .chip.on.subj{border-color:#059669;background:#E5F9F3;color:#047857;}
@@ -170,6 +178,7 @@ body{
   color:#fff;font-size:16px;font-weight:800;
   cursor:pointer;transition:transform .1s,background .15s;
   font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
 }
 .cta:active{transform:scale(.98);background:#1C6FDF;}
 .cta.sec{background:#EBF2FF;color:#3182F6;}
@@ -186,7 +195,7 @@ body{
 
 /* TAGS */
 .tag{
-  display:inline-block;padding:3px 10px;
+  display:inline-flex;align-items:center;gap:3px;padding:3px 10px;
   border-radius:6px;font-size:10px;font-weight:800;
   margin-right:4px;margin-bottom:8px;
 }
@@ -199,7 +208,7 @@ body{
 .tag.warn{background:#FEF9C3;color:#A16207;}
 
 /* FIT SCORE */
-.fit-badge{text-align:right;}
+.fit-badge{text-align:right;display:flex;flex-direction:column;align-items:flex-end;}
 .fit-num{font-size:20px;font-weight:900;color:#059669;line-height:1;}
 .fit-num.mid{color:#D97706;}
 .fit-lbl{font-size:10px;font-weight:700;color:#059669;margin-top:1px;}
@@ -207,7 +216,7 @@ body{
 
 /* SLOT PILLS */
 .pills{display:flex;gap:5px;flex-wrap:wrap;}
-.pill{padding:4px 10px;border-radius:7px;font-size:11px;font-weight:700;}
+.pill{padding:4px 10px;border-radius:7px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:3px;}
 .pill.avail{background:#DBEAFE;color:#1D4ED8;}
 .pill.open{background:#D1FAE5;color:#065F46;}
 .pill.full{background:#F3F4F6;color:#9CA3AF;text-decoration:line-through;}
@@ -231,13 +240,13 @@ body{
 .search-bar input::placeholder{color:#B0B8C1;font-size:14px;}
 .search-clear{
   border:none;background:#E5E8EF;border-radius:50%;
-  width:20px;height:20px;font-size:10px;color:#6B7684;
-  cursor:pointer;flex-shrink:0;
+  width:20px;height:20px;color:#6B7684;
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
 }
 .search-go{
-  border:none;background:#3182F6;border-radius:10px;
-  width:36px;height:32px;font-size:14px;
-  cursor:pointer;flex-shrink:0;
+  border:none;background:#3182F6;color:#fff;border-radius:10px;
+  width:36px;height:32px;
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
 }
 .cchips{
   display:flex;gap:6px;overflow-x:auto;
@@ -249,6 +258,7 @@ body{
   border:1px solid #E5E8EF;background:#fff;
   font-size:12px;font-weight:700;color:#6B7684;
   cursor:pointer;white-space:nowrap;transition:all .15s;
+  display:inline-flex;align-items:center;gap:4px;
 }
 .cchip.on{border-color:#3182F6;background:#EBF2FF;color:#3182F6;}
 .cchip.reset{color:#EF4444;border-color:#FECACA;}
@@ -298,9 +308,9 @@ body{
   z-index:35;border:none;background:#fff;color:#3182F6;
   border-radius:100px;padding:9px 16px;font-size:12px;font-weight:800;
   box-shadow:0 2px 10px rgba(0,0,0,.2);cursor:pointer;font-family:inherit;
-  display:none;white-space:nowrap;
+  display:none;white-space:nowrap;align-items:center;gap:5px;
 }
-.rescan-btn.show{display:block;}
+.rescan-btn.show{display:flex;}
 
 /* GRID STEPS */
 .step-bar{
@@ -347,6 +357,7 @@ body{
   font-size:12px;font-weight:700;color:#6B7684;
   cursor:pointer;font-family:inherit;transition:all .15s;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
 }
 .seg-btn.on{background:#fff;color:#191F28;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 
@@ -395,7 +406,7 @@ body{
   font-size:13px;
 }
 .sumrow:last-child{border-bottom:none;padding-bottom:0;}
-.sumkey{color:#6B7684;}
+.sumkey{color:#6B7684;display:inline-flex;align-items:center;gap:6px;}
 .sumval{font-weight:800;color:#191F28;}
 .warn-banner{
   margin:0 14px 12px;background:#FFFBEB;
@@ -419,9 +430,10 @@ body{
   border:1px solid #BFDBFE;
 }
 .info-txt{font-size:11px;color:#1C6FDF;line-height:1.55;}
+.banner-ico{flex-shrink:0;display:flex;}
 
 /* DIVIDER */
-.divlbl{padding:12px 16px 4px;font-size:11px;font-weight:700;color:#B0B8C1;text-transform:uppercase;letter-spacing:.05em;}
+.divlbl{padding:12px 16px 4px;font-size:11px;font-weight:700;color:#B0B8C1;text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:5px;}
 .gap{height:14px;}
 
 /* DETAIL COMPAT */
@@ -434,11 +446,13 @@ body{
   background:#F0FFF8;border-radius:8px;
   padding:7px 10px;margin-bottom:9px;
   font-size:11px;color:#047857;font-weight:700;
+  display:flex;align-items:center;gap:5px;
 }
 .amber-info{
   background:#FFFBEB;border-radius:8px;
   padding:7px 10px;margin-bottom:9px;
   font-size:11px;color:#92400E;font-weight:700;
+  display:flex;align-items:center;gap:5px;
 }
 .sel-summary{
   background:#EBF2FF;border-radius:14px;
@@ -498,7 +512,8 @@ input[type=range]::-webkit-slider-thumb{
 }
 .sheet-x{
   border:none;background:#F5F6F8;border-radius:50%;
-  width:30px;height:30px;font-size:13px;cursor:pointer;color:#6B7684;
+  width:30px;height:30px;cursor:pointer;color:#6B7684;
+  display:flex;align-items:center;justify-content:center;
 }
 .f-lbl{font-size:12px;font-weight:800;color:#6B7684;margin:16px 0 8px;}
 .f-input{
@@ -511,7 +526,7 @@ input[type=range]::-webkit-slider-thumb{
   display:flex;align-items:center;gap:12px;
   padding:13px 0;border-bottom:.5px solid #F3F4F6;
 }
-.kid-emoji{font-size:26px;}
+.kid-emoji{color:#3182F6;display:flex;}
 .kid-info{flex:1;}
 .kid-name{font-size:14px;font-weight:800;color:#191F28;}
 .kid-sub{font-size:11px;color:#6B7684;margin-top:1px;}
@@ -543,8 +558,8 @@ input[type=range]::-webkit-slider-thumb{
 <div class="screen on" id="sc-home">
 
   <div class="topbar">
-    <div class="logo">🧩 방과후 테트리스</div>
-    <button class="addkid-btn" onclick="openSheet('form')">＋ 아이 추가</button>
+    <div class="logo"><i data-lucide="puzzle" style="width:19px;height:19px;color:#3182F6"></i> 방과후 테트리스</div>
+    <button class="addkid-btn" onclick="openSheet('form')"><i data-lucide="plus" style="width:14px;height:14px"></i> 아이 추가</button>
   </div>
 
   <div class="scrl">
@@ -559,7 +574,7 @@ input[type=range]::-webkit-slider-thumb{
 
     <div class="divlbl">이번 주 추천 조합</div>
     <div style="margin:0 14px 10px;background:#fff;border-radius:16px;border:.5px solid #EAECF0;padding:16px;">
-      <div style="font-size:12px;font-weight:800;color:#3182F6;margin-bottom:10px;">🧩 조합 추천 — 공백 없음</div>
+      <div style="font-size:12px;font-weight:800;color:#3182F6;margin-bottom:10px;display:flex;align-items:center;gap:5px;"><i data-lucide="puzzle" style="width:14px;height:14px"></i> 조합 추천 — 공백 없음</div>
       <div style="display:flex;gap:8px;margin-bottom:8px;">
         <div style="flex:1;background:#EBF2FF;border-radius:10px;padding:10px;text-align:center;">
           <div style="font-size:10px;color:#1D4ED8;font-weight:700;">YBM 영어</div>
@@ -578,10 +593,10 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab on" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="goTab('search')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+    <div class="btab on" onclick="goTab('home')"><span class="btab-ico"><i data-lucide="house" style="width:22px;height:22px"></i></span><span class="btab-lbl">홈</span></div>
+    <div class="btab" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
 
@@ -594,15 +609,15 @@ input[type=range]::-webkit-slider-thumb{
   <div class="search-top">
     <div class="search-bar">
       <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" enterkeyhint="search" oninput="onSearchInput(this.value)">
-      <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()">✕</button>
-      <button class="search-go" onclick="submitSearch()">🔍</button>
+      <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()"><i data-lucide="x" style="width:12px;height:12px"></i></button>
+      <button class="search-go" onclick="submitSearch()"><i data-lucide="search" style="width:18px;height:18px"></i></button>
     </div>
     <div class="cchips" id="cchips"></div>
   </div>
 
   <div class="search-body" id="search-body">
     <div id="kakao-map"></div>
-    <button class="rescan-btn" id="rescan-btn" onclick="rescanArea()">↻ 이 지역에서 재검색</button>
+    <button class="rescan-btn" id="rescan-btn" onclick="rescanArea()"><i data-lucide="rotate-cw" style="width:13px;height:13px"></i> 이 지역에서 재검색</button>
 
     <div class="list-sheet" id="list-sheet">
       <div class="sheet-grab" id="sheet-grab">
@@ -614,10 +629,10 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab on" onclick="goTab('search')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+    <div class="btab" onclick="goTab('home')"><span class="btab-ico"><i data-lucide="house" style="width:22px;height:22px"></i></span><span class="btab-lbl">홈</span></div>
+    <div class="btab on" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
 
@@ -627,7 +642,7 @@ input[type=range]::-webkit-slider-thumb{
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-setup">
   <div class="nhdr">
-    <button class="nback" onclick="goBack()">←</button>
+    <button class="nback" onclick="goBack()"><i data-lucide="arrow-left" style="width:20px;height:20px"></i></button>
     <div><div class="ntitle">전체 조건 설정</div><div class="nsub">조건을 저장하면 적합도를 계산해드려요</div></div>
   </div>
   <div class="step-bar">
@@ -667,22 +682,22 @@ input[type=range]::-webkit-slider-thumb{
     <div class="slabel">원하는 과목 <span style="font-size:11px;font-weight:400;color:#9CA3AF;">(복수선택)</span></div>
     <div class="slabel2">3개 이하 권장</div>
     <div style="padding:0 18px;"><div class="chips" id="cg-subjects">
-      <div class="chip" data-subj="english" onclick="tglChip(this)">🇺🇸 영어</div>
-      <div class="chip" data-subj="math" onclick="tglChip(this)">📐 수학</div>
-      <div class="chip" data-subj="taekwondo" onclick="tglChip(this)">🥋 태권도</div>
-      <div class="chip" data-subj="art" onclick="tglChip(this)">🎨 미술</div>
-      <div class="chip" data-subj="piano" onclick="tglChip(this)">🎹 피아노</div>
-      <div class="chip" data-subj="coding" onclick="tglChip(this)">💻 코딩</div>
-      <div class="chip" data-subj="boxing" onclick="tglChip(this)">🥊 복싱</div>
-      <div class="chip" data-subj="ballet" onclick="tglChip(this)">🩰 발레</div>
-      <div class="chip" data-subj="soccer" onclick="tglChip(this)">⚽ 축구</div>
-      <div class="chip" data-subj="jumprope" onclick="tglChip(this)">🪢 줄넘기</div>
+      <div class="chip" data-subj="english" onclick="tglChip(this)"><i data-lucide="languages" style="width:15px;height:15px;color:#2563EB"></i> 영어</div>
+      <div class="chip" data-subj="math" onclick="tglChip(this)"><i data-lucide="calculator" style="width:15px;height:15px;color:#D97706"></i> 수학</div>
+      <div class="chip" data-subj="taekwondo" onclick="tglChip(this)"><i data-lucide="swords" style="width:15px;height:15px;color:#DB2777"></i> 태권도</div>
+      <div class="chip" data-subj="art" onclick="tglChip(this)"><i data-lucide="palette" style="width:15px;height:15px;color:#059669"></i> 미술</div>
+      <div class="chip" data-subj="piano" onclick="tglChip(this)"><i data-lucide="music" style="width:15px;height:15px;color:#7C3AED"></i> 피아노</div>
+      <div class="chip" data-subj="coding" onclick="tglChip(this)"><i data-lucide="code" style="width:15px;height:15px;color:#0284C7"></i> 코딩</div>
+      <div class="chip" data-subj="boxing" onclick="tglChip(this)"><i data-lucide="dumbbell" style="width:15px;height:15px;color:#DC2626"></i> 복싱</div>
+      <div class="chip" data-subj="ballet" onclick="tglChip(this)"><i data-lucide="drama" style="width:15px;height:15px;color:#DB2777"></i> 발레</div>
+      <div class="chip" data-subj="soccer" onclick="tglChip(this)"><i data-lucide="goal" style="width:15px;height:15px;color:#16A34A"></i> 축구</div>
+      <div class="chip" data-subj="jumprope" onclick="tglChip(this)"><i data-lucide="activity" style="width:15px;height:15px;color:#D97706"></i> 줄넘기</div>
     </div></div>
     <div class="gap"></div>
 
     <div class="trow">
       <div>
-        <div style="font-size:14px;font-weight:800;color:#191F28;">🚌 셔틀버스 필수</div>
+        <div style="font-size:14px;font-weight:800;color:#191F28;display:flex;align-items:center;gap:5px;"><i data-lucide="bus" style="width:16px;height:16px;color:#059669"></i> 셔틀버스 필수</div>
         <div style="font-size:11px;color:#6B7684;margin-top:2px;">셔틀 없는 학원은 제외됩니다</div>
       </div>
       <div class="tgl off" id="tgl-shuttle" onclick="this.classList.toggle('off')"></div>
@@ -708,9 +723,9 @@ input[type=range]::-webkit-slider-thumb{
     <div class="gap"></div>
 
     <div style="background:#F0F5FF;border-radius:14px;padding:14px;margin:0 16px;border:.5px solid #BFDBFE;">
-      <div style="font-size:12px;font-weight:800;color:#1D4ED8;margin-bottom:6px;">🔍 입력된 조건</div>
+      <div style="font-size:12px;font-weight:800;color:#1D4ED8;margin-bottom:6px;display:flex;align-items:center;gap:5px;"><i data-lucide="search" style="width:14px;height:14px"></i> 입력된 조건</div>
       <div style="font-size:11px;color:#3182F6;line-height:1.8;" id="cond-box">
-        <span id="cond-child">👦 지호 — 광교초등학교 3학년</span>
+        <span id="cond-child">지호 — 광교초등학교 3학년</span>
       </div>
     </div>
     <div class="gap"></div>
@@ -727,18 +742,18 @@ input[type=range]::-webkit-slider-thumb{
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-slot">
   <div class="nhdr">
-    <button class="nback" onclick="goBack()">←</button>
+    <button class="nback" onclick="goBack()"><i data-lucide="arrow-left" style="width:20px;height:20px"></i></button>
     <div class="ntitle">시간표 선택</div>
   </div>
 
   <div class="scrl">
     <div style="background:#fff;padding:16px 18px;border-bottom:.5px solid #EAECF0;">
       <div style="display:flex;gap:14px;align-items:center;">
-        <div id="slot-emoji" style="width:54px;height:54px;background:#EBF2FF;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🇺🇸</div>
+        <div id="slot-emoji" style="width:54px;height:54px;background:#EBF2FF;color:#2563EB;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="languages" style="width:28px;height:28px"></i></div>
         <div>
           <div id="slot-name" style="font-size:17px;font-weight:900;color:#191F28;">광교 YBM 어학원</div>
           <div id="slot-addr" style="font-size:12px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
-          <div id="slot-tags" style="margin-top:8px;"><span class="tag en">영어</span><span class="tag sh">🚌 셔틀</span><span class="tag ok">97% 적합</span></div>
+          <div id="slot-tags" style="margin-top:8px;"><span class="tag en">영어</span><span class="tag sh"><i data-lucide="bus" style="width:11px;height:11px"></i> 셔틀</span><span class="tag ok">97% 적합</span></div>
         </div>
       </div>
     </div>
@@ -805,15 +820,15 @@ input[type=range]::-webkit-slider-thumb{
     <div class="gap"></div>
 
     <div style="padding:0 14px;">
-      <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:10px;">🧩 같이 조합하면 좋은 학원</div>
+      <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:10px;display:flex;align-items:center;gap:5px;"><i data-lucide="puzzle" style="width:15px;height:15px"></i> 같이 조합하면 좋은 학원</div>
       <div class="compat-card">
-        <div style="font-size:28px;">📐</div>
+        <div style="color:#D97706;display:flex;"><i data-lucide="calculator" style="width:26px;height:26px"></i></div>
         <div style="flex:1;">
           <div style="font-size:13px;font-weight:800;color:#191F28;">세정수학 광교점</div>
           <div style="font-size:11px;color:#6B7684;margin-top:2px;">화·목 17:00 → 겹치는 슬롯 없음</div>
         </div>
         <div style="text-align:center;font-size:11px;font-weight:800;color:#059669;">
-          <div style="font-size:18px;">✓</div>호환
+          <div style="display:flex;justify-content:center;"><i data-lucide="check" style="width:18px;height:18px"></i></div>호환
         </div>
       </div>
     </div>
@@ -831,7 +846,7 @@ input[type=range]::-webkit-slider-thumb{
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-sched">
   <div class="nhdr">
-    <button class="nback" onclick="goBack()">←</button>
+    <button class="nback" onclick="goBack()"><i data-lucide="arrow-left" style="width:20px;height:20px"></i></button>
     <div><div class="ntitle">내 주간 스케줄</div><div class="nsub" id="sched-sub">2026년 2학기 · 광교초</div></div>
   </div>
 
@@ -859,7 +874,7 @@ input[type=range]::-webkit-slider-thumb{
     <div class="gap"></div>
 
     <button class="share-btn">
-      <span>📤</span> 스케줄 이미지로 공유하기
+      <i data-lucide="share-2" style="width:16px;height:16px"></i> 스케줄 이미지로 공유하기
     </button>
 
     <div style="padding:10px 14px 0;">
@@ -870,10 +885,10 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab" onclick="goTab('home')"><span class="btab-ico">🏠</span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="goTab('search')"><span class="btab-ico">🔍</span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab on" onclick="goTab('sched')"><span class="btab-ico">📅</span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico">⚙️</span><span class="btab-lbl">설정</span></div>
+    <div class="btab" onclick="goTab('home')"><span class="btab-ico"><i data-lucide="house" style="width:22px;height:22px"></i></span><span class="btab-lbl">홈</span></div>
+    <div class="btab" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
+    <div class="btab on" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
+    <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
 
@@ -885,12 +900,34 @@ input[type=range]::-webkit-slider-thumb{
 <div class="sheet" id="sheet">
   <div class="sheet-ttl">
     <span id="sheet-title">아이 관리</span>
-    <button class="sheet-x" onclick="closeSheet()">✕</button>
+    <button class="sheet-x" onclick="closeSheet()"><i data-lucide="x" style="width:14px;height:14px"></i></button>
   </div>
   <div id="sheet-body"></div>
 </div>
 
 <script>
+/* ── Lucide icon helpers ── */
+function ic(name,size,color){size=size||20;return '<i data-lucide="'+name+'" style="width:'+size+'px;height:'+size+'px'+(color?';color:'+color:'')+'"></i>';}
+function refreshIcons(){if(window.lucide&&window.lucide.createIcons)window.lucide.createIcons();}
+let _iconRAF=null;
+function scheduleIcons(){if(_iconRAF)return;_iconRAF=requestAnimationFrame(function(){_iconRAF=null;refreshIcons();});}
+new MutationObserver(function(muts){
+  for(const m of muts)for(const n of m.addedNodes){
+    if(n.nodeType===1&&((n.matches&&n.matches('[data-lucide]'))||(n.querySelector&&n.querySelector('[data-lucide]')))){scheduleIcons();return;}
+  }
+}).observe(document.documentElement,{childList:true,subtree:true});
+
+/* subject → mono line icon + accent color (preserves color-coding) */
+const SUBJ_ICON={english:'languages',math:'calculator',taekwondo:'swords',art:'palette',piano:'music',coding:'code',boxing:'dumbbell',ballet:'drama',soccer:'goal',jumprope:'activity'};
+const SUBJ_ICOLOR={english:'#2563EB',math:'#D97706',taekwondo:'#DB2777',art:'#059669',piano:'#7C3AED',coding:'#0284C7',boxing:'#DC2626',ballet:'#DB2777',soccer:'#16A34A',jumprope:'#D97706'};
+function subjIcon(subj,size){return ic(SUBJ_ICON[subj]||'book-open',size||22,SUBJ_ICOLOR[subj]||'#6B7684');}
+
+/* child avatars: Lucide icon names; legacy emoji in localStorage are mapped */
+const AVATAR_ICONS=['user','smile','baby','bird','cat','rabbit'];
+const EMOJI_TO_ICON={'👦':'user','👧':'smile','🧒':'baby','🐥':'bird','🦁':'cat','🐰':'rabbit'};
+function avatarName(v){return AVATAR_ICONS.includes(v)?v:(EMOJI_TO_ICON[v]||'user');}
+function av(c,size){return ic(avatarName(c.emoji),size||15,'#3182F6');}
+
 /* ════════════════════════════════════════════════
    NAVIGATION — real history stack
    ════════════════════════════════════════════════ */
@@ -935,8 +972,8 @@ try{history.replaceState({stack:['home']},'');}catch(e){}
 const LS_KEY='tetris_children_v1';
 const LS_CONS='tetris_constraints_v1';
 const DEFAULT_CHILDREN=[
-  {id:'c1',name:'지호',emoji:'👦',grade:3,school:'광교초등학교'},
-  {id:'c2',name:'지안',emoji:'👧',grade:1,school:'광교초등학교'}
+  {id:'c1',name:'지호',emoji:'user',grade:3,school:'광교초등학교'},
+  {id:'c2',name:'지안',emoji:'smile',grade:1,school:'광교초등학교'}
 ];
 let CHILDREN=loadChildren();
 let CURRENT_CHILD=CHILDREN[0].id;
@@ -1006,9 +1043,8 @@ function krw(n){return '₩ '+n.toLocaleString('ko-KR');}
 /* ════════════════════════════════════════════════
    BOTTOM SHEET — child manager + constraint editors
    ════════════════════════════════════════════════ */
-const EMOJI_CHOICES=['👦','👧','🧒','🐥','🦁','🐰'];
 let EDITING_ID=null;
-let F_EMOJI='👦',F_GRADE=1,F_SCHOOL='광교초등학교';
+let F_EMOJI='user',F_GRADE=1,F_SCHOOL='광교초등학교';
 let F_SUBJECTS=[];
 
 function openSheet(mode,childId){
@@ -1030,7 +1066,7 @@ function renderSheetList(){
   document.getElementById('sheet-title').textContent='아이 관리';
   const rows=CHILDREN.map(c=>`
     <div class="kid-row">
-      <div class="kid-emoji">${c.emoji}</div>
+      <div class="kid-emoji">${av(c,24)}</div>
       <div class="kid-info">
         <div class="kid-name">${esc(c.name)}</div>
         <div class="kid-sub">${esc(c.school)} ${c.grade}학년</div>
@@ -1038,17 +1074,17 @@ function renderSheetList(){
       <button class="kid-edit" onclick="openSheet('form','${c.id}')">수정</button>
     </div>`).join('');
   document.getElementById('sheet-body').innerHTML=
-    rows+`<button class="cta" style="margin-top:18px;" onclick="openSheet('form')">＋ 아이 추가</button>`;
+    rows+`<button class="cta" style="margin-top:18px;" onclick="openSheet('form')">${ic('plus',16)} 아이 추가</button>`;
 }
 
 function renderSheetForm(){
   const c=EDITING_ID?childById(EDITING_ID):null;
   document.getElementById('sheet-title').textContent=c?`${c.name} 프로필 수정`:'아이 추가';
-  F_EMOJI=c?c.emoji:'👦';
+  F_EMOJI=c?avatarName(c.emoji):'user';
   F_GRADE=c?c.grade:1;
   F_SCHOOL=c?c.school:'광교초등학교';
-  const emojiChips=EMOJI_CHOICES.map(e=>
-    `<div class="chip${e===F_EMOJI?' on':''}" data-v="${e}" onclick="fPick(this,'emoji')" style="font-size:18px;padding:6px 12px;">${e}</div>`).join('');
+  const emojiChips=AVATAR_ICONS.map(e=>
+    `<div class="chip${e===F_EMOJI?' on':''}" data-v="${e}" onclick="fPick(this,'emoji')" style="padding:8px 12px;">${ic(e,20)}</div>`).join('');
   const gradeChips=[1,2,3,4,5,6].map(g=>
     `<div class="chip${g===F_GRADE?' on':''}" data-v="${g}" onclick="fPick(this,'grade')">${g}학년</div>`).join('');
   const schoolChips=['광교초등학교','신풍초등학교','영통초등학교'].map(s=>
@@ -1113,7 +1149,7 @@ function renderSheetChild(){
   document.getElementById('sheet-body').innerHTML=
     `<div class="chips" style="margin-top:10px;">`+
     CHILDREN.map(c=>
-      `<div class="chip${c.id===SEARCH_CHILD?' on':''}" onclick="setActiveChild('${c.id}')">${c.emoji} ${esc(c.name)} · ${c.grade}학년</div>`).join('')+
+      `<div class="chip${c.id===SEARCH_CHILD?' on':''}" onclick="setActiveChild('${c.id}')">${av(c)} ${esc(c.name)} · ${c.grade}학년</div>`).join('')+
     `<div class="chip${SEARCH_CHILD?'':' on'}" onclick="clearSearchChild()">선택 안함 — 전체 보기</div>`+
     `</div>
     <button class="cta sec" style="margin-top:22px;height:46px;" onclick="closeSheet();openSheet('list')">아이 관리</button>`;
@@ -1138,7 +1174,7 @@ function renderSheetSubjects(){
   document.getElementById('sheet-body').innerHTML=
     `<div class="chips" style="margin-top:10px;" id="fg-subjects">`+
     Object.entries(SUBJ_LABEL).map(([k,v])=>
-      `<div class="chip${F_SUBJECTS.includes(k)?' on subj':''}" data-subj="${k}" onclick="fTglSubj(this)">${v}</div>`).join('')+
+      `<div class="chip${F_SUBJECTS.includes(k)?' on subj':''}" data-subj="${k}" onclick="fTglSubj(this)">${subjIcon(k,15)} ${v}</div>`).join('')+
     `</div>
     <button class="cta" style="margin-top:22px;" onclick="applySubjects()">적용</button>
     <button class="clear-btn" onclick="F_SUBJECTS=[];applySubjects()">과목 조건 해제</button>`;
@@ -1217,46 +1253,49 @@ function renderToday(){
     const s=schedOf(c.id);
     const items=s.items.filter(it=>it.days.includes(dayKey)).sort((a,b)=>a.start-b.start);
     const gaps=s.gaps.filter(g=>g.days.includes(dayKey));
-    body+=`<div class="td-child">${c.emoji} ${esc(c.name)}</div>`;
+    body+=`<div class="td-child">${av(c,15)} ${esc(c.name)}</div>`;
     if(!items.length&&!gaps.length){
-      body+=`<div class="td-none">${SCHEDULES[c.id]?'오늘은 수업이 없어요 🎈':'아직 스케줄이 없어요 — 학원찾기에서 시작하세요'}</div>`;
+      body+=`<div class="td-none">${SCHEDULES[c.id]?`${ic('party-popper',13)} 오늘은 수업이 없어요`:`${ic('puzzle',13)} 아직 스케줄이 없어요 — 학원찾기에서 시작하세요`}</div>`;
       return;
     }
     const rows=[...items.map(it=>({t:it.start,html:
       `<div class="td-row"><span class="td-time">${fmtT(it.start)}–${fmtT(it.end)}</span><span class="td-dot" style="background:${SUBJ_SOLID[it.subj]};"></span>${esc(it.name)}</div>`})),
       ...gaps.map(g=>({t:g.start,html:
-      `<div class="td-row td-gap"><span class="td-time">${fmtT(g.start)}–${fmtT(g.end)}</span>⚠️ 공백 — 이동·대기 시간</div>`}))]
+      `<div class="td-row td-gap"><span class="td-time">${fmtT(g.start)}–${fmtT(g.end)}</span>${ic('triangle-alert',13)} 공백 — 이동·대기 시간</div>`}))]
       .sort((a,b)=>a.t-b.t);
     body+=rows.map(r=>r.html).join('');
   });
 
   document.getElementById('today-card').innerHTML=`
     <div class="td-hdr">
-      <span class="td-title">📅 ${title}</span>
+      <span class="td-title">${ic('calendar-days',16)} ${title}</span>
       <span class="td-date">${dateLbl} <span class="td-link">전체 시간표 →</span></span>
     </div>${body}`;
 }
 
 const CATEGORIES=[
-  {subj:'english',ico:'🇺🇸',lbl:'영어',bg:'#EBF2FF'},
-  {subj:'math',ico:'📐',lbl:'수학',bg:'#FEF3C7'},
-  {subj:'taekwondo',ico:'🥋',lbl:'태권도',bg:'#FCE7F3'},
-  {subj:'art',ico:'🎨',lbl:'미술',bg:'#D1FAE5'},
-  {subj:'piano',ico:'🎹',lbl:'피아노',bg:'#F3E8FF'},
-  {subj:'coding',ico:'💻',lbl:'코딩',bg:'#E0F2FE'},
-  {subj:'boxing',ico:'🥊',lbl:'복싱',bg:'#FEE2E2'},
-  {subj:'ballet',ico:'🩰',lbl:'발레',bg:'#FCE7F3'},
-  {subj:'soccer',ico:'⚽',lbl:'축구',bg:'#DCFCE7'},
-  {subj:'jumprope',ico:'🪢',lbl:'줄넘기',bg:'#FEF3C7'},
-  {subj:null,ico:'🗺️',lbl:'지도',bg:'#F0F1F3'}
+  {subj:'english',lbl:'영어',bg:'#EBF2FF'},
+  {subj:'math',lbl:'수학',bg:'#FEF3C7'},
+  {subj:'taekwondo',lbl:'태권도',bg:'#FCE7F3'},
+  {subj:'art',lbl:'미술',bg:'#D1FAE5'},
+  {subj:'piano',lbl:'피아노',bg:'#F3E8FF'},
+  {subj:'coding',lbl:'코딩',bg:'#E0F2FE'},
+  {subj:'boxing',lbl:'복싱',bg:'#FEE2E2'},
+  {subj:'ballet',lbl:'발레',bg:'#FCE7F3'},
+  {subj:'soccer',lbl:'축구',bg:'#DCFCE7'},
+  {subj:'jumprope',lbl:'줄넘기',bg:'#FEF3C7'},
+  {subj:null,ico:'map',color:'#6B7684',lbl:'지도',bg:'#F0F1F3'}
 ];
 
 function renderCategories(){
-  document.getElementById('cat-row').innerHTML=CATEGORIES.map(c=>
-    `<div class="cat" onclick="${c.subj?`openCategory('${c.subj}')`:'openMapExplore()'}">
-      <div class="cat-ico" style="background:${c.bg};">${c.ico}</div>
+  document.getElementById('cat-row').innerHTML=CATEGORIES.map(c=>{
+    const icon=c.subj?SUBJ_ICON[c.subj]:c.ico;
+    const color=c.subj?SUBJ_ICOLOR[c.subj]:c.color;
+    return `<div class="cat" onclick="${c.subj?`openCategory('${c.subj}')`:'openMapExplore()'}">
+      <div class="cat-ico" style="background:${c.bg};color:${color};">${ic(icon,26)}</div>
       <div class="cat-lbl">${c.lbl}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 /* category tap = pure search by subject keyword (no constraints needed) */
@@ -1302,19 +1341,19 @@ function legendItem(color,label,striped){
 function renderSegTabs(){
   const seg=document.getElementById('sched-seg');
   let html=CHILDREN.map(c=>
-    `<button class="seg-btn${SCHED_VIEW===c.id?' on':''}" data-view="${c.id}" onclick="setSchedView('${c.id}')">${c.emoji} ${esc(c.name)}</button>`).join('');
+    `<button class="seg-btn${SCHED_VIEW===c.id?' on':''}" data-view="${c.id}" onclick="setSchedView('${c.id}')">${av(c,14)} ${esc(c.name)}</button>`).join('');
   if(CHILDREN.length>1)
-    html+=`<button class="seg-btn${SCHED_VIEW==='both'?' on':''}" data-view="both" onclick="setSchedView('both')">👨‍👩‍👧‍👦 같이 보기</button>`;
+    html+=`<button class="seg-btn${SCHED_VIEW==='both'?' on':''}" data-view="both" onclick="setSchedView('both')">${ic('users',14)} 같이 보기</button>`;
   seg.innerHTML=html;
 }
 
 function sumRows(meta,acadLabel){
   return [
-    ['📚 선택 학원',acadLabel],
-    ['📅 주간 수업',`주 ${meta.weekly}회`],
-    ['🚌 셔틀 이용',meta.shuttle],
-    ['🏠 최대 귀가',meta.arrivalOk?`<span style="color:#059669;">${meta.arrival} ✓ 목표 달성</span>`:meta.arrival],
-    ['💰 예상 월 비용',`<span style="font-size:18px;color:#3182F6;">${krw(meta.cost)}</span>`]
+    [`${ic('book-open',14)} 선택 학원`,acadLabel],
+    [`${ic('calendar-days',14)} 주간 수업`,`주 ${meta.weekly}회`],
+    [`${ic('bus',14)} 셔틀 이용`,meta.shuttle],
+    [`${ic('house',14)} 최대 귀가`,meta.arrivalOk?`<span style="color:#059669;">${meta.arrival} ✓ 목표 달성</span>`:meta.arrival],
+    [`${ic('wallet',14)} 예상 월 비용`,`<span style="font-size:18px;color:#3182F6;">${krw(meta.cost)}</span>`]
   ];
 }
 
@@ -1361,14 +1400,14 @@ function renderSched(){
     const s=schedOf(c.id);
     if(s.warn){
       const ttl=n>1?`${c.name} — ${s.warn.ttl}`:s.warn.ttl;
-      banners+=`<div class="warn-banner"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="warn-txt"><div class="warn-ttl">${ttl}</div>${s.warn.txt}</div></div>`;
+      banners+=`<div class="warn-banner"><div class="banner-ico">${ic('triangle-alert',18)}</div><div class="warn-txt"><div class="warn-ttl">${ttl}</div>${s.warn.txt}</div></div>`;
     }
     if(!SCHEDULES[c.id]){
-      banners+=`<div class="info-banner"><div style="font-size:18px;flex-shrink:0;">🧩</div><div class="info-txt"><b>${esc(c.name)}</b>의 스케줄이 아직 없어요. 학원찾기에서 조건을 설정하고 시간표를 만들어보세요.</div></div>`;
+      banners+=`<div class="info-banner"><div class="banner-ico">${ic('puzzle',18)}</div><div class="info-txt"><b>${esc(c.name)}</b>의 스케줄이 아직 없어요. 학원찾기에서 조건을 설정하고 시간표를 만들어보세요.</div></div>`;
     }
   });
   if(view==='both'&&SCHEDULES.c1&&SCHEDULES.c2&&childById('c1')&&childById('c2')){
-    banners+=`<div class="good-banner"><div style="font-size:18px;flex-shrink:0;">🚌</div><div class="good-txt">✓ 월·수·금 — 지안 태권도 하원(15:30)과 지호 영어 등원(16:00) 셔틀 동선이 겹치지 않아요.</div></div>`;
+    banners+=`<div class="good-banner"><div class="banner-ico">${ic('bus',18)}</div><div class="good-txt">✓ 월·수·금 — 지안 태권도 하원(15:30)과 지호 영어 등원(16:00) 셔틀 동선이 겹치지 않아요.</div></div>`;
   }
   document.getElementById('sched-banners').innerHTML=banners;
 
@@ -1409,8 +1448,8 @@ function pick(el,gid){
 function renderChildChips(){
   const box=document.getElementById('cg-child');
   box.innerHTML=CHILDREN.map(c=>
-    `<div class="chip${c.id===CURRENT_CHILD?' on':''}" onclick="pickChildById('${c.id}',this)">${c.emoji} ${esc(c.name)} · ${c.grade}학년</div>`).join('')
-    +`<div class="chip add" onclick="openSheet('form')">＋ 아이 추가</div>`;
+    `<div class="chip${c.id===CURRENT_CHILD?' on':''}" onclick="pickChildById('${c.id}',this)">${av(c)} ${esc(c.name)} · ${c.grade}학년</div>`).join('')
+    +`<div class="chip add" onclick="openSheet('form')">${ic('plus',14)} 아이 추가</div>`;
 }
 
 function pickChildById(cid,el){
@@ -1436,7 +1475,7 @@ function syncWizard(){
   const v=cons.arrival||18;
   document.getElementById('arrival-range').value=v;
   document.getElementById('timeval').textContent=fmtT(v);
-  document.getElementById('cond-child').textContent=`${c.emoji} ${c.name} — ${c.school} ${c.grade}학년`;
+  document.getElementById('cond-child').innerHTML=`${av(c,13)} ${esc(c.name)} — ${esc(c.school)} ${c.grade}학년`;
 }
 
 /* save wizard state into the child's constraints, jump to search */
@@ -1521,15 +1560,15 @@ function cardHtml(a,includeBanner,showFit,rank){
   }).join('');
   let banner='';
   if(includeBanner){
-    if(!a.shuttleAvailable)banner=`<div class="amber-info">⚠️ 셔틀 없음 · 보호자 픽업 필요</div>`;
-    else if(a.fitScore>=90)banner=`<div class="green-info">✓ 셔틀 운행 중 · 빈 슬롯 있음</div>`;
+    if(!a.shuttleAvailable)banner=`<div class="amber-info">${ic('triangle-alert',13)} 셔틀 없음 · 보호자 픽업 필요</div>`;
+    else if(a.fitScore>=90)banner=`<div class="green-info">${ic('check',13)} 셔틀 운행 중 · 빈 슬롯 있음</div>`;
   }
   const fit=showFit
     ?`<div class="fit-badge"><div class="fit-num${mid?' mid':''}">${a.fitScore}<span style="font-size:11px;">%</span></div><div class="fit-lbl${mid?' mid':''}">적합도</div></div>`
-    :`<div class="fit-badge"><div style="font-size:20px;">${a.emoji||'📚'}</div></div>`;
+    :`<div class="fit-badge" style="color:${SUBJ_ICOLOR[subj]||'#6B7684'};">${subjIcon(subj,22)}</div>`;
   const rankTag=rank?`<span class="tag" style="background:#191F28;color:#fff;">${rank}</span>`:'';
   return `<div class="card" onclick="openSlot('${esc(a.id)}')">
-    <div>${rankTag}<span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?'<span class="tag sh">🚌 셔틀</span>':''}</div>
+    <div>${rankTag}<span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?`<span class="tag sh">${ic('bus',11)} 셔틀</span>`:''}</div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
       <div>
         <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(a.name)}</div>
@@ -1544,7 +1583,7 @@ function cardHtml(a,includeBanner,showFit,rank){
 
 function hydrateHome(){
   const shuttleCount=ACADEMIES.filter(a=>a.shuttleAvailable).length;
-  document.getElementById('cat-caption').textContent=`카테고리 · 광교 ${ACADEMIES.length}개 학원 · 🚌 셔틀 ${shuttleCount}곳`;
+  document.getElementById('cat-caption').innerHTML=`카테고리 · 광교 ${ACADEMIES.length}개 학원 · ${ic('bus',13)} 셔틀 ${shuttleCount}곳`;
   document.getElementById('recents-list').innerHTML=ACADEMIES.slice(0,2).map(a=>cardHtml(a,false,true)).join('');
 }
 
@@ -1574,15 +1613,16 @@ function renderConstraintChips(){
   const kid=SEARCH_CHILD?childById(SEARCH_CHILD):null;
   const subjLbl=c.subjects.length?c.subjects.map(s=>SUBJ_LABEL[s]).join('·'):'과목';
   const arrLbl=c.arrival?`~${fmtT(c.arrival)}`:'귀가시간';
+  const caret=ic('chevron-down',12);
   let html=
-    `<div class="cchip${kid?' on':''}" onclick="openSheet('child')">${kid?`${kid.emoji} ${esc(kid.name)}`:'아이 선택'} ▾</div>`+
-    `<div class="cchip${c.subjects.length?' on':''}" onclick="openSheet('subjects')">${subjLbl} ▾</div>`+
-    `<div class="cchip${c.shuttle?' on':''}" onclick="setCons({shuttle:${!c.shuttle}})">🚌 셔틀</div>`+
-    `<div class="cchip${c.arrival?' on':''}" onclick="openSheet('arrival')">${arrLbl} ▾</div>`+
+    `<div class="cchip${kid?' on':''}" onclick="openSheet('child')">${kid?`${av(kid,14)} ${esc(kid.name)}`:'아이 선택'} ${caret}</div>`+
+    `<div class="cchip${c.subjects.length?' on':''}" onclick="openSheet('subjects')">${subjLbl} ${caret}</div>`+
+    `<div class="cchip${c.shuttle?' on':''}" onclick="setCons({shuttle:${!c.shuttle}})">${ic('bus',13)} 셔틀</div>`+
+    `<div class="cchip${c.arrival?' on':''}" onclick="openSheet('arrival')">${arrLbl} ${caret}</div>`+
     `<div class="cchip${c.openOnly?' on':''}" onclick="setCons({openOnly:${!c.openOnly}})">빈 슬롯</div>`+
-    `<div class="cchip" onclick="go('setup')">⚙️ 전체 조건</div>`;
+    `<div class="cchip" onclick="go('setup')">${ic('settings',13)} 전체 조건</div>`;
   if(consActive(c))
-    html+=`<div class="cchip reset" onclick="resetCons()">초기화 ✕</div>`;
+    html+=`<div class="cchip reset" onclick="resetCons()">초기화 ${ic('x',11)}</div>`;
   document.getElementById('cchips').innerHTML=html;
 }
 function resetCons(){
@@ -1603,12 +1643,12 @@ function applySearch(){
 
   let nudge='';
   if(!SEARCH_CHILD)
-    nudge=`<div class="nudge" onclick="openSheet('child')">🧩 <span>아이를 선택하면 <b>적합도·공백 경고</b>를 보여드려요</span><button class="nudge-cta">아이 선택</button></div>`;
+    nudge=`<div class="nudge" onclick="openSheet('child')">${ic('puzzle',16)} <span>아이를 선택하면 <b>적합도·공백 경고</b>를 보여드려요</span><button class="nudge-cta">아이 선택</button></div>`;
   else if(!act)
-    nudge=`<div class="nudge" onclick="go('setup')">🧩 <span><b>${esc(childById(SEARCH_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`;
+    nudge=`<div class="nudge" onclick="go('setup')">${ic('puzzle',16)} <span><b>${esc(childById(SEARCH_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`;
 
   const empty=!v.length
-    ?`<div class="empty-state">🔍 ${q?`등록된 학원 중에는 '${esc(q)}' 결과가 없어요`:'조건에 맞는 학원이 없어요'}
+    ?`<div class="empty-state">${ic('search',22)} ${q?`등록된 학원 중에는 '${esc(q)}' 결과가 없어요`:'조건에 맞는 학원이 없어요'}
        <span>${q?'아래 카카오 실시간 검색 결과를 확인해보세요.':''}${consActive(c)?' 조건을 풀면 더 많이 보여요.':''}</span>
        ${consActive(c)?`<button class="nudge-cta" style="margin:8px auto 0;" onclick="resetCons()">조건 초기화</button>`:''}
      </div>`
@@ -1702,9 +1742,9 @@ function liveCardHtml(p,q,rank){
       <div>
         <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(p.place_name)}</div>
         <div style="font-size:11px;color:#6B7684;margin-top:2px;">${esc(p.road_address_name||p.address_name)} · ${km}km</div>
-        <div style="font-size:11px;color:#6B7684;margin-top:6px;">📞 ${esc(p.phone||'전화번호 미등록')} · 시간표·셔틀은 전화 문의</div>
+        <div style="font-size:11px;color:#6B7684;margin-top:6px;display:flex;align-items:center;gap:4px;">${ic('phone',12)} ${esc(p.phone||'전화번호 미등록')} · 시간표·셔틀은 전화 문의</div>
       </div>
-      <div style="font-size:20px;">🔎</div>
+      <div style="color:#3182F6;display:flex;">${ic('search',20)}</div>
     </div>
   </div>`;
 }
@@ -1726,13 +1766,13 @@ function openLivePlace(pid){
   document.getElementById('sheet-title').textContent=p.place_name;
   document.getElementById('sheet-body').innerHTML=`
     <div style="margin-top:4px;"><span class="tag ${cls}">${esc(lbl)}</span><span class="tag warn">미검증</span></div>
-    <div style="font-size:13px;color:#6B7684;line-height:1.8;margin-top:8px;">
-      📍 ${esc(p.road_address_name||p.address_name)} · ${kmFromCenter(p)}km<br>
-      🏷️ ${esc(p.category_name||'분류 정보 없음')}<br>
-      🕐 시간표·셔틀·수강료는 아직 검증 전이에요
+    <div style="font-size:13px;color:#6B7684;line-height:1.9;margin-top:8px;">
+      <div style="display:flex;align-items:center;gap:6px;">${ic('map-pin',14)} ${esc(p.road_address_name||p.address_name)} · ${kmFromCenter(p)}km</div>
+      <div style="display:flex;align-items:center;gap:6px;">${ic('tag',14)} ${esc(p.category_name||'분류 정보 없음')}</div>
+      <div style="display:flex;align-items:center;gap:6px;">${ic('clock',14)} 시간표·셔틀·수강료는 아직 검증 전이에요</div>
     </div>
-    ${p.phone?`<a href="tel:${esc(p.phone)}" style="text-decoration:none;"><button class="cta" style="margin-top:18px;">📞 전화하기 — ${esc(p.phone)}</button></a>`:''}
-    <button class="cta sec" style="margin-top:10px;" ${requested?'disabled':''} onclick="requestRegister('${esc(p.id)}')">${requested?'✓ 등록 요청됨 — 검증 후 추가돼요':'🧩 우리 동네에 등록 요청'}</button>
+    ${p.phone?`<a href="tel:${esc(p.phone)}" style="text-decoration:none;"><button class="cta" style="margin-top:18px;">${ic('phone',16)} 전화하기 — ${esc(p.phone)}</button></a>`:''}
+    <button class="cta sec" style="margin-top:10px;" ${requested?'disabled':''} onclick="requestRegister('${esc(p.id)}')">${requested?`${ic('check',15)} 등록 요청됨 — 검증 후 추가돼요`:`${ic('puzzle',15)} 우리 동네에 등록 요청`}</button>
     <button class="clear-btn" onclick="window.open('${esc(p.place_url)}','_blank')">카카오맵에서 자세히 보기 ↗</button>`;
 }
 function requestRegister(pid){
@@ -1751,14 +1791,14 @@ function liveSearch(q,wide){
   if(!q){box.innerHTML='';clearLivePins();return;}
   /* fail loudly, never silently — the user must see why nothing appeared */
   if(typeof kakao==='undefined'||!sdkReady||!kakao.maps.services){
-    box.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="info-txt">카카오 실시간 검색을 불러올 수 없어요. 네트워크 상태 또는 카카오 개발자 콘솔의 사이트 도메인 등록을 확인해주세요.</div></div>`;
+    box.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div class="banner-ico">${ic('triangle-alert',18)}</div><div class="info-txt">카카오 실시간 검색을 불러올 수 없어요. 네트워크 상태 또는 카카오 개발자 콘솔의 사이트 도메인 등록을 확인해주세요.</div></div>`;
     return;
   }
   const rescan=document.getElementById('rescan-btn');
   if(rescan)rescan.classList.remove('show');
   const useBounds=!wide&&kakaoMap&&mapInitialized;
   const scopeLbl=useBounds?'현재 지도 영역':'광교 반경 10km';
-  box.innerHTML=`<div class="divlbl">🔎 카카오 실시간 검색 중… (${scopeLbl})</div>`;
+  box.innerHTML=`<div class="divlbl">${ic('search',13)} 카카오 실시간 검색 중… (${scopeLbl})</div>`;
   const opts=useBounds
     ?{bounds:kakaoMap.getBounds(),size:15}
     :{location:new kakao.maps.LatLng(CENTER.lat,CENTER.lng),radius:10000,sort:kakao.maps.services.SortBy.DISTANCE,size:15};
@@ -1770,7 +1810,7 @@ function liveSearch(q,wide){
     clearLivePins();
     console.log('[live-search]',q,scopeLbl,status,data&&data.length);
     if(status===kakao.maps.services.Status.ERROR){
-      b.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div style="font-size:18px;flex-shrink:0;">⚠️</div><div class="info-txt">카카오 검색 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.</div></div>`;
+      b.innerHTML=`<div class="info-banner" style="margin-top:6px;"><div class="banner-ico">${ic('triangle-alert',18)}</div><div class="info-txt">카카오 검색 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.</div></div>`;
       return;
     }
     const known=new Set(ACADEMIES.map(a=>a.id));
@@ -1780,7 +1820,7 @@ function liveSearch(q,wide){
     LIVE_PLACES={};
     fresh.forEach(p=>{LIVE_PLACES[p.id]=p;});
     const cnt=document.getElementById('sheet-count');
-    if(cnt)cnt.textContent=`등록 학원 ${LAST_REG_COUNT}개 · 🔎 실시간 ${fresh.length}개`;
+    if(cnt)cnt.textContent=`등록 학원 ${LAST_REG_COUNT}개 · 실시간 ${fresh.length}개`;
     if(!fresh.length){
       b.innerHTML=`<div class="empty-state" style="padding:16px 20px;">${scopeLbl}에는 '${esc(q)}' 결과가 없어요
         ${useBounds?`<button class="nudge-cta" style="margin:8px auto 0;" onclick="wideSearch()">반경 10km로 넓게 검색</button>`:'<span>지도를 옮겨 다른 지역에서 재검색해보세요</span>'}
@@ -1788,7 +1828,7 @@ function liveSearch(q,wide){
       return;
     }
     b.innerHTML=
-      `<div class="divlbl">🔎 카카오 실시간 결과 · ${scopeLbl} · 미등록 (${fresh.length})</div>`+
+      `<div class="divlbl">${ic('search',13)} 카카오 실시간 결과 · ${scopeLbl} · 미등록 (${fresh.length})</div>`+
       fresh.map((p,j)=>liveCardHtml(p,q,LAST_REG_COUNT+j+1)).join('');
     if(kakaoMap){
       const bnds=new kakao.maps.LatLngBounds();
@@ -1909,8 +1949,8 @@ function initKakaoMap(){
   kakaoMap=new kakao.maps.Map(container,{center:ctr,level:4});
 
   const schoolEl=document.createElement('div');
-  schoolEl.style.cssText='background:#3182F6;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;';
-  schoolEl.textContent='🏫';
+  schoolEl.style.cssText='background:#3182F6;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;';
+  schoolEl.innerHTML=ic('school',18);
   new kakao.maps.CustomOverlay({position:ctr,content:schoolEl,yAnchor:0.5,xAnchor:0.5,zIndex:5}).setMap(kakaoMap);
 
   /* map moved while a query is active → offer re-search in the new area */
@@ -1943,12 +1983,14 @@ function openSlot(academyId){
   const subj=a.subjects[0]||'english';
   const cls=SUBJ_CLASS[subj]||'en';
   const subjLabel=SUBJ_LABEL[subj]||subj;
-  document.getElementById('slot-emoji').textContent=a.emoji||'📚';
+  const se=document.getElementById('slot-emoji');
+  se.style.color=SUBJ_ICOLOR[subj]||'#3182F6';
+  se.innerHTML=subjIcon(subj,28);
   document.getElementById('slot-name').textContent=a.name;
   document.getElementById('slot-addr').textContent=`${a.address} · ${a.distanceKm}km`;
   document.getElementById('slot-tags').innerHTML=
     `<span class="tag ${cls}">${subjLabel}</span>`+
-    (a.shuttleAvailable?`<span class="tag sh">🚌 셔틀</span>`:'')+
+    (a.shuttleAvailable?`<span class="tag sh">${ic('bus',11)} 셔틀</span>`:'')+
     `<span class="tag ok">${a.fitScore}% 적합</span>`;
   go('slot');
 }
@@ -2002,6 +2044,7 @@ renderToday();
 renderChildChips();
 syncWizard();
 renderSched();
+refreshIcons();
 </script>
 </body>
 </html>
