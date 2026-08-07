@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-08-05T21:05:16.189Z",
+ "generatedAt": "2026-08-07T00:52:09.717Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -5852,6 +5852,73 @@
    "placeUrl": "http://place.map.kakao.com/236413059"
   },
   {
+   "id": "kakao-253005056",
+   "name": "별그린미술교습소",
+   "address": "경기 수원시 영통구 센트럴타운로 76",
+   "phone": "010-9836-7119",
+   "distanceKm": 1.59,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 140000,
+   "fitScore": 90,
+   "emoji": "🎨",
+   "lng": 127.05287034586179,
+   "lat": 37.29072739655937,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": false
+    },
+    {
+     "day": "wed",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": false
+    },
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "18:00",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "16:30",
+     "endTime": "18:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/253005056"
+  },
+  {
    "id": "kakao-2098271295",
    "name": "브릴란테피아노교습소",
    "address": "경기 수원시 영통구 에듀타운로 102",
@@ -8731,6 +8798,55 @@
    "placeUrl": "http://place.map.kakao.com/2040918708"
   },
   {
+   "id": "kakao-1624914636",
+   "name": "경희대박사국가대표태권도장",
+   "address": "경기 수원시 영통구 도청로17번길 34",
+   "phone": "",
+   "distanceKm": 2.17,
+   "subjects": [
+    "taekwondo"
+   ],
+   "shuttleAvailable": true,
+   "monthlyCostKRW": 150000,
+   "fitScore": 68,
+   "emoji": "🥋",
+   "lng": 127.053215013183,
+   "lat": 37.2853183085759,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1624914636"
+  },
+  {
    "id": "kakao-706617902",
    "name": "경희대라이언태권도",
    "address": "경기 수원시 영통구 에듀타운로 25",
@@ -10512,55 +10628,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1833554179"
-  },
-  {
-   "id": "kakao-917956717",
-   "name": "스스로창의미술학원",
-   "address": "경기 용인시 수지구 성복2로 226",
-   "phone": "010-7308-7595",
-   "distanceKm": 2.34,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 170000,
-   "fitScore": 77,
-   "emoji": "🎨",
-   "lng": 127.062668993188,
-   "lat": 37.3201162010319,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": false
-    },
-    {
-     "day": "thu",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": false
-    },
-    {
-     "day": "wed",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": false
-    },
-    {
-     "day": "fri",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": false
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/917956717"
   },
   {
    "id": "kakao-15682662",
