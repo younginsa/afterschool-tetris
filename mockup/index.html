@@ -24,7 +24,6 @@ body{
 /* LUCIDE ICONS */
 svg.lucide{stroke-width:2;vertical-align:-.15em;flex-shrink:0;}
 i[data-lucide]{display:inline-block;width:1em;height:1em;}
-.logo svg.lucide{vertical-align:-.18em;}
 
 /* SCREENS — fill the entire viewport, only the .on one is visible */
 .screen{
@@ -57,8 +56,6 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 .ntitle{font-size:17px;font-weight:800;color:#191F28;}
 .nsub{font-size:11px;color:#6B7684;margin-top:1px;}
 
-/* BRAND ROW (logo + child-manager CTA, top of 학원찾기) */
-.logo{font-size:17px;font-weight:900;color:#191F28;display:flex;align-items:center;gap:6px;}
 .addkid-btn{
   border:none;background:#EBF2FF;color:#3182F6;
   border-radius:100px;padding:9px 14px;
@@ -92,24 +89,6 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
   -webkit-overflow-scrolling:touch;
   padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));
 }
-
-/* BOTTOM NAV */
-.bnav{
-  position:absolute;bottom:0;left:0;right:0;
-  height:calc(72px + env(safe-area-inset-bottom,0px));
-  background:#fff;
-  border-top:.5px solid #EAECF0;
-  display:flex;align-items:flex-start;
-  padding:8px 4px calc(6px + env(safe-area-inset-bottom,0px));
-  z-index:50;
-}
-.btab{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;gap:3px;cursor:pointer;padding:6px 0;
-}
-.btab-ico{color:#B0B8C1;transition:color .15s;display:flex;}
-.btab-lbl{font-size:10px;color:#B0B8C1;font-weight:500;transition:color .15s;}
-.btab.on .btab-ico,.btab.on .btab-lbl{color:#3182F6;}
 
 /* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:7px;}
@@ -199,16 +178,28 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 .pill.full{background:#F3F4F6;color:#9CA3AF;text-decoration:line-through;}
 
 /* ═══ ONE-DEPTH SEARCH SCREEN ═══ */
+/* floating search UI over the full-bleed map */
 .search-top{
-  background:#fff;
-  padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;
-  border-bottom:.5px solid #EAECF0;flex-shrink:0;
+  position:absolute;top:0;left:0;right:0;z-index:40;
+  background:transparent;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 14px 0;
+  pointer-events:none;
 }
+.search-top>*{pointer-events:auto;}
+.search-row{display:flex;gap:8px;align-items:stretch;margin-bottom:8px;}
 .search-bar{
-  display:flex;align-items:center;gap:8px;
-  background:#F5F6F8;border-radius:12px;
-  padding:11px 14px;margin-bottom:10px;
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:#fff;border-radius:12px;
+  padding:11px 14px;
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
 }
+.cal-btn{
+  width:46px;border:none;background:#fff;border-radius:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.15);color:#191F28;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+}
+.cal-btn:active{background:#F5F6F8;}
 .search-bar input{
   flex:1;border:none;background:none;outline:none;
   font-size:16px;font-weight:600;color:#191F28;font-family:inherit;
@@ -228,6 +219,7 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 .cchips{
   display:flex;gap:6px;overflow-x:auto;
   -webkit-overflow-scrolling:touch;
+  padding-bottom:8px;
 }
 .cchips::-webkit-scrollbar{display:none;}
 .cchip{
@@ -236,12 +228,12 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
   font-size:12px;font-weight:700;color:#6B7684;
   cursor:pointer;white-space:nowrap;transition:all .15s;
   display:inline-flex;align-items:center;gap:4px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);
 }
 .cchip.on{border-color:#3182F6;background:#EBF2FF;color:#3182F6;}
 .cchip.reset{color:#EF4444;border-color:#FECACA;}
 .search-body{
   flex:1;position:relative;overflow:hidden;
-  margin-bottom:calc(72px + env(safe-area-inset-bottom,0px));
 }
 #kakao-map{position:absolute;inset:0;background:#E0E5EC;}
 
@@ -256,12 +248,40 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 }
 .list-sheet.dragging{transition:none;}
 .sheet-grab{
-  padding:10px 16px 10px;flex-shrink:0;
+  padding:10px 16px 8px;flex-shrink:0;
   cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
 }
-.grab-bar{width:44px;height:5px;border-radius:3px;background:#E5E8EF;margin:0 auto 9px;}
-.sheet-count{font-size:12px;font-weight:800;color:#191F28;text-align:center;}
-.sheet-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:14px;}
+.grab-bar{width:44px;height:5px;border-radius:3px;background:#E5E8EF;margin:0 auto 8px;}
+.sheet-actions{display:flex;align-items:center;gap:8px;}
+.sheet-count{flex:1;font-size:12px;font-weight:800;color:#191F28;text-align:center;}
+.sheet-action-slot{width:34px;flex-shrink:0;display:flex;justify-content:flex-end;}
+.bm-toggle{
+  width:34px;height:34px;flex-shrink:0;
+  border:1.5px solid #E5E8EF;background:#fff;border-radius:10px;
+  color:#B0B8C1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.bm-toggle.on{border-color:#F59E0B;background:#FFFBEB;color:#D97706;}
+.bm-toggle.on svg{fill:#F59E0B;}
+.kid-add-mini{
+  width:34px;height:34px;border:1.5px dashed #B0B8C1;background:#fff;
+  border-radius:10px;color:#6B7684;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.card-bm{
+  margin-left:auto;border:none;background:none;padding:2px;
+  color:#D1D5DB;cursor:pointer;display:flex;flex-shrink:0;
+}
+.card-bm.on{color:#F59E0B;}
+.card-bm.on svg{fill:#F59E0B;}
+.bm-big{
+  position:absolute;top:14px;right:14px;
+  border:none;background:none;padding:6px;
+  color:#D1D5DB;cursor:pointer;display:flex;
+}
+.bm-big.on{color:#F59E0B;}
+.bm-big.on svg{fill:#F59E0B;}
+.sheet-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));}
 .nudge{
   margin:2px 14px 12px;background:#F0F5FF;
   border:1px solid #BFDBFE;border-radius:12px;
@@ -281,7 +301,7 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 }
 .empty-state span{font-size:11px;font-weight:600;color:#6B7684;line-height:1.5;}
 .rescan-btn{
-  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  position:absolute;top:calc(112px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);
   z-index:35;border:none;background:#fff;color:#3182F6;
   border-radius:100px;padding:9px 16px;font-size:12px;font-weight:800;
   box-shadow:0 2px 10px rgba(0,0,0,.2);cursor:pointer;font-family:inherit;
@@ -554,14 +574,14 @@ input[type=range]::-webkit-slider-thumb{
 <div class="screen on" id="sc-search">
 
   <div class="search-top">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-      <div class="logo" style="font-size:15px;"><i data-lucide="puzzle" style="width:17px;height:17px;color:#3182F6"></i> 방과후 테트리스</div>
-      <button class="addkid-btn" style="padding:7px 12px;" onclick="openSheet('list')"><i data-lucide="users" style="width:13px;height:13px"></i> 아이 관리</button>
-    </div>
-    <div class="search-bar">
-      <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" enterkeyhint="search" oninput="onSearchInput(this.value)">
-      <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()"><i data-lucide="x" style="width:12px;height:12px"></i></button>
-      <button class="search-go" onclick="submitSearch()"><i data-lucide="search" style="width:18px;height:18px"></i></button>
+    <div class="search-row">
+      <div class="search-bar">
+        <i data-lucide="puzzle" style="width:18px;height:18px;color:#3182F6;flex-shrink:0;"></i>
+        <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" enterkeyhint="search" oninput="onSearchInput(this.value)">
+        <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()"><i data-lucide="x" style="width:12px;height:12px"></i></button>
+        <button class="search-go" onclick="submitSearch()"><i data-lucide="search" style="width:18px;height:18px"></i></button>
+      </div>
+      <button class="cal-btn" onclick="go('sched')" title="내 스케줄"><i data-lucide="calendar-days" style="width:21px;height:21px"></i></button>
     </div>
     <div class="cchips" id="cchips"></div>
   </div>
@@ -573,16 +593,14 @@ input[type=range]::-webkit-slider-thumb{
     <div class="list-sheet" id="list-sheet">
       <div class="sheet-grab" id="sheet-grab">
         <div class="grab-bar"></div>
-        <div class="sheet-count" id="sheet-count">학원 —개</div>
+        <div class="sheet-actions">
+          <button class="bm-toggle" id="bm-toggle" onclick="toggleSheetView(event)" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()"><i data-lucide="star" style="width:16px;height:16px"></i></button>
+          <div class="sheet-count" id="sheet-count">학원 —개</div>
+          <div class="sheet-action-slot" id="kid-add-slot"></div>
+        </div>
       </div>
       <div class="sheet-list" id="search-list"></div>
     </div>
-  </div>
-
-  <div class="bnav">
-    <div class="btab on" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
 
@@ -697,10 +715,11 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="scrl">
-    <div style="background:#fff;padding:16px 18px;">
+    <div style="background:#fff;padding:16px 18px;position:relative;">
+      <button class="bm-big" id="slot-bm" onclick="toggleBm(SLOT_ACADEMY.id)"><i data-lucide="star" style="width:20px;height:20px"></i></button>
       <div style="display:flex;gap:14px;align-items:center;">
         <div id="slot-emoji" style="width:54px;height:54px;background:#EBF2FF;color:#2563EB;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="languages" style="width:28px;height:28px"></i></div>
-        <div>
+        <div style="padding-right:36px;">
           <div id="slot-name" style="font-size:17px;font-weight:900;color:#191F28;">광교 YBM 어학원</div>
           <div id="slot-addr" style="font-size:12px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
           <div id="slot-tags" style="margin-top:8px;"></div>
@@ -773,12 +792,6 @@ input[type=range]::-webkit-slider-thumb{
     </div>
 
     <div class="gap"></div>
-  </div>
-
-  <div class="bnav">
-    <div class="btab" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab on" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
   </div>
 </div>
 
@@ -865,12 +878,14 @@ const DEFAULT_CHILDREN=[
   {id:'c2',name:'지안',emoji:'smile',grade:1,school:'광교초등학교'}
 ];
 let CHILDREN=loadChildren();
-let CURRENT_CHILD=CHILDREN[0].id;
+let CURRENT_CHILD=CHILDREN.length?CHILDREN[0].id:null;
 
+/* an explicit empty array is respected (user deleted all children);
+   only a missing/invalid key falls back to the demo seeds */
 function loadChildren(){
   try{
     const v=JSON.parse(localStorage.getItem(LS_KEY));
-    if(Array.isArray(v)&&v.length&&v.every(c=>c.id&&c.name))return v;
+    if(Array.isArray(v)&&v.every(c=>c.id&&c.name))return v;
   }catch(e){}
   return DEFAULT_CHILDREN.map(c=>({...c}));
 }
@@ -1019,14 +1034,13 @@ function saveChild(){
 }
 
 function deleteChild(id){
-  if(CHILDREN.length<=1){alert('아이는 최소 1명 필요해요.');return;}
   const c=childById(id);
   if(!confirm(`${c.name} 프로필을 삭제할까요?`))return;
   CHILDREN=CHILDREN.filter(x=>x.id!==id);
   delete CONSTRAINTS[id];
-  if(CURRENT_CHILD===id)CURRENT_CHILD=CHILDREN[0].id;
+  if(CURRENT_CHILD===id)CURRENT_CHILD=CHILDREN.length?CHILDREN[0].id:null;
   if(SEARCH_CHILD===id)SEARCH_CHILD=null;
-  if(SCHED_VIEW===id)SCHED_VIEW=CHILDREN[0].id;
+  if(SCHED_VIEW===id)SCHED_VIEW=CHILDREN.length?CHILDREN[0].id:null;
   saveChildren();saveCons();
   refreshChildUI();
   closeSheet();
@@ -1138,6 +1152,35 @@ function pushRecent(id){
   try{localStorage.setItem(LS_RECENTS,JSON.stringify(r));}catch(e){}
 }
 
+/* bookmarked academies, persisted */
+const LS_BM='tetris_bookmarks_v1';
+let BOOKMARKS=(function(){
+  try{const v=JSON.parse(localStorage.getItem(LS_BM));return Array.isArray(v)?v:[];}catch(e){return [];}
+})();
+function isBm(id){return BOOKMARKS.includes(id);}
+function toggleBm(id){
+  BOOKMARKS=isBm(id)?BOOKMARKS.filter(x=>x!==id):[...BOOKMARKS,id];
+  try{localStorage.setItem(LS_BM,JSON.stringify(BOOKMARKS));}catch(e){}
+  applySearch();
+  if(SLOT_ACADEMY&&SLOT_ACADEMY.id===id)renderSlotBm();
+}
+
+/* sheet mode: 'browse' (default/results) | 'bookmarks' */
+let SHEET_VIEW='browse';
+function toggleSheetView(e){
+  if(e)e.stopPropagation();
+  SHEET_VIEW=SHEET_VIEW==='bookmarks'?'browse':'bookmarks';
+  if(SHEET_VIEW==='bookmarks'&&sheetState==='peek')setSheet('half');
+  applySearch();
+}
+function renderSheetActions(){
+  const bt=document.getElementById('bm-toggle');
+  if(bt)bt.classList.toggle('on',SHEET_VIEW==='bookmarks');
+  const slot=document.getElementById('kid-add-slot');
+  if(slot)slot.innerHTML=CHILDREN.length?''
+    :`<button class="kid-add-mini" title="아이 추가" onclick="event.stopPropagation();openSheet('form')" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">${ic('plus',16)}</button>`;
+}
+
 const CATEGORIES=[
   {subj:'english',lbl:'영어',bg:'#EBF2FF'},
   {subj:'math',lbl:'수학',bg:'#FEF3C7'},
@@ -1180,6 +1223,7 @@ function defaultSheetHtml(){
 /* category tap = pure search by subject keyword (no constraints needed) */
 function openCategory(subj){
   SEARCH_Q=SUBJ_LABEL[subj]||'';
+  SHEET_VIEW='browse';
   goTab('search');
   const inp=document.getElementById('search-input');
   inp.value=SEARCH_Q;
@@ -1241,6 +1285,16 @@ function renderSched(){
   renderSegTabs();
 
   const sub=document.getElementById('sched-sub');
+  if(!CHILDREN.length){
+    sub.textContent='2026년 2학기';
+    document.getElementById('vt-body').innerHTML='';
+    document.getElementById('vt-caption').textContent='';
+    document.getElementById('sched-legend').innerHTML='';
+    document.getElementById('sched-banners').innerHTML=
+      `<div class="info-banner"><div class="banner-ico">${ic('puzzle',18)}</div><div class="info-txt">아직 등록된 아이가 없어요. 아이를 추가하면 스케줄을 만들 수 있어요.<br><button class="nudge-cta" style="margin-top:8px;" onclick="openSheet('form')">${ic('plus',13)} 아이 추가</button></div></div>`;
+    document.getElementById('sched-summary').innerHTML='';
+    return;
+  }
   const shown=view==='both'?CHILDREN:[childById(view)].filter(Boolean);
   if(!shown.length){SCHED_VIEW=CHILDREN[0].id;return renderSched();}
   sub.textContent=view==='both'
@@ -1559,7 +1613,7 @@ function cardHtml(a,includeBanner,showFit,rank){
     :`<div class="fit-badge" style="color:${SUBJ_ICOLOR[subj]||'#6B7684'};">${subjIcon(subj,22)}</div>`;
   const rankTag=rank?`<span class="tag" style="background:#191F28;color:#fff;">${rank}</span>`:'';
   return `<div class="card" onclick="openSlot('${esc(a.id)}')">
-    <div>${rankTag}<span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?`<span class="tag sh">${ic('bus',11)} 셔틀</span>`:''}</div>
+    <div style="display:flex;align-items:center;">${rankTag}<span class="tag ${cls}">${esc(subjLabel)}</span>${a.shuttleAvailable?`<span class="tag sh">${ic('bus',11)} 셔틀</span>`:''}<button class="card-bm${isBm(a.id)?' on':''}" onclick="event.stopPropagation();toggleBm('${esc(a.id)}')">${ic('star',15)}</button></div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;">
       <div>
         <div style="font-size:15px;font-weight:800;color:#191F28;">${esc(a.name)}</div>
@@ -1625,22 +1679,36 @@ function applySearch(){
   const q=SEARCH_Q.trim();
 
   renderConstraintChips();
+  renderSheetActions();
 
-  let nudge='';
-  if(!SEARCH_CHILD)
-    nudge=`<div class="nudge" onclick="openSheet('child')">${ic('puzzle',16)} <span>아이를 선택하면 <b>적합도·공백 경고</b>를 보여드려요</span><button class="nudge-cta">아이 선택</button></div>`;
-  else if(!act)
-    nudge=`<div class="nudge" onclick="go('setup')">${ic('puzzle',16)} <span><b>${esc(childById(SEARCH_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`;
+  /* bookmark view takes over the sheet regardless of query/constraints */
+  if(SHEET_VIEW==='bookmarks'){
+    const bms=BOOKMARKS.map(id=>ACADEMIES.find(a=>a.id===id)).filter(Boolean);
+    document.getElementById('search-list').innerHTML=
+      `<div class="divlbl">${ic('star',13)} 즐겨찾기 (${bms.length})</div>`+
+      (bms.length
+        ?bms.map(a=>cardHtml(a,false,act)).join('')
+        :`<div class="empty-state">${ic('star',22)} 아직 즐겨찾기한 학원이 없어요
+           <span>학원 카드나 학원 정보의 별을 눌러 저장해보세요</span></div>`)+
+      `<div id="live-results"></div>`;
+    LAST_REG_COUNT=v.length;
+    document.getElementById('sheet-count').textContent=`즐겨찾기 ${bms.length}개`;
+    clearLivePins();
+    renderRegPins(v,act);
+    renderBmPins();
+    return;
+  }
 
   /* no query + no constraints → browse default: categories + recents
      (map pins still show the nearest academies underneath) */
   if(!q&&!consActive(c)){
     document.getElementById('search-list').innerHTML=
-      nudge+defaultSheetHtml()+`<div id="live-results"></div>`;
+      defaultSheetHtml()+`<div id="live-results"></div>`;
     LAST_REG_COUNT=v.length;
     document.getElementById('sheet-count').textContent=`광교 ${ACADEMIES.length}개 학원`;
     clearLivePins();
     renderRegPins(v,act);
+    renderBmPins();
     return;
   }
 
@@ -1658,7 +1726,7 @@ function applySearch(){
 
   const registeredLbl=(q&&v.length)?`<div class="divlbl">등록된 학원 (${v.length})</div>`:'';
   document.getElementById('search-list').innerHTML=
-    nudge+empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act,i+1)).join('')+`<div id="live-results"></div>`;
+    empty+registeredLbl+v.map((a,i)=>cardHtml(a,act&&i<2,act,i+1)).join('')+`<div id="live-results"></div>`;
   document.getElementById('live-results').innerHTML=liveHtml;
   LAST_REG_COUNT=v.length;
   document.getElementById('sheet-count').textContent=
@@ -1668,6 +1736,7 @@ function applySearch(){
 
   /* map pins mirror the filtered list */
   renderRegPins(v,act);
+  renderBmPins();
 }
 
 /* explicit search: fires on 🔍 tap, Enter, or the keyboard 검색 key —
@@ -1675,6 +1744,7 @@ function applySearch(){
 function submitSearch(){
   const inp=document.getElementById('search-input');
   SEARCH_Q=inp.value;
+  SHEET_VIEW='browse';
   inp.blur();
   if(sheetState==='peek')setSheet('half');
   applySearch();
@@ -1693,21 +1763,45 @@ let REG_PINS=[],REG_PIN_KEY='';
    match the cards (1..N); live pins continue the numbering (N+1..) */
 function renderRegPins(v,act){
   if(!kakaoMap)return;
-  const key=v.map(a=>a.id).join(',')+'|'+(act?1:0);
+  const key=v.map(a=>a.id).join(',')+'|'+(act?1:0)+'|'+BOOKMARKS.join(',');
   if(key===REG_PIN_KEY)return;
   REG_PIN_KEY=key;
   REG_PINS.forEach(o=>o.setMap(null));
   REG_PINS=[];
   v.slice(0,40).forEach((a,i)=>{
-    const color=act?(a.fitScore<80?'#D97706':'#059669'):'#3182F6';
+    const bm=isBm(a.id);
+    const color=bm?'#F59E0B':(act?(a.fitScore<80?'#D97706':'#059669'):'#3182F6');
     const el=document.createElement('div');
     el.style.cssText=`background:${color};color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;`;
     el.textContent=i+1;
-    el.title=a.name;
+    el.title=a.name+(bm?' (즐겨찾기)':'');
     el.addEventListener('click',()=>openSlot(a.id));
-    const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(a.lat,a.lng),content:el,yAnchor:0.5,xAnchor:0.5,zIndex:3});
+    const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(a.lat,a.lng),content:el,yAnchor:0.5,xAnchor:0.5,zIndex:bm?4:3});
     ov.setMap(kakaoMap);
     REG_PINS.push(ov);
+  });
+}
+
+/* star pins for bookmarked academies not already numbered in the results */
+let BM_PINS=[],BM_PIN_KEY='';
+function renderBmPins(){
+  if(!kakaoMap)return;
+  const shown=new Set(REG_PINS.length?filteredAcademies().slice(0,40).map(a=>a.id):[]);
+  const bms=BOOKMARKS.filter(id=>!shown.has(id)).map(id=>ACADEMIES.find(a=>a.id===id)).filter(Boolean);
+  const key=bms.map(a=>a.id).join(',');
+  if(key===BM_PIN_KEY)return;
+  BM_PIN_KEY=key;
+  BM_PINS.forEach(o=>o.setMap(null));
+  BM_PINS=[];
+  bms.forEach(a=>{
+    const el=document.createElement('div');
+    el.style.cssText='background:#F59E0B;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid #fff;cursor:pointer;';
+    el.innerHTML=ic('star',13);
+    el.title=a.name+' (즐겨찾기)';
+    el.addEventListener('click',()=>openSlot(a.id));
+    const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(a.lat,a.lng),content:el,yAnchor:0.5,xAnchor:0.5,zIndex:4});
+    ov.setMap(kakaoMap);
+    BM_PINS.push(ov);
   });
 }
 
@@ -1847,7 +1941,7 @@ function liveSearch(q,wide){
   },opts);
 }
 function wideSearch(){liveSearch(SEARCH_Q.trim(),true);}
-function rescanArea(){liveSearch(SEARCH_Q.trim());}
+function rescanArea(){SHEET_VIEW='browse';applySearch();liveSearch(SEARCH_Q.trim());}
 
 function onSearchInput(v){
   document.getElementById('search-clear').style.display=v?'':'none';
@@ -1870,11 +1964,20 @@ function clearSearch(){
 let sheetState='half';
 const SHEET_STATES=['peek','half','full'];
 
+/* safe-area bottom in px, measured once (env() isn't readable from JS) */
+const SAFE_B=(function(){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;bottom:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;';
+  document.body.appendChild(d);
+  const h=d.offsetHeight;d.remove();return h;
+})();
+
 function sheetTopFor(state){
   const H=document.getElementById('search-body').clientHeight;
-  if(state==='full')return 0;
-  if(state==='half')return Math.round(H*0.48);
-  return Math.max(H-92,0); /* peek: grab handle + count visible */
+  const topUI=(document.querySelector('.search-top')||{offsetHeight:0}).offsetHeight;
+  if(state==='full')return Math.min(topUI+4,Math.max(H-260,0)); /* stop below floating search UI */
+  if(state==='half')return Math.round(H*0.52);
+  return Math.max(H-96-SAFE_B,0); /* peek: grab handle + action row visible */
 }
 function setSheet(state,animate=true){
   sheetState=state;
@@ -1992,8 +2095,13 @@ function openSlot(academyId){
     `<span class="tag ${cls}">${subjLabel}</span>`+
     (a.shuttleAvailable?`<span class="tag sh">${ic('bus',11)} 셔틀</span>`:'')+
     (fitMode()?`<span class="tag ok">${a.fitScore}% 적합</span>`:'');
+  renderSlotBm();
   renderSlotDetail();
   go('slot');
+}
+function renderSlotBm(){
+  const b=document.getElementById('slot-bm');
+  if(b&&SLOT_ACADEMY)b.classList.toggle('on',isBm(SLOT_ACADEMY.id));
 }
 
 let sdkReady=false;

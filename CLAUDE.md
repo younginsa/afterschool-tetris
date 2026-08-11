@@ -34,7 +34,7 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 ├── afterschool-tetris-mockup.html # 5-screen vanilla HTML mockup (visual spec)
 ├── CLAUDE.md                      # this file
 ├── mockup/                        # ★ DEPLOYED build (Vercel root dir) — vanilla HTML+JS, source of truth for the live app
-│   ├── index.html                 # 2-tab app (학원찾기 landing · 내스케줄), nav history stack, draggable sheet, multi-child, info-first academy page
+│   ├── index.html                 # single map surface (no tab bar), floating search+calendar, draggable sheet, 즐겨찾기, multi-child, info-first academy page
 │   └── academies.json             # real Gwanggyo academy data (Kakao Local API sourced)
 └── app/                           # Next.js 15 project (NOT deployed; feature-behind mockup/, needs port of July 2026 UX changes)
     ├── data/academies.json        # hardcoded mock data — load-bearing
@@ -68,7 +68,9 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 |---|---|
 | **적합도 % replaces star rating** | Fit is the core metric, not academy quality |
 | **One-depth map-first search (July 2026)** | 학원찾기 = single screen: search bar + editable constraint chips + map base + draggable list sheet (peek/half/full). Replaced the two-depth wizard→results flow. Constraint-first *principle* survives as always-visible chips, not a gate page |
-| **홈 merged into 학원찾기 (Aug 2026)** | 2-tab app (학원찾기 · 내스케줄). 학원찾기 is the landing screen; the sheet's default state (no query, no active constraints) shows 카테고리 + 최근에 본 학원 (real localStorage recents). Searching or activating filter chips swaps the sheet to results. 오늘 스케줄 card and the 홈 조합추천 card were dropped — 내스케줄 covers both. Slim brand row (logo + 아이 관리) sits above the search bar |
+| **홈 merged into 학원찾기 (Aug 2026)** | 학원찾기 is the app's single surface. The sheet's default state (no query, no active constraints) shows 카테고리 + 최근에 본 학원 (real localStorage recents). Searching or activating filter chips swaps the sheet to results. 오늘 스케줄 card and the 홈 조합추천 card were dropped — 내스케줄 covers both |
+| **No tab bar — full-bleed map (Aug 2026)** | Tab bar (incl. dead 설정 tab) and brand row removed. Map runs edge-to-edge; floating over it: search pill (puzzle logo left-aligned inside = brand presence, decorative) + calendar button opening 내 스케줄 as a pushed page + filter chips. Sheet grab area has an action row: 즐겨찾기 toggle (left), + 아이추가 (right, only when zero children — demo seeds 지호/지안 still load on first run, but an explicitly emptied child list is respected). Nudge banner removed; 아이 선택 chip is the sole fit-mode entry |
+| **즐겨찾기 (Aug 2026)** | Star toggles on result/recents cards and the 학원 정보 header, persisted in localStorage. Sheet star button switches the list to the bookmark view. Map: bookmarked academies in current results get their numbered pin in gold; bookmarked ones outside results get a gold star pin. Shortlisting-before-calling is the target behavior |
 | **Academy page is info-first (Aug 2026)** | Formerly "시간표 선택". Order: info panel (address, tel: link, 월 비용, 셔틀, 네이버지도/카카오맵 buttons, "전화로 확인" hint) → 주간 시간표 rendered from the academy's real slot data, only if slots exist. Slots stay tappable; the 스케줄 추가 CTA appears only after a selection. 적합도 tag shows only in fit mode. Combo section ("같이 조합하면 좋은 학원") survives — cross-sell at moment of commitment |
 | **Pure search is allowed** | Zero constraints still searches/browses everything. Intelligence degrades gracefully: no 적합도 badge, distance sort, emoji pins, nudge banner offering 조건 설정. Constraints set → fit badges, fit sort, score pins |
 | **Wizard demoted to 전체 조건 editor** | The old setup screen remains as full-condition editor / onboarding, reached via ⚙️ 전체 조건 chip or the nudge banner |
@@ -77,7 +79,7 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 | **Combo suggestion lives inside slot view** | Cross-sell at the moment of commitment, not before |
 | **Vertical week-grid timetable in schedule** | Days as columns, time flows top→bottom (calendar-style). Replaced the horizontal timeline per user decision, July 2026 |
 | **Multi-child is first-class** | Child selector in setup; 지호/지안/같이 보기 tabs in schedule. 같이 보기 splits each day column (left=child 1, right=child 2). This is the differentiating wedge — no competitor does multi-child feasibility |
-| **Back = exactly one step; tabs reset the stack** | Navigation uses a real history stack synced to browser history (OS back-gesture works). Tab-bar taps are context switches: stack resets so back goes straight home |
+| **Back = exactly one step (pure stack)** | Navigation uses a real history stack synced to browser history (OS back-gesture works). With the tab bar gone there are no context switches: 내 스케줄, 학원 정보, 전체 조건 are all pushed pages; back always returns toward the map |
 | **Monthly cost estimate per slot** | Anchors decision-making to budget reality |
 | **44px minimum tap targets** | Toss WebKit / mobile-first ergonomics |
 
