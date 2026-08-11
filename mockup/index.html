@@ -57,13 +57,7 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 .ntitle{font-size:17px;font-weight:800;color:#191F28;}
 .nsub{font-size:11px;color:#6B7684;margin-top:1px;}
 
-/* HOME TOP BAR (logo + add-child CTA) */
-.topbar{
-  background:#fff;
-  padding:calc(12px + env(safe-area-inset-top,0px)) 18px 12px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:.5px solid #EAECF0;flex-shrink:0;
-}
+/* BRAND ROW (logo + child-manager CTA, top of 학원찾기) */
 .logo{font-size:17px;font-weight:900;color:#191F28;display:flex;align-items:center;gap:6px;}
 .addkid-btn{
   border:none;background:#EBF2FF;color:#3182F6;
@@ -71,23 +65,6 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
   font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;
   display:inline-flex;align-items:center;gap:4px;
 }
-
-/* TODAY SCHEDULE CARD */
-.td-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
-.td-title{font-size:15px;font-weight:900;color:#191F28;display:inline-flex;align-items:center;gap:6px;}
-.td-date{font-size:11px;color:#6B7684;font-weight:600;}
-.td-link{font-size:11px;color:#3182F6;font-weight:700;}
-.td-child{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:#191F28;margin:10px 0 6px;}
-.td-row{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 10px;background:#F5F6F8;border-radius:10px;
-  margin-bottom:5px;font-size:12px;font-weight:700;color:#191F28;
-}
-.td-row.td-gap{background:#FFFBEB;border:1px dashed #FDE68A;color:#92400E;}
-.td-time{color:#3182F6;font-weight:800;font-size:11px;min-width:84px;flex-shrink:0;}
-.td-gap .td-time{color:#B45309;}
-.td-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.td-none{font-size:11px;color:#B0B8C1;padding:2px 10px 6px;display:flex;align-items:center;gap:5px;}
 
 /* CATEGORY ICON ROW */
 .cat-row{
@@ -342,6 +319,7 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 .tcell.sel{background:#3182F6;border-color:#3182F6;color:#fff;}
 .tcell.sel::after{content:'✓';font-size:13px;}
 .tcell.empty:active{background:#EBF2FF;border-color:#3182F6;}
+.tcell.none{background:transparent;border:1.5px dashed #EEF0F3;cursor:default;}
 .legend{display:flex;gap:12px;flex-wrap:wrap;}
 .legitem{display:flex;align-items:center;gap:5px;font-size:10px;color:#6B7684;}
 .legdot{width:12px;height:12px;border-radius:3px;}
@@ -435,6 +413,24 @@ i[data-lucide]{display:inline-block;width:1em;height:1em;}
 /* DIVIDER */
 .divlbl{padding:12px 16px 4px;font-size:11px;font-weight:700;color:#B0B8C1;text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:5px;}
 .gap{height:14px;}
+
+/* ACADEMY DETAIL — info panel */
+.inforow{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:#6B7684;line-height:1.5;
+  padding:5px 0;
+}
+.inforow a{color:#3182F6;text-decoration:none;font-weight:700;}
+.ext-btn{
+  flex:1;border:1.5px solid #E5E8EF;background:#fff;
+  border-radius:12px;padding:12px 8px;
+  font-size:12px;font-weight:800;color:#191F28;
+  cursor:pointer;font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:44px;
+}
+.ext-btn:active{background:#F5F6F8;}
+.ext-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
 
 /* DETAIL COMPAT */
 .compat-card{
@@ -553,60 +549,15 @@ input[type=range]::-webkit-slider-thumb{
 <body>
 
 <!-- ══════════════════════════════════════
-     SCREEN 1: HOME
+     SCREEN 1: 학원찾기 — one-depth map + list (landing screen)
 ══════════════════════════════════════ -->
-<div class="screen on" id="sc-home">
-
-  <div class="topbar">
-    <div class="logo"><i data-lucide="puzzle" style="width:19px;height:19px;color:#3182F6"></i> 방과후 테트리스</div>
-    <button class="addkid-btn" onclick="openSheet('form')"><i data-lucide="plus" style="width:14px;height:14px"></i> 아이 추가</button>
-  </div>
-
-  <div class="scrl">
-    <div style="height:14px;"></div>
-    <div class="card" id="today-card" onclick="goTab('sched')"></div>
-
-    <div class="divlbl" id="cat-caption">카테고리</div>
-    <div class="cat-row" id="cat-row"></div>
-
-    <div class="divlbl">최근에 본 학원</div>
-    <div id="recents-list"></div>
-
-    <div class="divlbl">이번 주 추천 조합</div>
-    <div style="margin:0 14px 10px;background:#fff;border-radius:16px;border:.5px solid #EAECF0;padding:16px;">
-      <div style="font-size:12px;font-weight:800;color:#3182F6;margin-bottom:10px;display:flex;align-items:center;gap:5px;"><i data-lucide="puzzle" style="width:14px;height:14px"></i> 조합 추천 — 공백 없음</div>
-      <div style="display:flex;gap:8px;margin-bottom:8px;">
-        <div style="flex:1;background:#EBF2FF;border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-size:10px;color:#1D4ED8;font-weight:700;">YBM 영어</div>
-          <div style="font-size:11px;color:#3182F6;font-weight:800;margin-top:2px;">월·수·금<br>16:00</div>
-        </div>
-        <div style="display:flex;align-items:center;font-size:18px;">+</div>
-        <div style="flex:1;background:#FEF3C7;border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-size:10px;color:#B45309;font-weight:700;">세정 수학</div>
-          <div style="font-size:11px;color:#D97706;font-weight:800;margin-top:2px;">화·목<br>17:00</div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:#6B7684;text-align:center;">예상 월 비용 ₩520,000 · 귀가 18:00 이전</div>
-    </div>
-
-    <div class="gap"></div>
-  </div>
-
-  <div class="bnav">
-    <div class="btab on" onclick="goTab('home')"><span class="btab-ico"><i data-lucide="house" style="width:22px;height:22px"></i></span><span class="btab-lbl">홈</span></div>
-    <div class="btab" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
-    <div class="btab" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
-    <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════
-     SCREEN 2: SEARCH — one-depth map + list
-══════════════════════════════════════ -->
-<div class="screen" id="sc-search">
+<div class="screen on" id="sc-search">
 
   <div class="search-top">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div class="logo" style="font-size:15px;"><i data-lucide="puzzle" style="width:17px;height:17px;color:#3182F6"></i> 방과후 테트리스</div>
+      <button class="addkid-btn" style="padding:7px 12px;" onclick="openSheet('list')"><i data-lucide="users" style="width:13px;height:13px"></i> 아이 관리</button>
+    </div>
     <div class="search-bar">
       <input id="search-input" placeholder="학원 이름·과목 검색 (조건 없이도 검색돼요)" enterkeyhint="search" oninput="onSearchInput(this.value)">
       <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()"><i data-lucide="x" style="width:12px;height:12px"></i></button>
@@ -629,7 +580,6 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab" onclick="goTab('home')"><span class="btab-ico"><i data-lucide="house" style="width:22px;height:22px"></i></span><span class="btab-lbl">홈</span></div>
     <div class="btab on" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
     <div class="btab" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
@@ -738,86 +688,27 @@ input[type=range]::-webkit-slider-thumb{
 
 
 <!-- ══════════════════════════════════════
-     SCREEN 4: SLOT VIEW (TETRIS)
+     SCREEN 4: ACADEMY DETAIL (info first, 시간표 below)
 ══════════════════════════════════════ -->
 <div class="screen" id="sc-slot">
   <div class="nhdr">
     <button class="nback" onclick="goBack()"><i data-lucide="arrow-left" style="width:20px;height:20px"></i></button>
-    <div class="ntitle">시간표 선택</div>
+    <div class="ntitle">학원 정보</div>
   </div>
 
   <div class="scrl">
-    <div style="background:#fff;padding:16px 18px;border-bottom:.5px solid #EAECF0;">
+    <div style="background:#fff;padding:16px 18px;">
       <div style="display:flex;gap:14px;align-items:center;">
         <div id="slot-emoji" style="width:54px;height:54px;background:#EBF2FF;color:#2563EB;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="languages" style="width:28px;height:28px"></i></div>
         <div>
           <div id="slot-name" style="font-size:17px;font-weight:900;color:#191F28;">광교 YBM 어학원</div>
           <div id="slot-addr" style="font-size:12px;color:#6B7684;margin-top:2px;">광교신도시로 17 · 0.4km</div>
-          <div id="slot-tags" style="margin-top:8px;"><span class="tag en">영어</span><span class="tag sh"><i data-lucide="bus" style="width:11px;height:11px"></i> 셔틀</span><span class="tag ok">97% 적합</span></div>
+          <div id="slot-tags" style="margin-top:8px;"></div>
         </div>
       </div>
     </div>
 
-    <div style="padding:16px 14px 8px;">
-      <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:3px;">주간 시간표 선택</div>
-      <div style="font-size:11px;color:#6B7684;margin-bottom:12px;">빈 슬롯을 눌러 원하는 수업 시간을 선택하세요</div>
-
-      <div class="tgrid">
-        <div class="thead"></div>
-        <div class="thead">월</div><div class="thead">화</div>
-        <div class="thead">수</div><div class="thead">목</div><div class="thead">금</div>
-
-        <div class="ttime">14:00</div>
-        <div class="tcell taken"></div><div class="tcell taken"></div>
-        <div class="tcell taken"></div><div class="tcell taken"></div><div class="tcell taken"></div>
-
-        <div class="ttime">15:00</div>
-        <div class="tcell taken"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell taken"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell taken"></div>
-
-        <div class="ttime hi">16:00</div>
-        <div class="tcell sel" onclick="tclick(this)"></div>
-        <div class="tcell taken"></div>
-        <div class="tcell sel" onclick="tclick(this)"></div>
-        <div class="tcell taken"></div>
-        <div class="tcell sel" onclick="tclick(this)"></div>
-
-        <div class="ttime">17:00</div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-
-        <div class="ttime">18:00</div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-        <div class="tcell empty" onclick="tclick(this)"></div>
-      </div>
-    </div>
-
-    <div style="padding:0 14px 14px;">
-      <div class="legend">
-        <div class="legitem"><div class="legdot" style="background:#3182F6;"></div>선택됨</div>
-        <div class="legitem"><div class="legdot" style="background:#F5F6F8;border:1.5px solid #E5E8EF;"></div>비어있음</div>
-        <div class="legitem"><div class="legdot" style="background:#F0F1F3;"></div>만석</div>
-      </div>
-    </div>
-
-    <div class="sel-summary">
-      <div class="sel-sum-ttl">선택: 월·수·금 16:00 – 17:30</div>
-      <div class="sel-sum-row">
-        ✓ 하교 후 충분한 여유 있음 (15분)<br>
-        ✓ 셔틀 17:40 귀가 · 18:00 이전 도착<br>
-        ✓ 주 3회 · 월 ₩280,000
-      </div>
-    </div>
-    <div class="gap"></div>
+    <div id="slot-detail"></div>
 
     <div style="padding:0 14px;">
       <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:10px;display:flex;align-items:center;gap:5px;"><i data-lucide="puzzle" style="width:15px;height:15px"></i> 같이 조합하면 좋은 학원</div>
@@ -835,8 +726,8 @@ input[type=range]::-webkit-slider-thumb{
     <div class="gap"></div>
   </div>
 
-  <div class="cta-wrap">
-    <button class="cta" onclick="go('sched')">내 스케줄에 추가하기 →</button>
+  <div class="cta-wrap" id="slot-cta" style="display:none;">
+    <button class="cta" id="slot-cta-btn" onclick="go('sched')">내 스케줄에 추가하기 →</button>
   </div>
 </div>
 
@@ -885,7 +776,6 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bnav">
-    <div class="btab" onclick="goTab('home')"><span class="btab-ico"><i data-lucide="house" style="width:22px;height:22px"></i></span><span class="btab-lbl">홈</span></div>
     <div class="btab" onclick="goTab('search')"><span class="btab-ico"><i data-lucide="search" style="width:22px;height:22px"></i></span><span class="btab-lbl">학원찾기</span></div>
     <div class="btab on" onclick="goTab('sched')"><span class="btab-ico"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></span><span class="btab-lbl">내스케줄</span></div>
     <div class="btab"><span class="btab-ico"><i data-lucide="settings" style="width:22px;height:22px"></i></span><span class="btab-lbl">설정</span></div>
@@ -931,15 +821,14 @@ function av(c,size){return ic(avatarName(c.emoji),size||15,'#3182F6');}
 /* ════════════════════════════════════════════════
    NAVIGATION — real history stack
    ════════════════════════════════════════════════ */
-const SCREEN_IDS={home:'sc-home',search:'sc-search',setup:'sc-setup',slot:'sc-slot',sched:'sc-sched'};
-let NAV_STACK=['home'];
+const SCREEN_IDS={search:'sc-search',setup:'sc-setup',slot:'sc-slot',sched:'sc-sched'};
+let NAV_STACK=['search'];
 
 function showScreen(id){
   Object.values(SCREEN_IDS).forEach(s=>document.getElementById(s).classList.remove('on'));
   const el=document.getElementById(SCREEN_IDS[id]);
   if(el){el.classList.add('on');window.scrollTo(0,0);}
   if(id==='sched')renderSched();
-  if(id==='home')renderToday();
   if(id==='setup')syncWizard();
   if(id==='search'){ensureMap();setSheet(sheetState,false);applySearch();}
 }
@@ -952,19 +841,19 @@ function go(id){
   pushHistory();showScreen(id);
 }
 function goTab(id){
-  NAV_STACK=(id==='home')?['home']:['home',id];
+  NAV_STACK=(id==='search')?['search']:['search',id];
   pushHistory();showScreen(id);
 }
 function goBack(){
   if(NAV_STACK.length>1){NAV_STACK.pop();pushHistory();}
-  else NAV_STACK=['home'];
+  else NAV_STACK=['search'];
   showScreen(NAV_STACK[NAV_STACK.length-1]);
 }
 window.addEventListener('popstate',e=>{
-  NAV_STACK=(e.state&&e.state.stack&&e.state.stack.length)?e.state.stack:['home'];
+  NAV_STACK=(e.state&&e.state.stack&&e.state.stack.length)?e.state.stack:['search'];
   showScreen(NAV_STACK[NAV_STACK.length-1]);
 });
-try{history.replaceState({stack:['home']},'');}catch(e){}
+try{history.replaceState({stack:['search']},'');}catch(e){}
 
 /* ════════════════════════════════════════════════
    CHILDREN (multi-child, editable, persisted)
@@ -1223,54 +1112,30 @@ function setCons(patch){
 function refreshChildUI(){
   renderChildChips();
   syncWizard();
-  renderToday();
   renderSched();
   applySearch();
 }
 
 /* ════════════════════════════════════════════════
-   HOME — today schedule + category row
+   SEARCH SHEET DEFAULT STATE — categories + recents
+   (former 홈 content, merged July 2026 → Aug 2026)
    ════════════════════════════════════════════════ */
 const VT_DAYS=['mon','tue','wed','thu','fri'];
 const SUBJ_SOLID={en:'#3182F6',mt:'#F59E0B',tk:'#EC4899',ar:'#10B981'};
-const KDAY=['일','월','화','수','목','금','토'];
 
 function fmtT(t){
   const h=Math.floor(t),m=Math.round((t-h)*60);
   return h+':'+String(m).padStart(2,'0');
 }
 
-function renderToday(){
-  const now=new Date();
-  const dow=now.getDay();
-  const weekend=(dow===0||dow===6);
-  const dayKey=weekend?'mon':VT_DAYS[dow-1];
-  const dateLbl=`${now.getMonth()+1}월 ${now.getDate()}일 (${KDAY[dow]})`;
-  const title=weekend?'월요일 미리보기':'오늘 스케줄';
-
-  let body='';
-  CHILDREN.forEach(c=>{
-    const s=schedOf(c.id);
-    const items=s.items.filter(it=>it.days.includes(dayKey)).sort((a,b)=>a.start-b.start);
-    const gaps=s.gaps.filter(g=>g.days.includes(dayKey));
-    body+=`<div class="td-child">${av(c,15)} ${esc(c.name)}</div>`;
-    if(!items.length&&!gaps.length){
-      body+=`<div class="td-none">${SCHEDULES[c.id]?`${ic('party-popper',13)} 오늘은 수업이 없어요`:`${ic('puzzle',13)} 아직 스케줄이 없어요 — 학원찾기에서 시작하세요`}</div>`;
-      return;
-    }
-    const rows=[...items.map(it=>({t:it.start,html:
-      `<div class="td-row"><span class="td-time">${fmtT(it.start)}–${fmtT(it.end)}</span><span class="td-dot" style="background:${SUBJ_SOLID[it.subj]};"></span>${esc(it.name)}</div>`})),
-      ...gaps.map(g=>({t:g.start,html:
-      `<div class="td-row td-gap"><span class="td-time">${fmtT(g.start)}–${fmtT(g.end)}</span>${ic('triangle-alert',13)} 공백 — 이동·대기 시간</div>`}))]
-      .sort((a,b)=>a.t-b.t);
-    body+=rows.map(r=>r.html).join('');
-  });
-
-  document.getElementById('today-card').innerHTML=`
-    <div class="td-hdr">
-      <span class="td-title">${ic('calendar-days',16)} ${title}</span>
-      <span class="td-date">${dateLbl} <span class="td-link">전체 시간표 →</span></span>
-    </div>${body}`;
+/* recently-viewed academies, persisted */
+const LS_RECENTS='tetris_recents_v1';
+function loadRecents(){
+  try{const v=JSON.parse(localStorage.getItem(LS_RECENTS));return Array.isArray(v)?v:[];}catch(e){return [];}
+}
+function pushRecent(id){
+  const r=[id,...loadRecents().filter(x=>x!==id)].slice(0,10);
+  try{localStorage.setItem(LS_RECENTS,JSON.stringify(r));}catch(e){}
 }
 
 const CATEGORIES=[
@@ -1287,8 +1152,8 @@ const CATEGORIES=[
   {subj:null,ico:'map',color:'#6B7684',lbl:'지도',bg:'#F0F1F3'}
 ];
 
-function renderCategories(){
-  document.getElementById('cat-row').innerHTML=CATEGORIES.map(c=>{
+function catRowHtml(){
+  return CATEGORIES.map(c=>{
     const icon=c.subj?SUBJ_ICON[c.subj]:c.ico;
     const color=c.subj?SUBJ_ICOLOR[c.subj]:c.color;
     return `<div class="cat" onclick="${c.subj?`openCategory('${c.subj}')`:'openMapExplore()'}">
@@ -1296,6 +1161,20 @@ function renderCategories(){
       <div class="cat-lbl">${c.lbl}</div>
     </div>`;
   }).join('');
+}
+
+/* default sheet content: no query + no active constraints */
+function defaultSheetHtml(){
+  const shuttleCount=ACADEMIES.filter(a=>a.shuttleAvailable).length;
+  const recents=loadRecents().map(id=>ACADEMIES.find(a=>a.id===id)).filter(Boolean).slice(0,4);
+  const act=fitMode();
+  return `<div class="divlbl">카테고리 · 광교 ${ACADEMIES.length}개 학원 · ${ic('bus',13)} 셔틀 ${shuttleCount}곳</div>
+    <div class="cat-row">${catRowHtml()}</div>
+    <div class="divlbl">최근에 본 학원</div>`+
+    (recents.length
+      ?recents.map(a=>cardHtml(a,false,act)).join('')
+      :`<div class="empty-state" style="padding:18px 20px;">${ic('clock',22)} 아직 본 학원이 없어요
+         <span>지도의 핀이나 카테고리를 눌러 학원을 둘러보세요</span></div>`);
 }
 
 /* category tap = pure search by subject keyword (no constraints needed) */
@@ -1498,14 +1377,126 @@ function setTime(v){
   document.getElementById('timeval').textContent=fmtT(parseFloat(v));
 }
 
-function tclick(el){
-  if(el.classList.contains('taken'))return;
-  if(el.classList.contains('sel')){
-    el.classList.remove('sel');
-    el.classList.add('empty');
+/* ════════════════════════════════════════════════
+   ACADEMY DETAIL — info panel + tappable 시간표
+   ════════════════════════════════════════════════ */
+let SLOT_ACADEMY=null;
+let SLOT_SEL=new Set();   /* keys: "day|start|end" */
+
+function slotInfoHtml(a){
+  const phone=a.phone
+    ?`<a href="tel:${esc(a.phone)}">${esc(a.phone)}</a>`
+    :'전화번호 미등록';
+  return `<div style="background:#fff;padding:4px 18px 16px;border-bottom:.5px solid #EAECF0;">
+    <div class="inforow">${ic('map-pin',14)} ${esc(a.address)}</div>
+    <div class="inforow">${ic('phone',14)} ${phone}</div>
+    <div class="inforow">${ic('wallet',14)} 월 예상 ${krw(a.monthlyCostKRW)}</div>
+    <div class="inforow">${ic('bus',14)} ${a.shuttleAvailable?'셔틀 운행':'셔틀 없음 · 보호자 픽업 필요'}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;">
+      <button class="ext-btn" onclick="openNaverMap()"><span class="ext-dot" style="background:#03C75A;"></span> 네이버지도 ↗</button>
+      <button class="ext-btn" onclick="openKakaoMap()"><span class="ext-dot" style="background:#FEE500;"></span> 카카오맵 ↗</button>
+    </div>
+    <div style="font-size:11px;color:#B0B8C1;margin-top:10px;display:flex;align-items:center;gap:5px;">
+      ${ic('info',12)} 시간표·셔틀·수강료는 학원에 전화로 확인하는 걸 추천해요
+    </div>
+  </div>`;
+}
+
+function slotTimetableHtml(a){
+  if(!a.slots||!a.slots.length)return '';
+  const times=[...new Set(a.slots.map(s=>s.startTime))].sort();
+  const byKey={};
+  a.slots.forEach(s=>{byKey[s.day+'|'+s.startTime]=s;});
+  let cells=`<div class="thead"></div>`+VT_DAYS.map(d=>`<div class="thead">${DAY_LABEL[d]}</div>`).join('');
+  times.forEach(t=>{
+    cells+=`<div class="ttime">${t}</div>`;
+    VT_DAYS.forEach(d=>{
+      const s=byKey[d+'|'+t];
+      if(!s){cells+=`<div class="tcell none"></div>`;return;}
+      if(!s.available){cells+=`<div class="tcell taken"></div>`;return;}
+      const key=d+'|'+s.startTime+'|'+s.endTime;
+      cells+=`<div class="tcell ${SLOT_SEL.has(key)?'sel':'empty'}" onclick="slotTap('${d}','${s.startTime}','${s.endTime}')"></div>`;
+    });
+  });
+  return `<div style="padding:16px 14px 8px;">
+    <div style="font-size:13px;font-weight:800;color:#191F28;margin-bottom:3px;">주간 시간표</div>
+    <div style="font-size:11px;color:#6B7684;margin-bottom:12px;">빈 시간을 누르면 내 스케줄에 담을 수 있어요</div>
+    <div class="tgrid">${cells}</div>
+  </div>
+  <div style="padding:0 14px 14px;">
+    <div class="legend">
+      <div class="legitem"><div class="legdot" style="background:#3182F6;"></div>선택됨</div>
+      <div class="legitem"><div class="legdot" style="background:#F5F6F8;border:1.5px solid #E5E8EF;"></div>비어있음</div>
+      <div class="legitem"><div class="legdot" style="background:#F0F1F3;"></div>만석</div>
+    </div>
+  </div>`+slotSummaryHtml(a);
+}
+
+function slotSummaryHtml(a){
+  if(!SLOT_SEL.size)return '';
+  const byTime={};
+  [...SLOT_SEL].forEach(k=>{
+    const [d,st,en]=k.split('|');
+    const t=st+' – '+en;
+    (byTime[t]=byTime[t]||[]).push(d);
+  });
+  const title=Object.entries(byTime).map(([t,days])=>`${daysLabel(days)} ${t}`).join(' · ');
+  const latestEnd=Math.max(...[...SLOT_SEL].map(k=>toH(k.split('|')[2])));
+  const cons=searchCons();
+  const lines=[];
+  if(cons.arrival)
+    lines.push(latestEnd<=cons.arrival
+      ?`✓ ${fmtT(latestEnd)} 종료 · 목표 귀가 ${fmtT(cons.arrival)} 이전`
+      :`⚠ ${fmtT(latestEnd)} 종료 — 목표 귀가 ${fmtT(cons.arrival)} 초과`);
+  else lines.push(`수업 종료 ${fmtT(latestEnd)}`);
+  lines.push(a.shuttleAvailable?'✓ 셔틀 하원 가능':'셔틀 없음 — 보호자 픽업 필요');
+  lines.push(`주 ${SLOT_SEL.size}회 · 월 ${krw(a.monthlyCostKRW)}`);
+  return `<div class="sel-summary">
+    <div class="sel-sum-ttl">선택: ${title}</div>
+    <div class="sel-sum-row">${lines.join('<br>')}</div>
+  </div>
+  <div class="gap"></div>`;
+}
+
+function renderSlotDetail(){
+  const a=SLOT_ACADEMY;
+  if(!a)return;
+  document.getElementById('slot-detail').innerHTML=slotInfoHtml(a)+slotTimetableHtml(a);
+  const cta=document.getElementById('slot-cta');
+  if(SLOT_SEL.size){
+    cta.style.display='';
+    document.getElementById('slot-cta-btn').textContent=`선택한 시간으로 내 스케줄에 추가 →`;
+  }else cta.style.display='none';
+}
+
+function slotTap(d,st,en){
+  const key=d+'|'+st+'|'+en;
+  if(SLOT_SEL.has(key))SLOT_SEL.delete(key);
+  else SLOT_SEL.add(key);
+  renderSlotDetail();
+}
+
+/* external map links */
+function openKakaoMap(){
+  if(SLOT_ACADEMY&&SLOT_ACADEMY.placeUrl)window.open(SLOT_ACADEMY.placeUrl,'_blank');
+}
+function openNaverMap(){
+  const a=SLOT_ACADEMY;
+  if(!a)return;
+  const web=`https://map.naver.com/p/search/${encodeURIComponent(a.name)}`;
+  const ua=navigator.userAgent;
+  if(/android/i.test(ua)&&a.lat&&a.lng){
+    /* app if installed, web fallback — handled natively by intent: */
+    location.href=`intent://place?lat=${a.lat}&lng=${a.lng}&name=${encodeURIComponent(a.name)}&appname=afterschool-tetris.vercel.app#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(web)};end`;
+  }else if(/iphone|ipad|ipod/i.test(ua)&&a.lat&&a.lng){
+    /* try the app scheme; fall back to web if nothing took over */
+    const t=setTimeout(()=>{window.open(web,'_blank');},1200);
+    document.addEventListener('visibilitychange',function h(){
+      if(document.hidden){clearTimeout(t);document.removeEventListener('visibilitychange',h);}
+    });
+    location.href=`nmap://place?lat=${a.lat}&lng=${a.lng}&name=${encodeURIComponent(a.name)}&appname=https://afterschool-tetris.vercel.app`;
   }else{
-    el.classList.remove('empty');
-    el.classList.add('sel');
+    window.open(web,'_blank');
   }
 }
 
@@ -1581,12 +1572,6 @@ function cardHtml(a,includeBanner,showFit,rank){
   </div>`;
 }
 
-function hydrateHome(){
-  const shuttleCount=ACADEMIES.filter(a=>a.shuttleAvailable).length;
-  document.getElementById('cat-caption').innerHTML=`카테고리 · 광교 ${ACADEMIES.length}개 학원 · ${ic('bus',13)} 셔틀 ${shuttleCount}곳`;
-  document.getElementById('recents-list').innerHTML=ACADEMIES.slice(0,2).map(a=>cardHtml(a,false,true)).join('');
-}
-
 function filteredAcademies(){
   const c=searchCons();
   let v=ACADEMIES;
@@ -1646,6 +1631,18 @@ function applySearch(){
     nudge=`<div class="nudge" onclick="openSheet('child')">${ic('puzzle',16)} <span>아이를 선택하면 <b>적합도·공백 경고</b>를 보여드려요</span><button class="nudge-cta">아이 선택</button></div>`;
   else if(!act)
     nudge=`<div class="nudge" onclick="go('setup')">${ic('puzzle',16)} <span><b>${esc(childById(SEARCH_CHILD).name)}</b>의 조건을 설정하면 적합도·공백 경고를 보여드려요</span><button class="nudge-cta">조건 설정</button></div>`;
+
+  /* no query + no constraints → browse default: categories + recents
+     (map pins still show the nearest academies underneath) */
+  if(!q&&!consActive(c)){
+    document.getElementById('search-list').innerHTML=
+      nudge+defaultSheetHtml()+`<div id="live-results"></div>`;
+    LAST_REG_COUNT=v.length;
+    document.getElementById('sheet-count').textContent=`광교 ${ACADEMIES.length}개 학원`;
+    clearLivePins();
+    renderRegPins(v,act);
+    return;
+  }
 
   const empty=!v.length
     ?`<div class="empty-state">${ic('search',22)} ${q?`등록된 학원 중에는 '${esc(q)}' 결과가 없어요`:'조건에 맞는 학원이 없어요'}
@@ -1980,6 +1977,9 @@ function ensureMap(){
 function openSlot(academyId){
   const a=ACADEMIES.find(x=>x.id===academyId);
   if(!a)return;
+  SLOT_ACADEMY=a;
+  SLOT_SEL=new Set();
+  pushRecent(a.id);
   const subj=a.subjects[0]||'english';
   const cls=SUBJ_CLASS[subj]||'en';
   const subjLabel=SUBJ_LABEL[subj]||subj;
@@ -1991,7 +1991,8 @@ function openSlot(academyId){
   document.getElementById('slot-tags').innerHTML=
     `<span class="tag ${cls}">${subjLabel}</span>`+
     (a.shuttleAvailable?`<span class="tag sh">${ic('bus',11)} 셔틀</span>`:'')+
-    `<span class="tag ok">${a.fitScore}% 적합</span>`;
+    (fitMode()?`<span class="tag ok">${a.fitScore}% 적합</span>`:'');
+  renderSlotDetail();
   go('slot');
 }
 
@@ -2004,7 +2005,6 @@ async function bootstrap(){
     const data=await res.json();
     ACADEMIES=data.academies;
     CENTER=data.center;
-    hydrateHome();
     applySearch();
     if(pendingMapInit&&sdkReady)initKakaoMap();
   }catch(e){
@@ -2038,12 +2038,12 @@ window.__debug=function(){
   };
 };
 
-/* Initial render */
-renderCategories();
-renderToday();
+/* Initial render — 학원찾기 is the landing screen */
 renderChildChips();
 syncWizard();
 renderSched();
+ensureMap();
+setSheet('half',false);
 refreshIcons();
 </script>
 </body>

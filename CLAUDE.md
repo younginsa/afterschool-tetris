@@ -34,7 +34,7 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 ├── afterschool-tetris-mockup.html # 5-screen vanilla HTML mockup (visual spec)
 ├── CLAUDE.md                      # this file
 ├── mockup/                        # ★ DEPLOYED build (Vercel root dir) — vanilla HTML+JS, source of truth for the live app
-│   ├── index.html                 # nav history stack, list↔map toggle, multi-child, vertical week timetable
+│   ├── index.html                 # 2-tab app (학원찾기 landing · 내스케줄), nav history stack, draggable sheet, multi-child, info-first academy page
 │   └── academies.json             # real Gwanggyo academy data (Kakao Local API sourced)
 └── app/                           # Next.js 15 project (NOT deployed; feature-behind mockup/, needs port of July 2026 UX changes)
     ├── data/academies.json        # hardcoded mock data — load-bearing
@@ -68,6 +68,8 @@ Visual spec: [afterschool-tetris-mockup.html](afterschool-tetris-mockup.html) (i
 |---|---|
 | **적합도 % replaces star rating** | Fit is the core metric, not academy quality |
 | **One-depth map-first search (July 2026)** | 학원찾기 = single screen: search bar + editable constraint chips + map base + draggable list sheet (peek/half/full). Replaced the two-depth wizard→results flow. Constraint-first *principle* survives as always-visible chips, not a gate page |
+| **홈 merged into 학원찾기 (Aug 2026)** | 2-tab app (학원찾기 · 내스케줄). 학원찾기 is the landing screen; the sheet's default state (no query, no active constraints) shows 카테고리 + 최근에 본 학원 (real localStorage recents). Searching or activating filter chips swaps the sheet to results. 오늘 스케줄 card and the 홈 조합추천 card were dropped — 내스케줄 covers both. Slim brand row (logo + 아이 관리) sits above the search bar |
+| **Academy page is info-first (Aug 2026)** | Formerly "시간표 선택". Order: info panel (address, tel: link, 월 비용, 셔틀, 네이버지도/카카오맵 buttons, "전화로 확인" hint) → 주간 시간표 rendered from the academy's real slot data, only if slots exist. Slots stay tappable; the 스케줄 추가 CTA appears only after a selection. 적합도 tag shows only in fit mode. Combo section ("같이 조합하면 좋은 학원") survives — cross-sell at moment of commitment |
 | **Pure search is allowed** | Zero constraints still searches/browses everything. Intelligence degrades gracefully: no 적합도 badge, distance sort, emoji pins, nudge banner offering 조건 설정. Constraints set → fit badges, fit sort, score pins |
 | **Wizard demoted to 전체 조건 editor** | The old setup screen remains as full-condition editor / onboarding, reached via ⚙️ 전체 조건 chip or the nudge banner |
 | **Gap warnings surface automatically** | Parents don't notice dangerous pickup gaps without prompting |
