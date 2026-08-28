@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-08-26T22:42:43.761Z",
+ "generatedAt": "2026-08-28T04:01:46.427Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -5393,73 +5393,6 @@
    "placeUrl": "http://place.map.kakao.com/1875239743"
   },
   {
-   "id": "kakao-2029009572",
-   "name": "광교에세이스튜디오영어교습소",
-   "address": "경기 수원시 영통구 에듀타운로 102",
-   "phone": "010-3666-7478",
-   "distanceKm": 1.57,
-   "subjects": [
-    "english"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 300000,
-   "fitScore": 91,
-   "emoji": "🇺🇸",
-   "lng": 127.04641448825565,
-   "lat": 37.28978221209082,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": false
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": false
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/2029009572"
-  },
-  {
    "id": "kakao-425741263",
    "name": "절대영어학원",
    "address": "경기 수원시 영통구 에듀타운로 102",
@@ -5660,6 +5593,73 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/773230753"
+  },
+  {
+   "id": "kakao-1936103119",
+   "name": "그라운드영어교습소",
+   "address": "경기 수원시 영통구 에듀타운로 102",
+   "phone": "",
+   "distanceKm": 1.59,
+   "subjects": [
+    "english"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 300000,
+   "fitScore": 92,
+   "emoji": "🇺🇸",
+   "lng": 127.0465700039081,
+   "lat": 37.289599240267954,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": false
+    },
+    {
+     "day": "tue",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1936103119"
   },
   {
    "id": "kakao-1257109082",
