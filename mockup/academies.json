@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-09-02T22:21:36.231Z",
+ "generatedAt": "2026-09-03T22:16:41.771Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -9726,6 +9726,55 @@
    "placeUrl": "http://place.map.kakao.com/338622716"
   },
   {
+   "id": "kakao-1264247642",
+   "name": "책읽는루브르아뜰리에광교 상현센터미술교습소",
+   "address": "경기 용인시 수지구 광교중앙로 320",
+   "phone": "",
+   "distanceKm": 2.23,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 140000,
+   "fitScore": 96,
+   "emoji": "🎨",
+   "lng": 127.069952777658,
+   "lat": 37.2983683405829,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "18:00",
+     "available": false
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1264247642"
+  },
+  {
    "id": "kakao-1560891920",
    "name": "스핀애니미술학원 수지광교점",
    "address": "경기 용인시 수지구 광교중앙로 316",
@@ -10573,61 +10622,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/263548109"
-  },
-  {
-   "id": "kakao-1833554179",
-   "name": "하나 아틀리에",
-   "address": "경기 용인시 수지구 광교중앙로 338",
-   "phone": "031-308-4455",
-   "distanceKm": 2.34,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 160000,
-   "fitScore": 98,
-   "emoji": "🎨",
-   "lng": 127.071790813687,
-   "lat": 37.3003287966183,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": false
-    },
-    {
-     "day": "thu",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/1833554179"
   },
   {
    "id": "kakao-15682662",
