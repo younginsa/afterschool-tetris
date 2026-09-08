@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-09-07T22:29:46.901Z",
+ "generatedAt": "2026-09-08T22:21:37.620Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -7670,7 +7670,7 @@
    "id": "kakao-1961204078",
    "name": "우만MBA태권도장",
    "address": "경기 수원시 팔달구 창룡대로 194",
-   "phone": "",
+   "phone": "031-256-3600",
    "distanceKm": 1.95,
    "subjects": [
     "taekwondo"
@@ -10812,6 +10812,55 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/50291161"
+  },
+  {
+   "id": "kakao-804457136",
+   "name": "세영AI코딩로보틱스",
+   "address": "경기 수원시 영통구 광교호수공원로 277",
+   "phone": "010-2666-3072",
+   "distanceKm": 2.37,
+   "subjects": [
+    "coding"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 280000,
+   "fitScore": 71,
+   "emoji": "💻",
+   "lng": 127.055469368186,
+   "lat": 37.2839612100789,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": false
+    },
+    {
+     "day": "tue",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": false
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/804457136"
   },
   {
    "id": "kakao-153536989",
