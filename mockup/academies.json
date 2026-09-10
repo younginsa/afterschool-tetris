@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-09-09T22:15:33.310Z",
+ "generatedAt": "2026-09-10T22:15:05.948Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -3557,6 +3557,49 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1156563724"
+  },
+  {
+   "id": "kakao-1507440320",
+   "name": "하늘을나는타조미술학원",
+   "address": "경기 수원시 영통구 센트럴타운로100번길 20",
+   "phone": "",
+   "distanceKm": 1.34,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 160000,
+   "fitScore": 86,
+   "emoji": "🎨",
+   "lng": 127.051274767904,
+   "lat": 37.2926797464951,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "16:00",
+     "endTime": "17:30",
+     "available": false
+    },
+    {
+     "day": "wed",
+     "startTime": "16:00",
+     "endTime": "17:30",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1507440320"
   },
   {
    "id": "kakao-347963430",
@@ -10512,67 +10555,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/14491818"
-  },
-  {
-   "id": "kakao-291254427",
-   "name": "아트닥터그림작업실",
-   "address": "경기 용인시 수지구 성복2로 230",
-   "phone": "031-264-8615",
-   "distanceKm": 2.31,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 160000,
-   "fitScore": 64,
-   "emoji": "🎨",
-   "lng": 127.062375530767,
-   "lat": 37.3199568731614,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "14:00",
-     "endTime": "15:00",
-     "available": false
-    },
-    {
-     "day": "wed",
-     "startTime": "14:00",
-     "endTime": "15:00",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": false
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/291254427"
   },
   {
    "id": "kakao-263548109",
