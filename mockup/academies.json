@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-09-29T23:26:04.496Z",
+ "generatedAt": "2026-09-30T23:28:05.551Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -7331,6 +7331,61 @@
    "placeUrl": "http://place.map.kakao.com/23814725"
   },
   {
+   "id": "kakao-517267831",
+   "name": "그릿뮤아트미술교습소",
+   "address": "경기 수원시 영통구 도청로 65",
+   "phone": "0503-7154-9122",
+   "distanceKm": 1.78,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": true,
+   "monthlyCostKRW": 200000,
+   "fitScore": 96,
+   "emoji": "🎨",
+   "lng": 127.04967031640973,
+   "lat": 37.28812207915149,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": false
+    },
+    {
+     "day": "wed",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/517267831"
+  },
+  {
    "id": "kakao-1999649326",
    "name": "해나피아노",
    "address": "경기 수원시 영통구 도청로 65",
@@ -10427,67 +10482,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/675124516"
-  },
-  {
-   "id": "kakao-1770410473",
-   "name": "광교봄아트미술교습소",
-   "address": "경기 용인시 수지구 광교중앙로 338",
-   "phone": "",
-   "distanceKm": 2.3,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 170000,
-   "fitScore": 86,
-   "emoji": "🎨",
-   "lng": 127.071285715688,
-   "lat": 37.3005417465177,
-   "slots": [
-    {
-     "day": "mon",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": false
-    },
-    {
-     "day": "wed",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": false
-    },
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/1770410473"
   },
   {
    "id": "kakao-14491818",
