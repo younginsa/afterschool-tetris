@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-09-30T23:28:05.551Z",
+ "generatedAt": "2026-10-01T23:40:34.598Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -9653,6 +9653,73 @@
    "placeUrl": "http://place.map.kakao.com/1298725425"
   },
   {
+   "id": "kakao-1229266236",
+   "name": "조이스감성미술 성복교육원",
+   "address": "경기 용인시 수지구 성복1로164번길 13",
+   "phone": "010-9967-1335",
+   "distanceKm": 2.22,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 150000,
+   "fitScore": 83,
+   "emoji": "🎨",
+   "lng": 127.06376366121043,
+   "lat": 37.31782248561947,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1229266236"
+  },
+  {
    "id": "kakao-17628704",
    "name": "경희대한미태권도특공무술",
    "address": "경기 용인시 수지구 광교중앙로 320",
@@ -10380,55 +10447,6 @@
    "placeUrl": "http://place.map.kakao.com/1330608601"
   },
   {
-   "id": "kakao-819720167",
-   "name": "라미모모미술",
-   "address": "경기 용인시 수지구 광교마을로 54",
-   "phone": "031-216-2656",
-   "distanceKm": 2.29,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 170000,
-   "fitScore": 78,
-   "emoji": "🎨",
-   "lng": 127.07063843728125,
-   "lat": 37.29827692863538,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": false
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/819720167"
-  },
-  {
    "id": "kakao-675124516",
    "name": "경희대석사영웅태권도장",
    "address": "경기 수원시 팔달구 세지로421번길 37-1",
@@ -10882,11 +10900,60 @@
    "placeUrl": "http://place.map.kakao.com/153536989"
   },
   {
+   "id": "kakao-23812789",
+   "name": "제일피아노",
+   "address": "경기 수원시 장안구 금당로 80-7",
+   "phone": "",
+   "distanceKm": 2.4,
+   "subjects": [
+    "piano"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 220000,
+   "fitScore": 67,
+   "emoji": "🎹",
+   "lng": 127.018980361669,
+   "lat": 37.3005869216725,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/23812789"
+  },
+  {
    "id": "kakao-1647701263",
    "name": "용인대호수태권도장",
    "address": "경기 수원시 영통구 광교호수공원로 277",
-   "phone": "010-8285-7772",
-   "distanceKm": 2.39,
+   "phone": "",
+   "distanceKm": 2.42,
    "subjects": [
     "taekwondo"
    ],
@@ -10894,8 +10961,8 @@
    "monthlyCostKRW": 140000,
    "fitScore": 96,
    "emoji": "🥋",
-   "lng": 127.05568807215496,
-   "lat": 37.28387821180238,
+   "lng": 127.05677743363343,
+   "lat": 37.283941668072366,
    "slots": [
     {
      "day": "tue",
@@ -10947,55 +11014,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1647701263"
-  },
-  {
-   "id": "kakao-23812789",
-   "name": "제일피아노",
-   "address": "경기 수원시 장안구 금당로 80-7",
-   "phone": "",
-   "distanceKm": 2.4,
-   "subjects": [
-    "piano"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 220000,
-   "fitScore": 67,
-   "emoji": "🎹",
-   "lng": 127.018980361669,
-   "lat": 37.3005869216725,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "17:00",
-     "endTime": "18:00",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "17:00",
-     "endTime": "18:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/23812789"
   },
   {
    "id": "kakao-1162136737",
