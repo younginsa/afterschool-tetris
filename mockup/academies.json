@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-10-09T23:48:31.119Z",
+ "generatedAt": "2026-10-10T23:13:24.779Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -5143,73 +5143,6 @@
    "placeUrl": "http://place.map.kakao.com/568817585"
   },
   {
-   "id": "kakao-1585971730",
-   "name": "아발론교육 광교 녹지원",
-   "address": "경기 수원시 영통구 도청로89번길 30",
-   "phone": "031-211-0605",
-   "distanceKm": 1.55,
-   "subjects": [
-    "english"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 330000,
-   "fitScore": 67,
-   "emoji": "🇺🇸",
-   "lng": 127.047026952498,
-   "lat": 37.2899432561803,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:30",
-     "endTime": "18:00",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "14:00",
-     "endTime": "15:00",
-     "available": false
-    },
-    {
-     "day": "wed",
-     "startTime": "14:00",
-     "endTime": "15:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/1585971730"
-  },
-  {
    "id": "kakao-619195163",
    "name": "분석학원",
    "address": "경기 수원시 영통구 도청로89번길 30",
@@ -5752,6 +5685,49 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1936103119"
+  },
+  {
+   "id": "kakao-798281222",
+   "name": "프랜시스파커 광교원",
+   "address": "경기 수원시 영통구 에듀타운로 102",
+   "phone": "031-217-0533",
+   "distanceKm": 1.59,
+   "subjects": [
+    "english"
+   ],
+   "shuttleAvailable": true,
+   "monthlyCostKRW": 330000,
+   "fitScore": 86,
+   "emoji": "🇺🇸",
+   "lng": 127.04669968945952,
+   "lat": 37.28959198085773,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": false
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/798281222"
   },
   {
    "id": "kakao-1257109082",
