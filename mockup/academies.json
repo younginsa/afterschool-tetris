@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-10-13T23:35:41.778Z",
+ "generatedAt": "2026-10-14T22:58:41.173Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -2786,67 +2786,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/812287087"
-  },
-  {
-   "id": "kakao-717371465",
-   "name": "케즈실용영어교습소",
-   "address": "경기 수원시 영통구 웰빙타운로56번길 76",
-   "phone": "",
-   "distanceKm": 0.57,
-   "subjects": [
-    "english"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 250000,
-   "fitScore": 62,
-   "emoji": "🇺🇸",
-   "lng": 127.044833506203,
-   "lat": 37.3089740021523,
-   "slots": [
-    {
-     "day": "mon",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": false
-    },
-    {
-     "day": "wed",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "14:00",
-     "endTime": "15:30",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/717371465"
   },
   {
    "id": "kakao-455470553",
@@ -5730,6 +5669,73 @@
    "placeUrl": "http://place.map.kakao.com/798281222"
   },
   {
+   "id": "kakao-672326737",
+   "name": "오감랭귀지 광교본원",
+   "address": "경기 수원시 영통구 에듀타운로 102",
+   "phone": "010-7582-5905",
+   "distanceKm": 1.59,
+   "subjects": [
+    "english"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 310000,
+   "fitScore": 87,
+   "emoji": "🇺🇸",
+   "lng": 127.046439172318,
+   "lat": 37.2895767657154,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": false
+    },
+    {
+     "day": "tue",
+     "startTime": "16:00",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:00",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "16:00",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/672326737"
+  },
+  {
    "id": "kakao-1257109082",
    "name": "다움수학교습소",
    "address": "경기 수원시 영통구 에듀타운로 102",
@@ -6934,6 +6940,73 @@
    "placeUrl": "http://place.map.kakao.com/1902127971"
   },
   {
+   "id": "kakao-543934488",
+   "name": "지금바레 광교에듀타운 직영점",
+   "address": "경기 수원시 영통구 에듀타운로 84",
+   "phone": "",
+   "distanceKm": 1.68,
+   "subjects": [
+    "ballet"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 160000,
+   "fitScore": 92,
+   "emoji": "🩰",
+   "lng": 127.047373576915,
+   "lat": 37.2887933931812,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/543934488"
+  },
+  {
    "id": "kakao-1278260353",
    "name": "이젠맞춤수학",
    "address": "경기 수원시 장안구 창훈로39번길 20",
@@ -8008,6 +8081,67 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/905588859"
+  },
+  {
+   "id": "kakao-650605993",
+   "name": "라스트복싱",
+   "address": "경기 수원시 장안구 연무로 50",
+   "phone": "",
+   "distanceKm": 1.96,
+   "subjects": [
+    "boxing"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 180000,
+   "fitScore": 73,
+   "emoji": "🥊",
+   "lng": 127.026300958027,
+   "lat": 37.2955505267919,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "15:00",
+     "endTime": "16:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/650605993"
   },
   {
    "id": "kakao-1929898380",
