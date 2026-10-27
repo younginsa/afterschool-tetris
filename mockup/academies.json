@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-10-26T23:33:59.187Z",
+ "generatedAt": "2026-10-27T23:28:59.084Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -5082,6 +5082,55 @@
    "placeUrl": "http://place.map.kakao.com/568817585"
   },
   {
+   "id": "kakao-1661889607",
+   "name": "서강대학교SLP 광교",
+   "address": "경기 수원시 영통구 도청로89번길 30",
+   "phone": "031-203-1240",
+   "distanceKm": 1.55,
+   "subjects": [
+    "english"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 310000,
+   "fitScore": 68,
+   "emoji": "🇺🇸",
+   "lng": 127.047088975627,
+   "lat": 37.2899387263214,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": false
+    },
+    {
+     "day": "wed",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "17:30",
+     "endTime": "19:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "17:30",
+     "endTime": "19:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "17:30",
+     "endTime": "19:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1661889607"
+  },
+  {
    "id": "kakao-619195163",
    "name": "분석학원",
    "address": "경기 수원시 영통구 도청로89번길 30",
@@ -5196,55 +5245,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/42600358"
-  },
-  {
-   "id": "kakao-22319682",
-   "name": "서강대학교SLP 광교",
-   "address": "경기 수원시 영통구 도청로89번길 30",
-   "phone": "031-203-1240",
-   "distanceKm": 1.56,
-   "subjects": [
-    "english"
-   ],
-   "shuttleAvailable": true,
-   "monthlyCostKRW": 320000,
-   "fitScore": 66,
-   "emoji": "🇺🇸",
-   "lng": 127.04708107075,
-   "lat": 37.2899216097515,
-   "slots": [
-    {
-     "day": "mon",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": false
-    },
-    {
-     "day": "mon",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "17:30",
-     "endTime": "19:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/22319682"
   },
   {
    "id": "kakao-1680036518",
