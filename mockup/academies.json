@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-11-14T23:37:17.433Z",
+ "generatedAt": "2026-11-15T23:44:29.696Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -9043,67 +9043,6 @@
    "placeUrl": "http://place.map.kakao.com/706617902"
   },
   {
-   "id": "kakao-1731093601",
-   "name": "유니팝미술학원 광교센터",
-   "address": "경기 수원시 영통구 도청로17번길 34",
-   "phone": "",
-   "distanceKm": 2.17,
-   "subjects": [
-    "art"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 190000,
-   "fitScore": 91,
-   "emoji": "🎨",
-   "lng": 127.053226291205,
-   "lat": 37.285320105593,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "17:30",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "17:30",
-     "endTime": "18:30",
-     "available": false
-    },
-    {
-     "day": "mon",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": false
-    },
-    {
-     "day": "wed",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "15:00",
-     "endTime": "16:00",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "14:00",
-     "endTime": "15:00",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "14:00",
-     "endTime": "15:00",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/1731093601"
-  },
-  {
    "id": "kakao-127447457",
    "name": "수원광교자라다남아미술학원",
    "address": "경기 수원시 영통구 도청로17번길 34",
@@ -9163,6 +9102,67 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/127447457"
+  },
+  {
+   "id": "kakao-1731093601",
+   "name": "유니팝미술학원 광교센터",
+   "address": "경기 수원시 영통구 도청로17번길 34",
+   "phone": "",
+   "distanceKm": 2.17,
+   "subjects": [
+    "art"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 190000,
+   "fitScore": 91,
+   "emoji": "🎨",
+   "lng": 127.053226291205,
+   "lat": 37.285320105593,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": false
+    },
+    {
+     "day": "mon",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": false
+    },
+    {
+     "day": "wed",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "15:00",
+     "endTime": "16:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1731093601"
   },
   {
    "id": "kakao-123359532",
