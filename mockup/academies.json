@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-11-15T23:44:29.696Z",
+ "generatedAt": "2026-11-17T02:45:35.962Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -2788,6 +2788,55 @@
    "placeUrl": "http://place.map.kakao.com/812287087"
   },
   {
+   "id": "kakao-1019887470",
+   "name": "올데이복싱짐",
+   "address": "경기 수원시 영통구 대학로 14",
+   "phone": "010-2069-4390",
+   "distanceKm": 0.74,
+   "subjects": [
+    "boxing"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 120000,
+   "fitScore": 75,
+   "emoji": "🥊",
+   "lng": 127.04231627311,
+   "lat": 37.2978363208164,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "17:30",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "17:00",
+     "endTime": "18:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1019887470"
+  },
+  {
    "id": "kakao-455470553",
    "name": "엔보임",
    "address": "경기 수원시 영통구 센트럴타운로 114-8",
@@ -5406,49 +5455,6 @@
    "placeUrl": "http://place.map.kakao.com/425741263"
   },
   {
-   "id": "kakao-25548629",
-   "name": "광교라온수학학원",
-   "address": "경기 수원시 영통구 에듀타운로 102",
-   "phone": "010-7578-1651",
-   "distanceKm": 1.57,
-   "subjects": [
-    "math"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 320000,
-   "fitScore": 84,
-   "emoji": "📐",
-   "lng": 127.04641448825565,
-   "lat": 37.28978221209082,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": false
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:00",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "17:00",
-     "endTime": "18:30",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/25548629"
-  },
-  {
    "id": "kakao-2075900174",
    "name": "숲속미술",
    "address": "경기 수원시 영통구 에듀타운로 102",
@@ -5918,6 +5924,49 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1550411620"
+  },
+  {
+   "id": "kakao-25548629",
+   "name": "광교라온수학학원",
+   "address": "경기 수원시 영통구 에듀타운로 102",
+   "phone": "010-7578-1651",
+   "distanceKm": 1.59,
+   "subjects": [
+    "math"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 320000,
+   "fitScore": 84,
+   "emoji": "📐",
+   "lng": 127.04648088756957,
+   "lat": 37.2895587285677,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "16:00",
+     "endTime": "17:00",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/25548629"
   },
   {
    "id": "kakao-236413059",
