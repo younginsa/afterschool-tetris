@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-11-17T02:45:35.962Z",
+ "generatedAt": "2026-11-18T02:07:04.882Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -8521,73 +8521,6 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/25929260"
-  },
-  {
-   "id": "kakao-1017118083",
-   "name": "광교주짓수",
-   "address": "경기 수원시 영통구 도청로18번길 26",
-   "phone": "010-2912-3868",
-   "distanceKm": 2.06,
-   "subjects": [
-    "boxing"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 120000,
-   "fitScore": 64,
-   "emoji": "🥊",
-   "lng": 127.056868173984,
-   "lat": 37.287640388502,
-   "slots": [
-    {
-     "day": "mon",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "tue",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "fri",
-     "startTime": "16:30",
-     "endTime": "17:30",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/1017118083"
   },
   {
    "id": "kakao-1016201266",
