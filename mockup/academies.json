@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-11-18T02:07:04.882Z",
+ "generatedAt": "2026-11-19T01:42:14.594Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -10079,6 +10079,55 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1183380635"
+  },
+  {
+   "id": "kakao-626207513",
+   "name": "플레이코딩학원",
+   "address": "경기 수원시 영통구 법조로 25",
+   "phone": "",
+   "distanceKm": 2.23,
+   "subjects": [
+    "coding"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 240000,
+   "fitScore": 89,
+   "emoji": "💻",
+   "lng": 127.06017449047017,
+   "lat": 37.287477467966035,
+   "slots": [
+    {
+     "day": "mon",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "14:00",
+     "endTime": "15:00",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/626207513"
   },
   {
    "id": "kakao-515162175",
