@@ -4,7 +4,7 @@
   "lng": 127.0457384937563,
   "lat": 37.30389632012045
  },
- "generatedAt": "2026-11-25T03:21:30.098Z",
+ "generatedAt": "2026-11-27T02:38:47.030Z",
  "academies": [
   {
    "id": "kakao-706775175",
@@ -3850,7 +3850,7 @@
    "id": "kakao-447527426",
    "name": "한체대석사다온태권도장",
    "address": "경기 수원시 영통구 센트럴타운로100번길 8",
-   "phone": "",
+   "phone": "031-217-7640",
    "distanceKm": 1.36,
    "subjects": [
     "taekwondo"
@@ -8071,61 +8071,6 @@
    "placeUrl": "http://place.map.kakao.com/651809244"
   },
   {
-   "id": "kakao-905588859",
-   "name": "팀플복싱 연무점",
-   "address": "경기 수원시 장안구 연무로 50",
-   "phone": "",
-   "distanceKm": 1.96,
-   "subjects": [
-    "boxing"
-   ],
-   "shuttleAvailable": false,
-   "monthlyCostKRW": 170000,
-   "fitScore": 90,
-   "emoji": "🥊",
-   "lng": 127.02630321242889,
-   "lat": 37.29554692215169,
-   "slots": [
-    {
-     "day": "tue",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "thu",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "15:00",
-     "endTime": "16:30",
-     "available": true
-    },
-    {
-     "day": "mon",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    },
-    {
-     "day": "wed",
-     "startTime": "16:00",
-     "endTime": "17:30",
-     "available": true
-    }
-   ],
-   "placeUrl": "http://place.map.kakao.com/905588859"
-  },
-  {
    "id": "kakao-650605993",
    "name": "라스트복싱",
    "address": "경기 수원시 장안구 연무로 50",
@@ -8300,7 +8245,7 @@
    "id": "kakao-1736233644",
    "name": "마인아트미술학원",
    "address": "경기 용인시 수지구 성복2로 269",
-   "phone": "",
+   "phone": "031-548-2556",
    "distanceKm": 1.99,
    "subjects": [
     "art"
@@ -10482,6 +10427,73 @@
     }
    ],
    "placeUrl": "http://place.map.kakao.com/1897268630"
+  },
+  {
+   "id": "kakao-1212639380",
+   "name": "발롱발레학원",
+   "address": "경기 용인시 수지구 광교중앙로 308",
+   "phone": "",
+   "distanceKm": 2.24,
+   "subjects": [
+    "ballet"
+   ],
+   "shuttleAvailable": false,
+   "monthlyCostKRW": 160000,
+   "fitScore": 84,
+   "emoji": "🩰",
+   "lng": 127.069664214447,
+   "lat": 37.2973314173932,
+   "slots": [
+    {
+     "day": "tue",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "thu",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "fri",
+     "startTime": "16:30",
+     "endTime": "17:30",
+     "available": true
+    },
+    {
+     "day": "mon",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "wed",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": false
+    },
+    {
+     "day": "fri",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    },
+    {
+     "day": "tue",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": false
+    },
+    {
+     "day": "thu",
+     "startTime": "17:00",
+     "endTime": "18:30",
+     "available": true
+    }
+   ],
+   "placeUrl": "http://place.map.kakao.com/1212639380"
   },
   {
    "id": "kakao-1330608601",
